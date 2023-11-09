@@ -1,4 +1,4 @@
-#WayangWave
+# WayangWave
 
 Tugas Besar Algoritma Struktur dan Data STI 2023 K2
 
