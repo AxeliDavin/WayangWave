@@ -25,7 +25,7 @@ boolean IsFullSet(Set S)
 }
 
 /* ********** Operator Dasar Set ********* */
-void Insert(Set *S, infotype Elmt)
+void Insert(Set *S, infotypeset Elmt)
 /* Menambahkan Elmt sebagai elemen Set S. */
 /* I.S. S mungkin kosong, S tidak penuh
         S mungkin sudah beranggotakan Elmt */
@@ -39,7 +39,7 @@ void Insert(Set *S, infotype Elmt)
     S->Count++;
 }
 
-void Delete(Set *S, infotype Elmt)
+void Delete(Set *S, infotypeset Elmt)
 /* Menghapus Elmt dari Set S. */
 /* I.S. S tidak kosong
         Elmt mungkin anggota / bukan anggota dari S */
@@ -69,7 +69,7 @@ void Delete(Set *S, infotype Elmt)
     S->Count--;
 }
 
-boolean IsMemberSet(Set S, infotype Elmt)
+boolean IsMemberSet(Set S, infotypeset Elmt)
 /* Mengembalikan true jika Elmt adalah member dari S */
 {
     boolean found = false;
