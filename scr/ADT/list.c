@@ -6,13 +6,13 @@
 List MakeList() {
 	List L;
 	IdxType i;
-	for (i = 0; i < MaxEl; i++) {
+	for (i = 0; i < MaxElList; i++) {
 		L.A[i] = Mark;
 	}
 	return L;
 }
 
-boolean IsEmpty(List L) {
+boolean IsEmptyList(List L) {
 	return (L.A[0] == Mark);
 }
 
@@ -28,7 +28,7 @@ ElType Get(List L, IdxType i) {
 	return L.A[i];
 }
 
-void Set(List *L, IdxType i, ElType v) {
+void SetList(List *L, IdxType i, ElType v) {
 	(*L).A[i] = v;
 }
 
@@ -38,14 +38,14 @@ IdxType FirstIdx(List L) {
 
 IdxType LastIdx(List L) {
 	int i = FirstIdx(L);
-	while ((i < MaxEl) && (L.A[i+1] != Mark)) {
+	while ((i < MaxElList) && (L.A[i+1] != Mark)) {
 		i += 1;
 	}
 	return i;
 }
 
 boolean IsIdxValid (List L, IdxType i) {
-	return (0 <= i) && (MaxEl >= i);
+	return (0 <= i) && (MaxElList >= i);
 }
 
 boolean IsIdxEff (List L, IdxType i) {
@@ -68,19 +68,19 @@ boolean Search(List L, ElType X) {
 void InsertFirst(List *L, ElType X) {
 	IdxType i = LastIdx(*L);
 	while (i >= 0) {
-		Set(L, i+1, Get(*L, i));
+		SetList(L, i+1, Get(*L, i));
 		i--;
 	}
-	Set(L, 0, X);
+	SetList(L, 0, X);
 }
 
 void InsertAt(List *L, ElType X, IdxType i) {
     IdxType j = LastIdx(*L);
 	while (i <= j) {
-		Set(L, j+1, Get(*L, j));
+		SetList(L, j+1, Get(*L, j));
         j--;
 	}
-	Set(L, i, X);
+	SetList(L, i, X);
 }
 
 void InsertLast(List *L, ElType X) {

@@ -16,11 +16,11 @@ void CreateQueue(Queue *q){
 }
 
 /* ********* Prototype ********* */
-boolean isEmpty(Queue q){
+boolean IsEmptyQueue(Queue q){
 /* Mengirim true jika q kosong: lihat definisi di atas */
     return (IDX_HEAD(q) == IDX_UNDEF && IDX_TAIL(q) == IDX_UNDEF);
 }
-boolean isFull(Queue q){
+boolean isFullQueue(Queue q){
 /* Mengirim true jika tabel penampung elemen q sudah penuh */
 /* yaitu IDX_TAIL akan selalu di belakang IDX_HEAD dalam buffer melingkar*/
     if (IDX_TAIL(q) >= IDX_HEAD(q))
@@ -30,7 +30,7 @@ boolean isFull(Queue q){
 }
 int length(Queue q){
 /* Mengirimkan banyaknya elemen queue. Mengirimkan 0 jika q kosong. */
-    if (isEmpty(q)) 
+    if (IsEmptyQueue(q)) 
         return 0;
     else if (IDX_TAIL(q) >= IDX_HEAD(q))
         return IDX_TAIL(q) - IDX_HEAD(q) + 1;
@@ -42,7 +42,7 @@ void enqueue(Queue *q, ElType val){
 /* Proses: Menambahkan val pada q dengan aturan FIFO */
 /* I.S. q mungkin kosong, tabel penampung elemen q TIDAK penuh */
 /* F.S. val menjadi TAIL yang baru, IDX_TAIL "mundur" dalam buffer melingkar. */
-    if (isEmpty(*q)){
+    if (IsEmptyQueue(*q)){
         IDX_HEAD(*q) = 0;
         IDX_TAIL(*q) = 0;
     }
@@ -90,7 +90,7 @@ void displayQueue(Queue q){
 /* F.S. Jika q tidak kosong: [e1,e2,...,en] */
 /* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */
 /* Jika Queue kosong : menulis [] */
-    if (isEmpty(q)){
+    if (IsEmptyQueue(q)){
         printf("[]\n");
     } else {
         printf("[");

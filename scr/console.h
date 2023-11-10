@@ -1,1 +1,3 @@
-#include "scr/adt.h"
+#include "adt.h"
+
+void START();
