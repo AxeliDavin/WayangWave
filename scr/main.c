@@ -7,6 +7,6 @@ int main(){
 
     while(aktif == true){
         printf(">> ");
-
+        aktif = false;
     }
 }
