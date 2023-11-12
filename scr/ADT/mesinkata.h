@@ -51,4 +51,6 @@ boolean isEndWord();
 boolean IsKataSama();
 /*Mengecek apakah kata sama*/
 
+void readInput();
+/*Mengeluarkan setup default yaitu >> lalu meminta input*/
 #endif

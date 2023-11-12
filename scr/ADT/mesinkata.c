@@ -86,3 +86,9 @@ boolean IsKataSama(Word k1, char *k2){
     }
     return sama;
 }
+
+void readInput(){
+    printf(">> ");
+    START();
+    while ((getchar()) != '\n');
+}
