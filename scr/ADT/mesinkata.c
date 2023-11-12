@@ -23,7 +23,7 @@ void STARTWORD()
               currentChar karakter pertama sesudah karakter terakhir kata */
     START();
     IgnoreBlanks();
-    if (currentChar == MARK)
+    if (currentChar == BLANK || currentChar == ENTER || currentChar == ';')
     {
         endWord = true;
     }
@@ -89,6 +89,6 @@ boolean IsKataSama(Word k1, char *k2){
 
 void readInput(){
     printf(">> ");
-    START();
+    STARTWORD();
     while ((getchar()) != '\n');
 }
