@@ -78,3 +78,11 @@ void CopyWord()
 boolean isEndWord() {
     return endWord;
 }
+
+boolean IsKataSama(Word k1, char *k2){
+    boolean sama = true;
+    for(int i=0; i < k1.Length; i++){
+        if (k2[i] != k1.TabWord[i+1]) sama = false;
+    }
+    return sama;
+}

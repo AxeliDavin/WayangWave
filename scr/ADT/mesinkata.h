@@ -48,4 +48,7 @@ void CopyWord();
 
 boolean isEndWord();
 
+boolean IsKataSama();
+/*Mengecek apakah kata sama*/
+
 #endif

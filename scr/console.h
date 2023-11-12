@@ -1,3 +1,3 @@
 #include "adt.h"
 
-void START();
+void STARTC();
