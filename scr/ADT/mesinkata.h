@@ -50,7 +50,7 @@ void CopyWord();
 boolean isEndWord();
 
 boolean IsKataSama();
-/*Mengecek apakah kata sama*/
+/*Mengecek apakah kata sama dengan input*/
 
 void readInput();
 /*Mengeluarkan setup default yaitu >> lalu meminta input*/

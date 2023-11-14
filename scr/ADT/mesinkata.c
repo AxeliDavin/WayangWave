@@ -42,7 +42,7 @@ void ADVWORD()
               Jika currentChar = MARK, endWord = true.
        Proses : Akuisisi kata menggunakan procedure CopyWord */
     IgnoreBlanks();
-    if (currentChar == MARK)
+    if (EOP)
     {
         endWord = true;
     }
@@ -63,7 +63,7 @@ void CopyWord()
               currentChar adalah karakter sesudah karakter terakhir yang diakuisisi.
               Jika panjang kata melebihi CAPACITY, maka sisa kata terpotong */
     currentWord.Length = 0;
-    while (currentChar != BLANK && currentChar != MARK)
+    while (currentChar != BLANK && currentChar != ';')
     {
         if (currentWord.Length < NMax)
         { // jika lebih akan terpotong
@@ -73,7 +73,6 @@ void CopyWord()
         else
             break;
     }
-
 }
 
 boolean isEndWord() {
