@@ -7,9 +7,8 @@ int main(){
 
     while(aktif == true){
         readInput();
-        // printf("%s\n", currentWord.TabWord);
         if(IsKataSama(currentWord.TabWord, "START")){ /*Kalo ga ada di Command list sama sekali*/
-            // aktif = false;
+            aktif = false;
             STARTC();
         } else if (!IsKataSama(currentWord.TabWord, "LIST COMMAND")) {/*Kalo ga ada di Command list sama sekali*/
             printf("Command tidak diketahui!\n");
