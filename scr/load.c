@@ -40,7 +40,7 @@ void load()
 
             for (int k=0; k<nSong; k++){
                 char songtemp;
-                fscanf(file, "%255s", &albumtemp);
+                fscanf(file, "%255s", &songtemp);
                 InsertLast(&song, songtemp);
             }
         }
