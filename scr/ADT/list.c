@@ -3,13 +3,11 @@
 
 // Konstruktor
 
-List MakeList() {
-	List L;
+void MakeList(List *L) {
 	IdxType i;
 	for (i = 0; i < MaxElList; i++) {
-		L.A[i] = Mark;
+		(*L).A[i] = Mark;
 	}
-	return L;
 }
 
 boolean IsEmptyList(List L) {
@@ -113,7 +111,8 @@ void DeleteLast(List *L) {
 }
 
 List Concat(List L1, List L2) {
-	List L3 = MakeList();
+	List L3;
+	MakeList(&L3);
 	int i = FirstIdx(L1);
 	int j = FirstIdx(L2);
 	int idx = 0;
