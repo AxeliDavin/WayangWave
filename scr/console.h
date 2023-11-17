@@ -4,3 +4,9 @@
 
 void STARTC();
 /*Pertama kali memulai WayangWave*/
+
+void load();
+
+void ListDefault();
+
+void ListPlaylist();
