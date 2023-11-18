@@ -29,6 +29,7 @@ void readCommand(){
             if (masuksesi){
                 printf("Command tidak bisa dieksekusi!\n"); /*Udah masuk sesi jadi tidak bisa dirun*/
             } else {
+                masuksesi = true;
                 Start();
             }
         } 
@@ -37,6 +38,7 @@ void readCommand(){
             if (masuksesi){
                 printf("Command tidak bisa dieksekusi!\n"); /*Udah masuk sesi jadi tidak bisa dirun*/
             } else {
+                masuksesi = true;
                 Load();
             }           
         } 
@@ -287,7 +289,7 @@ void swapPlaylist(int id, int x, int y) {
  * 
 */
 void removePlaylist(int id, int n) {
-    
+
     // Check indeks playlist valid or no
     if (IsIdxValid(playlist, id)) {
         // Akses indeks playlist
