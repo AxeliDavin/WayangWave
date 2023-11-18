@@ -73,6 +73,15 @@ void ListDefault(){
 
 }
 
-void ListPlaylist(){
-    
+
+List playlist; // Global variable for list of playlists
+
+void createPlaylist() {
+    char playlistName[256];
+    printf("Masukkan nama playlist yang ingin dibuat : ");
+    scanf("%255s", playlistName);
+
+    List newPlaylist = MakeList();
+    InsertLast(&playlist, playlistName);
 }
+
