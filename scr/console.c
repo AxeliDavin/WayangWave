@@ -2,17 +2,109 @@
 #include <stdio.h>
 #include "console.h"
 
+/*Global Variable*/
+List singer, album, song;
+List playlist;
+
+
 /*Tempat Command*/
 
-void STARTC(){ //namanya STARTC karena START udah ada di mesinkar
+/*Fungsi Utama*/
+void readCommand(){
+
+    /*Pembuatan List*/
+    MakeList(&singer);
+    MakeList(&album);
+    MakeList(&song);
+    MakeList(&playlist);
+
+    boolean masuksesi = false, stopsesi = false;
+
+    /*Masuk Ke Command Utama*/
+    while(!stopsesi){
+
+        readInput();
+
+        if(IsKataSama(currentWord.TabWord, "START")){
+            if (masuksesi){
+                printf("Command tidak bisa dieksekusi!\n"); /*Udah masuk sesi jadi tidak bisa dirun*/
+            } else {
+                Start();
+            }
+        } 
+        
+        else if (IsKataSama(currentWord.TabWord, "LOAD")){
+            if (masuksesi){
+                printf("Command tidak bisa dieksekusi!\n"); /*Udah masuk sesi jadi tidak bisa dirun*/
+            } else {
+                Load();
+            }           
+        } 
+        
+        else if (IsKataSama(currentWord.TabWord, "LIST")){
+            ADVWORD();
+            if (IsKataSama(currentWord.TabWord, "DEFAULT")){
+                if (!masuksesi){
+                    printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
+                } else {
+                    ListDefault();
+                }               
+            } else if (IsKataSama(currentWord.TabWord, "PLAYLIST")){
+                if (!masuksesi){
+                    printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
+                } else {
+                    ListPlaylist();
+                } 
+            } 
+        } 
+        
+        else if (IsKataSama(currentWord.TabWord, "PLAYLIST")){
+            if (IsKataSama(currentWord.TabWord, "CREATE")){
+                if (!masuksesi){
+                    printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
+                } else {
+                    createPlaylist();
+                } 
+            } else if (IsKataSama(currentWord.TabWord, "ADD")){
+                if (!masuksesi){
+                    printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
+                } else {
+                    addPlaylist();
+                } 
+            } else if (IsKataSama(currentWord.TabWord, "SWAP")){
+                if (!masuksesi){
+                    printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
+                } else {
+                    swapPlaylist();
+                } 
+            } else if (IsKataSama(currentWord.TabWord, "REMOVE")){
+                if (!masuksesi){
+                    printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
+                } else {
+                    removePlaylist();
+                } 
+            } else if (IsKataSama(currentWord.TabWord, "DELETE")){
+                if (!masuksesi){
+                    printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
+                } else {
+                    deletePlaylist();
+                } 
+            }
+        }
+
+        else {
+            printf("Command tidak diketahui!\n"); /*Tidak ada di list command*/
+        }
+    }
+}
+
+void Start(){
     
     printf ("File konfigurasi aplikasi berhasil dibaca. WayangWave berhasil dijalankan.\n");
     readInput();
 }
 
-List singer, album, song;
-
-void load()
+void Load()
 {   char filename[256];
     printf("filename: ");
     scanf("%255s", filename);
@@ -20,7 +112,7 @@ void load()
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
         printf("Save file tidak ditemukan. WayangWave gagal dijalankan.");
-        return 1;
+        return;
     }
     int nSinger;
     fscanf(file, "%d", &nSinger);
@@ -53,7 +145,7 @@ void load()
 
 
 void ListDefault(){
-    load();
+    Load();
     printf("Daftar penyanyi :\n");
 
     for (int i = 0; i < Length(singer); i++)
@@ -76,9 +168,6 @@ void ListDefault(){
 void ListPlaylist(){
     
 }
-
-
-List playlist; // Global variable for list of playlists
 
 /**
  * Command: PLAYLIST CREATE
@@ -198,6 +287,7 @@ void swapPlaylist(int id, int x, int y) {
  * 
 */
 void removePlaylist(int id, int n) {
+    
     // Check indeks playlist valid or no
     if (IsIdxValid(playlist, id)) {
         // Akses indeks playlist
@@ -248,12 +338,3 @@ void deletePlaylist() {
         printf("\nTidak ada playlist dengan ID %d dalam daftar playlist pengguna. Silakan coba lagi.\n", playlistId);
     }
 }
-
-
-
-
-
-
-
-
-

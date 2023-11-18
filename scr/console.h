@@ -2,11 +2,24 @@
 
 /*Tempat Command*/
 
-void STARTC();
+void readCommand();
+/*Fungsi Utama*/
+
+void Start();
 /*Pertama kali memulai WayangWave*/
 
-void load();
+void Load();
 
 void ListDefault();
 
 void ListPlaylist();
+
+void createPlaylist();
+
+void addPlaylist();
+
+void swapPlaylist();
+
+void removePlaylist();
+
+void deletePlaylist();
