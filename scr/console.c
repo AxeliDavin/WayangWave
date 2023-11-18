@@ -73,6 +73,10 @@ void ListDefault(){
 
 }
 
+void ListPlaylist(){
+    
+}
+
 
 List playlist; // Global variable for list of playlists
 
