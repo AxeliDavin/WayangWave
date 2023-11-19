@@ -54,4 +54,8 @@ boolean IsKataSama();
 
 void readInput();
 /*Mengeluarkan setup default yaitu >> lalu meminta input*/
+
+int WordToInt(Word *word);
+/* Ngubah word jadi integer*/
+
 #endif
