@@ -5,7 +5,7 @@
 /*Global Variable*/
 List singer, album, song;
 List playlist;
-
+Queue queue;
 
 /*Tempat Command*/
 
@@ -18,6 +18,9 @@ void readCommand(){
     MakeList(&song);
     MakeList(&playlist);
 
+    /*Pembuatan Queue*/
+    CreateQueue(&queue);
+    
     boolean masuksesi = false, stopsesi = false;
 
     /*Masuk Ke Command Utama*/
@@ -76,7 +79,42 @@ void readCommand(){
                 } 
             } 
         } 
-        
+
+            else if (IsKataSama(currentWord.TabWord, "QUEUE")){
+            ADVWORD();
+            if (IsKataSama(currentWord.TabWord, "SONG")){
+                if (!masuksesi){
+                    printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
+                } else {
+                    songQueue();
+                } 
+            } else if (IsKataSama(currentWord.TabWord, "PLAYLIST")){
+                if (!masuksesi){
+                    printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
+                } else {
+                    playlistQueue();
+                } 
+            } else if (IsKataSama(currentWord.TabWord, "SWAP")){
+                if (!masuksesi){
+                    printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
+                } else {
+                    swapQueue();
+                } 
+            } else if (IsKataSama(currentWord.TabWord, "REMOVE")){
+                if (!masuksesi){
+                    printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
+                } else {
+                    removeQueue();
+                } 
+            } else if (IsKataSama(currentWord.TabWord, "CLEAR")){
+                if (!masuksesi){
+                    printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
+                } else {
+                    clearQueue();
+                } 
+            }
+        }
+                
         else if (IsKataSama(currentWord.TabWord, "PLAYLIST")){
             ADVWORD();
             if (IsKataSama(currentWord.TabWord, "CREATE")){
@@ -355,6 +393,131 @@ void playPlaylist(){
     scanf("%d", &chosenPlaylistIdx);
 
     printf("Memutar playlist \"%s\".", Get(playlist, chosenPlaylistIdx));
+}
+
+// FUNGSI QUEUE
+
+// Command: QUEUE SONG
+void songQueue() {
+    // Belum ada penanganan inputan tidak valid. Butuh ga ya?
+    // Menampilkan list daftar penyanyi
+    printf("Daftar Penyanyi :\n");
+    for (int i=0; i<Length(singer); i++) {
+        printf("%s\n", Get(singer, i));
+    }
+
+    // Menerima inputan nama penyanyi
+    char singerName[256];
+    printf("Masukkan Nama Penyanyi: ");
+    scanf("%255s\n", singerName);
+
+    // Menampilkan list daftar album
+    printf("Daftar Album oleh %s :\n", singerName);
+    for (int i=0; i<Length(album); i++) {
+        if (IsIdxEff(album, i) && Search(album, singerName)) {
+            printf("%s\n", Get(album, i));
+        }
+    }
+
+    // Menerima inputan nama album
+    char albumTitle[256];
+    printf("Masukkan Nama Album yang dipilih : ");
+    scanf("%255s\n", albumTitle);
+
+    // Menampilkan list lagu dalam album
+    printf("Daftar Lagu Album %s oleh %s : \n", albumTitle, singerName);
+    for (int i=0; i<Length(song); i++) {
+        if (IsIdxEff(song, i) && Search(song, singerName)) {
+            printf("%d. %s\n", i + 1, Get(song, i));
+        }
+    }
+
+    // Menerima inputan ID Lagu
+    int songIndex;
+    printf("Masukkan ID Lagu yang dipilih : ");
+    scanf("%d", &songIndex);
+
+    // Nambahin lagu ke queue
+    ElTypeQueue songToAdd = Get(song, songIndex-1);
+    enqueue(&queue,songToAdd);
+    printf("Berhasil menambahkan lagu “%s” oleh “%s” ke queue.", songToAdd, singerName);
+}
+
+// Command: QUEUE PLAYLIST
+void playlistQueue() {
+
+    // Menerima inputan ID Playlist
+    int playlistIndex;
+    printf("Masukkan ID Playlist ");
+    scanf("%d", &playlistIndex);
+
+    // Menambahkan lagu dalam playlist ke dalam queue
+    
+    ElTypeList playlistToAdd = Get(playlist, playlistIndex-1);
+
+    // ini masih salah btww, masih clueless how to add the songs in the playlist meanwhile the eltypelist is int?! nanti coba nanya ke temen dulu yzzz
+    enqueue(&queue,playlistToAdd);
+    printf("Berhasil menambahkan playlist “%s” ke queue.", playlistToAdd);
+}
+
+
+// Command: QUEUE SWAP <x> <y>
+void queueSwap() {
+    ADV();
+    int x = WordToInt(&currentWord);
+    ADV();
+    int y = WordToInt(&currentWord);
+
+    if ((x >= 1 && x <= length(queue)) && (y >= 1 && y <= length(queue))) {
+        // Mencari lagu dalam queue yang akan ditukar urutannya
+        ElTypeQueue temp[256] = queue.buffer[x];
+        queue.buffer[x] = queue.buffer[y];
+        queue.buffer[y] = temp;
+        printf("Lagu %s berhasil ditukar dengan %s\n", queue.buffer[x], queue.buffer[y]);
+    }
+    else {
+        if ((x < 1 || x > length(queue)) && y >= 1 && y <= length(queue)) {
+            printf("Lagu dengan urutan ke %d tidak terdapat dalam queue!\n", x);
+        }
+        else if (x >= 1 && x <= length(queue) && (y < 1 || y > length(queue))) {
+            printf("Lagu dengan urutan ke %d tidak terdapat dalam queue!\n", y) ;
+        }
+        else if ((x < 1 || x > length(queue)) && (y < 1 || y > length(queue))){
+            printf("Lagu dengan urutan ke %d dan %d tidak terdapat dalam queue!\n", x, y);
+        }
+    }
+}
+
+// Command: QUEUE REMOVE <id>
+void queueRemove() {
+    ADV();
+    int id = WordToInt(&currentWord);
+    if (id >= 1 && id <= length(queue)) { 
+        Queue temp;
+        ElTypeQueue val;
+        CreateQueue(&temp);
+        for (int i=0; i < length(queue); i++) {
+            dequeue(&queue, &val);
+            if (i != id-1) {
+                enqueue(&temp, val); 
+            }
+        }
+        while (!isEmptyQueue(temp)){
+            dequeue(&temp, &val);
+            enqueue(&queue, val);
+            }    
+        
+        // masih kurang nge-print judul lagu dan nama artis di sini
+    }
+    else {
+        printf("Lagu dengan urutan ke %d tidak ada.\n", id);
+    }
+}
+
+// Command: QUEUE CLEAR
+void queueClear() {
+    CreateQueue(&queue);
+    printf("Queue berhasil dikosongkan.\n");
 }
 
 /**
