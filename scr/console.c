@@ -94,6 +94,23 @@ void readCommand(){
                 } 
             }
         }
+        else if (IsKataSama(currentWord.TabWord, "QUIT")){
+            if (!masuksesi){
+                printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
+            } else {
+                masuksesi = true;
+                Quit();
+            }           
+        }
+
+        else if (IsKataSama(currentWord.TabWord, "HELP")){
+            if (!masuksesi){
+                helpBeforeStart();
+            } else {
+                masuksesi = true;
+                helpAfterStart();
+            }           
+        }
 
         else {
             printf("Command tidak diketahui!\n"); /*Tidak ada di list command*/
@@ -529,4 +546,48 @@ void deletePlaylist() {
     } else {
         printf("\nTidak ada playlist dengan ID %d dalam daftar playlist pengguna. Silakan coba lagi.\n", playlistId);
     }
+}
+
+void Quit() {
+    char Input;
+    printf("Apakah kamu ingin menyimpan data sesi sekarang? ");
+    scanf(" %c", &Input);
+
+    // Cek apakah pengguna ingin save atau tidak
+    if (Input == 'Y' || Input == 'y') {
+        SAVE();
+        printf("// memanggil save\n");
+    }
+
+    printf("Kamu keluar dari WayangWave.\nDadah ^_^/\n");
+    exit(0);
+}
+
+void helpBeforeStart() {
+    printf("=====[ Menu Help WayangWave ]=====\n");
+    printf("1. START -> Untuk masuk sesi baru\n");
+    printf("2. LOAD -> Untuk memulai sesi berdasarkan file konfigurasi\n");
+}
+    
+void helpAfterStart() {
+    printf("=====[ Menu Help WayangWave ]=====\n");
+    printf("1. LIST DEFAULT -> Untuk menampilkan daftar penyanyi\n");
+    printf("2. LIST PLAYLIST -> Untuk manampilkan daftar playlist pengguna\n");
+    printf("3. PLAY SONG -> untuk memutar lagu sesuai dengan nama penyanyi, nama album, dan id lagu yang dipilih\n");
+    printf("4. PLAY PLAYLIST -> untuk memutar lagu sesuai dengan id playlist yang dipilih\n");
+    printf("5. QUEUE SONG -> untuk menambahkan lagu ke queue sesuai dengan nama penyanyi, nama album, dan id lagu yang dipilih\n");
+    printf("6. QUEUE PLAYLIST -> untuk menambahkan lagu ke queue sesuai dengan id playlist yang dipilih\n");
+    printf("7. QUEUE SWAP <idlagu1> <idlagu2> -> untuk menukar urutan lagu pada queue\n");
+    printf("8. QUEUE REMOVE <idlagu> -> untuk menghapus lagu pada queue \n");
+    printf("9. QUEUE CLEAR -> untuk menghapus semua lagu pada queue\n");
+    printf("10. SONG NEXT -> untuk memutar lagu selanjutnya pada queue\n");
+    printf("11. SONG PREVIOUS -> untuk memutar lagu sebelumnya dari riwayat\n");
+    printf("12. PLAYLIST CREATE -> untuk membuat playlist baru\n");
+    printf("13. PLAYLIST ADD -> untuk menambahkan lagu kedalam playlist sesuai dengan nama penyanyi, nama album, dan id lagu yang dipilih\n");
+    printf("14. PLAYLIST SWAP <idplaylist> <idlagu1> <idlagu2> -> untuk menukar lagu pada playlist\n");
+    printf("15. PLAYLIST REMOVE <idplaylist> <idlagu> -> untuk menghapus lagu dari playlist\n");
+    printf("16. PLAYLIST DELETE -> untuk menghapus playlist sesuai dengan id playlist yang dipilih\n");
+    printf("17. STATUS -> untuk menampilkan lagu yang sedang diputar beserta queue dan playlist lagu\n");
+    printf("18. SAVE -> Untuk menyimpan state ke dalam file\n");
+    printf("19. QUIT -> Untuk keluar dari sesi\n");
 }
