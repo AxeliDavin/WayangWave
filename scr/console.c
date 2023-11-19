@@ -300,7 +300,6 @@ void playPlaylist(){
     printf("Memutar playlist \"%s\".", Get(playlist, chosenPlaylistIdx));
 }
 
-// FUNGSI PLAYLIST
 /**
  * Command: PLAYLIST CREATE
 */
@@ -330,8 +329,15 @@ void addPlaylist() {
     scanf("%255s", singerName);
 
     // Cek apakah nama penyanyi valid
-    singerIndex = IndexOf(singer, singerName);
-    if (singerIndex == InvalidIdx) {
+    singerIndex = -1;
+    for (int i = 0; i < Length(singer); i++) {
+        if (Search(singer, singerName)) {
+            singerIndex = i;
+            break;
+        }
+    }
+
+    if (!IsIdxEff(singer, singerIndex) || !Search(singer, singerName)) {
         printf("Penyanyi %s tidak ada dalam daftar. Silakan coba lagi.\n", singerName);
         return;
     }
@@ -339,7 +345,7 @@ void addPlaylist() {
     // Nampilin daftar album + nerima input nama album
     printf("Daftar Album oleh %s :\n", singerName);
     for (int i = 0; i < Length(album); i++) {
-        if (IsEqual(singerName, Get(album, i))) {
+        if (IsIdxEff(album, i) && Search(album, singerName)) {
             printf("%s\n", Get(album, i));
         }
     }
@@ -351,29 +357,42 @@ void addPlaylist() {
     scanf("%255s", albumTitle);
 
     // Cek apakah nama album valid
-    albumIndex = IndexOf(album, albumTitle);
-    if (albumIndex == InvalidIdx || !IsEqual(singerName, Get(album, albumIndex))) {
+    albumIndex = -1;
+    for (int i = 0; i < Length(album); i++) {
+        if (IsIdxEff(album, i) && Search(album, albumTitle)) {
+            albumIndex = i;
+            break;
+        }
+    }
+
+    if (!IsIdxEff(album, albumIndex) || !Search(album, albumTitle)) {
         printf("Album %s tidak ada dalam daftar. Silakan coba lagi.\n", albumTitle);
         return;
     }
 
-    // Nampilin nama lagu + nerima input lagu
+    // Nampilin daftar lagu + nerima input lagu
     printf("Daftar Lagu Album %s oleh %s : \n", albumTitle, singerName);
     for (int i = 0; i < Length(song); i++) {
-        if (IsEqual(singerName, Get(song, i)) && IsEqual(albumTitle, Get(album, i))) {
+        if (IsIdxEff(song, i) && Search(song, singerName)) {
             printf("%d. %s\n", i + 1, Get(song, i));
         }
     }
 
     int songIndex;
 
+    // Pengecekan indeks lagu yang valid
+    if (Length(song) == 0) {
+        printf("Tidak ada lagu dalam daftar. Silakan coba lagi.\n");
+        return;
+    }
+
     printf("Masukkan ID Lagu yang dipilih : ");
     scanf("%d", &songIndex);
 
-    // Nampilin daftar playlist + nerima input daftar playlist (sebenernya bisa pake listPlaylist)
-    printf("Daftar Playlist Pengguna : \n");
-    for (int i = 0; i < Length(playlist); i++) {
-        printf("%d. %s\n", i + 1, Get(playlist, i));
+    // Pengecekan apakah indeks lagu valid
+    if (!IsIdxEff(song, songIndex - 1) || !Search(song, singerName) || !Search(song, albumTitle)) {
+        printf("ID Lagu tidak valid. Silakan coba lagi.\n");
+        return;
     }
 
     int playlistIndex;
@@ -393,7 +412,7 @@ void addPlaylist() {
 */
 void swapPlaylist(int id, int x, int y) {
     if (IsIdxValid(playlist, id)) {
-        // Mencari elemen playlist yang akan dimasukan lagu
+        // Mencari elemen playlist yang akan dituker lagu-lagunya
         List *selectedPlaylist = Get(playlist, id - 1);
 
         // Cek apakah x dan y valid
