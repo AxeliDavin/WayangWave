@@ -14,6 +14,10 @@ void ListDefault();
 
 void ListPlaylist();
 
+void playSong();
+
+void playPlaylist();
+
 void createPlaylist();
 
 void addPlaylist();

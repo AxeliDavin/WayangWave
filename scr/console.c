@@ -146,31 +146,109 @@ void Load()
 }
 
 
-void ListDefault(){
-    Load();
+// FUNGSI LIST
+// Command : LIST DEFAULT
+void listDefault(){
     printf("Daftar penyanyi :\n");
 
     for (int i = 0; i < Length(singer); i++)
     {
-        printf("   %d. %c\n", i+1, Get(singer, i));
+        printf("   %d. %s\n", i+1, Get(singer, i));
     }
     
-    char lookalbum;
-    scanf("Ingin melihat album yang ada?(Y/N): %c", &lookalbum);
-    if (lookalbum == 'Y')
+    char lookAlbum;
+    printf("Ingin melihat album yang ada?(Y/N): ");
+    scanf("%c", &lookAlbum);
+    if (lookAlbum == 'Y')
     {
-        char chosenalbum;
-        scanf("Pilih penyanyi untuk melihat album mereka: %c", &chosenalbum);
+        char chosenSinger[256];
+        printf("Pilih penyanyi untuk melihat album mereka: ");
+        scanf("%255s", &chosenSinger);
 
+        int chosenSingerIdx;
+        // Cek apakah nama penyanyi valid
+        chosenSingerIdx = IndexOf(singer, chosenSinger);
+        if (chosenSinger == InvalidIdx) {
+            printf("Penyanyi %s tidak ada dalam daftar. Silakan coba lagi.\n", chosenSinger);
+            return;
+        }
+
+        // Nampilin daftar album yang dimiliki penyanyi
+        printf("Daftar Album oleh %s :\n", chosenSinger);
+        for (int i = 0; i < Length(album); i++) {
+            if (IsEqual(chosenSinger, Get(album, i))) {
+                printf("   %d. %s\n", i+1, Get(album, i));
+            }
+        }
+
+        char lookSong;
+        printf("Ingin melihat lagu yang ada?(Y/N): ");
+        scanf("%c", &lookSong);
+
+        if (lookSong == 'Y')
+        {
+            char chosenAlbum[256];
+            printf("Pilih penyanyi untuk melihat album mereka: ");
+            scanf("%255s", &chosenAlbum);
+
+            int chosenAlbumIdx;
+            // Cek apakah nama album valid
+            chosenAlbumIdx = IndexOf(album, chosenAlbum);
+            if (chosenAlbum == InvalidIdx) {
+                printf("Album %s tidak ada dalam daftar. Silakan coba lagi.\n", chosenSinger);
+                return;
+            }
+
+            // Nampilin daftar lagu yang di dalam album
+            printf("Daftar Lagu di %s :\n", chosenAlbum);
+            for (int i = 0; i < Length(song); i++) {
+                if (IsEqual(chosenAlbum, Get(song, i))) {
+                    printf("   %d. %s\n", i+1, Get(song, i));
+                }
+            }
+        }
+        else if(lookSong == 'N'){
+            return;
+        }
+        else{
+            printf("Input tidak valid\n");
+        }  
+    }else if(lookAlbum == 'N'){
+        return;
+    }else{
+        printf("Input tidak valid\n");
     }
-    
+}
+
+// Command : LIST PLAYLIST
+void listPlaylist(){
+    printf("Daftar playlist yang kamu miliki: ");
+    if (Length(playlist) > 0)
+    {
+        for (int i = 0; i < Length(playlist); i++)
+        {
+            printf("   %d. %s\n", i+1, Get(playlist, i));
+        }        
+    }else{
+        printf("Kamu tidak memiliki playlist.");
+    }
+}
+
+
+// FUNGSI PLAY
+// Command: PLAY SONG
+void playSong(){
 
 }
 
-void ListPlaylist(){
-    
+// Command : PLAY PLAYLIST
+void playPlaylist(){
+
 }
 
+
+
+// FUNGSI PLAYLIST
 /**
  * Command: PLAYLIST CREATE
 */
