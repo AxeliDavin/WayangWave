@@ -238,15 +238,67 @@ void listPlaylist(){
 // FUNGSI PLAY
 // Command: PLAY SONG
 void playSong(){
+    printf("Daftar Penyanyi: \n");
+    for (int i = 0; i < Length(singer); i++)
+    {
+        printf("   %d. %s", i+1, Get(singer, i));
+    }
 
+    char chosenSinger[256];
+    printf("Masukkan Nama Penyanyi yang dipilih: ");
+    scanf("%255s", &chosenSinger);
+
+    int chosenSingerIdx;
+    // Cek apakah nama penyanyi valid
+    chosenSingerIdx = IndexOf(singer, chosenSinger);
+    if (chosenSinger == InvalidIdx) {
+        printf("Penyanyi %s tidak ada dalam daftar. Silakan coba lagi.\n", chosenSinger);
+        return;
+    }
+
+    // Nampilin daftar album yang dimiliki penyanyi
+    printf("Daftar Album oleh %s :\n", chosenSinger);
+    for (int i = 0; i < Length(album); i++) {
+        if (IsEqual(chosenSinger, Get(album, i))) {
+            printf("   %d. %s\n", i+1, Get(album, i));
+        }
+    }
+
+    char chosenAlbum[256];
+    printf("Masukkan Nama Album yang dipilih: ");
+    scanf("%255s", &chosenAlbum);
+
+    int chosenAlbumIdx;
+    // Cek apakah nama album valid
+    chosenAlbumIdx = IndexOf(album, chosenAlbum);
+    if (chosenAlbum == InvalidIdx) {
+        printf("Album %s tidak ada dalam daftar. Silakan coba lagi.\n", chosenSinger);
+        return;
+    }
+
+    // Nampilin daftar lagu yang di dalam album
+    printf("Daftar Lagu di %s :\n", chosenAlbum);
+    for (int i = 0; i < Length(song); i++) {
+        if (IsEqual(chosenAlbum, Get(song, i))) {
+            printf("   %d. %s\n", i+1, Get(song, i));
+        }
+    }
+
+    int chosenSongIdx;
+    printf("Masukkan ID Lagu yang dipilih: ");
+    scanf("%d", &chosenSongIdx);
+
+    printf("Memutar lagu \"%s\" oleh \"%s\".", Get(song, chosenSongIdx), Get(singer, chosenSingerIdx));
 }
 
 // Command : PLAY PLAYLIST
 void playPlaylist(){
+    int chosenPlaylistIdx;
+    printf("Masukkan ID Playlist: ");
+    scanf("%d", &chosenPlaylistIdx);
 
+    printf("Memutar playlist \"%s\".", Get(playlist, chosenPlaylistIdx));
 }
-
-
 
 // FUNGSI PLAYLIST
 /**
