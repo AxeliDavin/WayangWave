@@ -82,7 +82,7 @@ void InsertAt(List *L, ElTypeList X, IdxType i) {
 }
 
 void InsertLast(List *L, ElTypeList X) {
-    if (IsEmpty(*L)) {
+    if (IsEmptyList(*L)) {
         InsertFirst(L, X);
     } else {
         (*L).A[LastIdx(*L) + 1] = X;

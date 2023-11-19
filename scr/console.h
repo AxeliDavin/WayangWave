@@ -10,9 +10,9 @@ void Start();
 
 void Load();
 
-void ListDefault();
+void listDefault();
 
-void ListPlaylist();
+void listPlaylist();
 
 void playSong();
 

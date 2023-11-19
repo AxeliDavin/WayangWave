@@ -49,13 +49,13 @@ void readCommand(){
                 if (!masuksesi){
                     printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
                 } else {
-                    ListDefault();
+                    listDefault();
                 }               
             } else if (IsKataSama(currentWord.TabWord, "PLAYLIST")){
                 if (!masuksesi){
                     printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
                 } else {
-                    ListPlaylist();
+                    listPlaylist();
                 } 
             } 
         } 
@@ -137,6 +137,7 @@ void readCommand(){
     }
 }
 
+/*START*/
 void Start(){
     char filename[256];
 
@@ -166,6 +167,7 @@ void Start(){
     printf("File konfigurasi aplikasi berhasil dibaca. WayangWave berhasil dijalankan.");
 }
 
+/*LOAD*/
 void Load()
 {   char filename[256];
     printf("filename: ");
@@ -557,10 +559,12 @@ void deletePlaylist() {
     }
 }
 
+/*SAVE*/
 void Save(){
 
 }
 
+/*QUIT*/
 void Quit() {
     char Input;
     printf("Apakah kamu ingin menyimpan data sesi sekarang? ");
@@ -576,6 +580,7 @@ void Quit() {
     exit(0);
 }
 
+/*HELP*/
 void helpBeforeStart() {
     printf("=====[ Menu Help WayangWave ]=====\n");
     printf("1. START -> Untuk masuk sesi baru\n");

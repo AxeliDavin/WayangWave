@@ -57,7 +57,7 @@ address Search (List L, infotype X)
   address P;
   boolean bFound = false;
 
-  if (!IsEmpty(L)) {
+  if (!IsEmptyListLinier(L)) {
     P = First(L);
     while (!bFound && P != Nil) {
       if (X == Info(P)) {
@@ -163,7 +163,7 @@ void InsertLast (List *L, address P)
 {
   address Last;
 
-  if (IsEmpty(*L)) {
+  if (IsEmptyListLinier(*L)) {
     InsertFirst(L, P);
   } else {
     Last = First(*L);
@@ -197,7 +197,7 @@ void DelP (List *L, infotype X)
   address P;
   boolean bFound = false;
 
-  if (!IsEmpty(*L)) {
+  if (!IsEmptyListLinier(*L)) {
     if (X == Info(First(*L))) {
       DelFirst(L, &P);
       Dealokasi(&P);
@@ -265,7 +265,7 @@ void PrintInfo (List L)
   boolean isFirst = true;
 
   printf("[");
-  if (!IsEmpty(L)) {
+  if (!IsEmptyListLinier(L)) {
     P = First(L);
     while (P != Nil) {
       if (!isFirst) {
@@ -287,7 +287,7 @@ int NbElmt (List L)
   int cnt = 0;
   address P;
 
-  if (!IsEmpty(L)) {
+  if (!IsEmptyListLinier(L)) {
     P = First(L);
     while (P != Nil) {
       cnt++;
@@ -385,7 +385,7 @@ void InversList (List *L)
 	address Prec = Nil;
 	address Succ;
 	
-	if (!IsEmpty(*L)) {
+	if (!IsEmptyListLinier(*L)) {
 		P = First(*L);
 		while (P != Nil) {
 			Succ = Next(P);
@@ -408,8 +408,8 @@ void Konkat1 (List *L1, List *L2, List *L3)
 {
   address Last1;
 
-  CreateEmpty(L3);
-  if (IsEmpty(*L1)) {
+  CreateEmptyListLinier(L3);
+  if (IsEmptyListLinier(*L1)) {
     First(*L3) = First(*L2);
   } else {
     First(*L3) = First(*L1);

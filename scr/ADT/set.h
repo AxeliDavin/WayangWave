@@ -53,7 +53,7 @@ void Delete(Set *S, infotypeset Elmt);
         Elmt mungkin anggota / bukan anggota dari S */
 /* F.S. Elmt bukan anggota dari S */
 
-boolean IsMember(Set S, infotypeset Elmt);
+boolean IsMemberSet(Set S, infotypeset Elmt);
 /* Mengembalikan true jika Elmt adalah member dari S */
 
 #endif
