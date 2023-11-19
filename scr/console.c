@@ -59,6 +59,23 @@ void readCommand(){
                 } 
             } 
         } 
+
+        else if (IsKataSama(currentWord.TabWord, "PLAY")){
+            ADVWORD();
+            if (IsKataSama(currentWord.TabWord, "SONG")){
+                if (!masuksesi){
+                    printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
+                } else {
+                    playSong();
+                }               
+            } else if (IsKataSama(currentWord.TabWord, "PLAYLIST")){
+                if (!masuksesi){
+                    printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
+                } else {
+                    playPlaylist();
+                } 
+            } 
+        } 
         
         else if (IsKataSama(currentWord.TabWord, "PLAYLIST")){
             ADVWORD();
@@ -94,6 +111,7 @@ void readCommand(){
                 } 
             }
         }
+
         else if (IsKataSama(currentWord.TabWord, "QUIT")){
             if (!masuksesi){
                 printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
@@ -115,32 +133,28 @@ void readCommand(){
         else {
             printf("Command tidak diketahui!\n"); /*Tidak ada di list command*/
         }
+
     }
 }
 
 void Start(){
     char filename[256];
 
-    FILE *file = fopen("./save/config.txt", "r");
+    FILE *file = fopen("../save/config.txt", "r");
 
     int nSinger;
     fscanf(file, "%d", &nSinger);
-    Makelist(&singer);
     for (int i=0; i<nSinger; i++){
         int nAlbum;
         char singertemp;
         fscanf(file, "%d %255s", &nAlbum, &singertemp);
         InsertLast(&singer, singertemp);
-
-        Makelist(&album);
         
         for (int j=0; j<nAlbum; j++){
             int nSong;
             char albumtemp;
             fscanf(file, "%d %255s", &nSong, &albumtemp);
             InsertLast(&album, albumtemp);
-
-            MakeList(&song);
 
             for (int k=0; k<nSong; k++){
                 char songtemp;
@@ -164,22 +178,17 @@ void Load()
     }
     int nSinger;
     fscanf(file, "%d", &nSinger);
-    Makelist(&singer);
     for (int i=0; i<nSinger; i++){// baca line 2 BLACKPINK
         int nAlbum;
         char singertemp;
         fscanf(file, "%d %255s", &nAlbum, &singertemp);
         InsertLast(&singer, singertemp);
-
-        Makelist(&album);
         
         for (int j=0; j<nAlbum; j++){// BACA LINE 4 BORNPINK 
             int nSong;
             char albumtemp;
             fscanf(file, "%d %255s", &nSong, &albumtemp);
             InsertLast(&album, albumtemp);
-
-            MakeList(&song);
 
             for (int k=0; k<nSong; k++){
                 char songtemp;
@@ -548,6 +557,10 @@ void deletePlaylist() {
     }
 }
 
+void Save(){
+
+}
+
 void Quit() {
     char Input;
     printf("Apakah kamu ingin menyimpan data sesi sekarang? ");
@@ -555,7 +568,7 @@ void Quit() {
 
     // Cek apakah pengguna ingin save atau tidak
     if (Input == 'Y' || Input == 'y') {
-        SAVE();
+        Save();
         printf("// memanggil save\n");
     }
 

@@ -27,3 +27,11 @@ void swapPlaylist();
 void removePlaylist();
 
 void deletePlaylist();
+
+void Save();
+
+void Quit();
+
+void helpBeforeStart();
+
+void helpAfterStart();
