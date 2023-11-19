@@ -437,9 +437,16 @@ void addPlaylist() {
 
 /**
  * command: PLAYLIST SWAP <id> <x> <y>
- * Untuk sekarang diasumsikan id x dan y diterima dari command global PLAYLIST SWAP
 */
-void swapPlaylist(int id, int x, int y) {
+void swapPlaylist() {
+    // Penerimaan id, x, dan y melalui command
+    ADV();
+    int id = WordToInt(&currentWord);
+    ADV();
+    int x = WordToInt(&currentWord);
+    ADV();
+    int y = WordToInt(&currentWord);
+
     if (IsIdxValid(playlist, id)) {
         // Mencari elemen playlist yang akan dituker lagu-lagunya
         List *selectedPlaylist = Get(playlist, id - 1);
@@ -466,7 +473,12 @@ void swapPlaylist(int id, int x, int y) {
  * Untuk sekarang diasumsikan id n diterima dari command global PLAYLIST REMOVE
  * 
 */
-void removePlaylist(int id, int n) {
+void removePlaylist() {
+    // Nerima id dan n dari melalui command
+    ADV();
+    int id = WordToInt(&currentWord);
+    ADV();
+    int n = WordToInt(&currentWord);    
 
     // Check indeks playlist valid or no
     if (IsIdxValid(playlist, id)) {
