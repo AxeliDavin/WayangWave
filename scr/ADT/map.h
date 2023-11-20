@@ -16,11 +16,13 @@ Deklarasi stack yang dengan implementasi array eksplisit-statik rata kiri
 // typedef int bool;
 typedef int keytype;
 typedef int valuetype;
+typedef int IdPenyanyiType;
 typedef int mapaddress;
 
 typedef struct {
 	keytype Key;
 	valuetype Value;
+	IdPenyanyiType IdPenyanyi;
 } infotypemap;
 
 typedef struct {

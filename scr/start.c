@@ -9,7 +9,7 @@ void Start(){
     char *file;
     STARTWORD(file);
 
-    int jlhPenyanyi = WordToInt(currentWord);
+    int jlhPenyanyi = WordToInt(&currentWord);
 
     (*Penyanyi).neff = jlhPenyanyi; // Banyak Penyanyi
     (*Album).Count = 0;
@@ -20,7 +20,7 @@ void Start(){
     // Masukkan penyanyi (Loop semua penyanyi)
     for (int i = 0; i < (*Penyanyi).neff; i++){
         // Banyak Album → [2] BLACKPINK
-        ADVWORD();
+        ADVWORDBlank();
         int jlhalbum = WordToInt(takeword(currentWord,1));
         (*Album).Count += jlhalbum;
         
@@ -28,29 +28,29 @@ void Start(){
         valuetype namaP = WordTostring(takekata(currentWord));
         (*Penyanyi).A[i] = namaP;
         // Masukkan Album (Loop semua album per setiap artist)
-        for (int j = count1; j < (*Album).Count; j+){
+        for (int j = count1; j < (*Album).Count; j++){
         // Masukkan banyak lagu dalam suatu album ke MapAlbum
         // [4] BORN PINK
-            ADVWORD();
+            ADVWORDBlank();
             int jlhlagu = WordToInt(takeword(currentWord,1));
             (*Song).Count+=jlhlagu;
             // Ambil nama album 4 [BORN PINK]
             valuetype namaA = WordToString(takekata(currentWord));
                 
             // Masukkan data ke Album
-            AlbumElements[count1].keyAlbum = keymaker;
+            Album->Elements[count1].Key = keymaker;
             keymaker++;
-            (*Album).Elements[count1].IdPenyanyi = it1;
-            (*Album).Elements[count1].valueAlbum = namaA;
+            (*Album).Elements[count1].IdPenyanyi = i+1;
+            (*Album).Elements[count1].Value = namaA;
             count1++;
             // Masukkan lagu (loop lagu per setiap album)
-            for (int k = count2; k < Songcount; k++){
-                ADVWORD( );
+            for (int k = count2; k < Song->Count; k++){
+                ADVWORDBlank( );
                 // Ambil nama lagu
                 valuetype namaL = WordTostring(currentWord);
                 // Masukkan ke Song
-                (*Song).Elements[count2].Idalbum = count1;
-                (*Song).Elements[count2].namalagu = namaL;
+                (*Song)->Elements[count2].Idalbum = count1;
+                Song->Elements[count2].namalagu = namaL;
                 count2++ ;
             }
         }

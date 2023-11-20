@@ -18,6 +18,7 @@
 
 typedef struct {
 	ElTypeList A[MaxElList];  /* Memori tempat penyimpanan elemen (container) */
+	int neff;
 } List;
 
 #define List(i) L.A(i)

@@ -12,11 +12,15 @@ Deklarasi stack yang dengan implementasi array eksplisit-statik rata kiri
 
 typedef int infotypeset;
 typedef int setaddress;
+typedef char namalagutype;
+typedef int IdAlbumType;
 
 typedef struct
 {
     infotypeset Elements[MaxElSet];
     setaddress Count;
+    namalagutype namalagu;
+    IdAlbumType IdAlbum;
 } Set;
 
 /* Definisi Set S kosong : S.Count = NilSet */
