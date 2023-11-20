@@ -49,7 +49,7 @@ void Dealokasi (address *P)
 }
 
 /****************** PENCARIAN SEBUAH ELEMEN LIST ******************/
-address Search (List L, infotype X)
+address SearchListLinier (List L, infotype X)
 /* Mencari apakah ada elemen list dengan Info(P)= X */
 /* Jika ada, mengirimkan address elemen tersebut. */
 /* Jika tidak ada, mengirimkan Nil */
@@ -87,7 +87,7 @@ void InsVFirst (List *L, infotype X)
 {
   address P = Alokasi(X);
   if (P != Nil) {
-    InsertFirst(L, P);
+    InsertFirstListLinier(L, P);
   }
 }
 
@@ -99,7 +99,7 @@ void InsVLast (List *L, infotype X)
 {
   address P = Alokasi(X);
   if (P != Nil) {
-    InsertLast(L, P);
+    InsertLastListLinier(L, P);
   }
 }
 
@@ -140,7 +140,7 @@ void DelVLast (List *L, infotype *X)
 
 /****************** PRIMITIF BERDASARKAN ALAMAT ******************/
 /*** PENAMBAHAN ELEMEN BERDASARKAN ALAMAT ***/
-void InsertFirst (List *L, address P)
+void InsertFirstListLinier (List *L, address P)
 /* I.S. Sembarang, P sudah dialokasi  */
 /* F.S. Menambahkan elemen ber-address P sebagai elemen pertama */
 {
@@ -157,14 +157,14 @@ void InsertAfter (List *L, address P, address Prec)
   Next(Prec) = P;
 }
 
-void InsertLast (List *L, address P)
+void InsertLastListLinier (List *L, address P)
 /* I.S. Sembarang, P sudah dialokasi  */
 /* F.S. P ditambahkan sebagai elemen terakhir yang baru */
 {
   address Last;
 
   if (IsEmptyListLinier(*L)) {
-    InsertFirst(L, P);
+    InsertFirstListLinier(L, P);
   } else {
     Last = First(*L);
     while (Next(Last) != Nil) {

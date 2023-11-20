@@ -50,7 +50,7 @@ boolean IsIdxEff (List L, IdxType i) {
 	return (FirstIdx(L) <= i) && (LastIdx(L) >= i);
 }
 
-boolean Search(List L, ElTypeList X) {
+boolean SearchList(List L, ElTypeList X) {
 	int i = FirstIdx(L);
 	int j = LastIdx(L);
 	boolean found = false;
@@ -63,7 +63,7 @@ boolean Search(List L, ElTypeList X) {
     return found;
 }
 
-void InsertFirst(List *L, ElTypeList X) {
+void InsertFirstList(List *L, ElTypeList X) {
 	IdxType i = LastIdx(*L);
 	while (i >= 0) {
 		SetList(L, i+1, Get(*L, i));
@@ -81,9 +81,9 @@ void InsertAt(List *L, ElTypeList X, IdxType i) {
 	SetList(L, i, X);
 }
 
-void InsertLast(List *L, ElTypeList X) {
+void InsertLastList(List *L, ElTypeList X) {
     if (IsEmptyList(*L)) {
-        InsertFirst(L, X);
+        InsertFirstList(L, X);
     } else {
         (*L).A[LastIdx(*L) + 1] = X;
     }

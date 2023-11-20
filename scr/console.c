@@ -80,7 +80,7 @@ void readCommand(){
             } 
         } 
 
-            else if (IsKataSama(currentWord.TabWord, "QUEUE")){
+        else if (IsKataSama(currentWord.TabWord, "QUEUE")){
             ADVWORD();
             if (IsKataSama(currentWord.TabWord, "SONG")){
                 if (!masuksesi){
@@ -528,7 +528,8 @@ void createPlaylist() {
     printf("Masukkan nama playlist yang ingin dibuat : ");
     scanf("%255s", playlistName);
 
-    List newPlaylist = MakeList();
+    List newPlaylist;
+    MakeList(&newPlaylist);
     InsertLast(&playlist, playlistName);
 }
 

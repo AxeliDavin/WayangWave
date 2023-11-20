@@ -31,7 +31,7 @@ typedef struct {
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor: create list kosong */
-List MakeList();
+void MakeList();
 /* I.S. sembarang */
 /* F.S. Terbentuk list L kosong dengan kapasitas MaxElList */
 
@@ -77,12 +77,12 @@ boolean IsIdxEff (List L, IdxType i);
 /* yaitu antara FirstIdx(L)..LastIdx(L) */
 
 /* ********** Operasi-operasi ********** */
-boolean Search(List L, ElTypeList X);
+boolean SearchList(List L, ElTypeList X);
 /* Prekondisi : X sembarang */
 /* Mengirimkan true jika terdapat elemen X di dalam list */
 /* yaitu antara FirstIdx(L)..LastIdx(L) */
 
-void InsertFirst(List *L, ElTypeList X);
+void InsertFirstList(List *L, ElTypeList X);
 /* I.S. L terdefinisi, mungkin kosong. */
 /* F.S. v menjadi elemen pertama L. */
 
@@ -90,7 +90,7 @@ void InsertAt(List *L, ElTypeList X, IdxType i);
 /* I.S. L terdefinisi, tidak kosong, i merupakan indeks lojik yang valid di L. */
 /* F.S. v disisipkan dalam L pada indeks ke-i (bukan menimpa elemen di i). */
 
-void InsertLast(List *L, ElTypeList X);
+void InsertLastList(List *L, ElTypeList X);
 /* I.S. L terdefinisi, mungkin kosong. */
 /* F.S. v menjadi elemen terakhir L. */
 
