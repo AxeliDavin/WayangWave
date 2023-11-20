@@ -46,7 +46,7 @@ void Delete(Set *S, infotypeset Elmt)
 /* F.S. Elmt bukan anggota dari S */
 {
     boolean found = false;
-    address idx = 0, iterator;
+    setaddress idx = 0, iterator;
     if (!IsMemberSet(*S, Elmt))
     {
         return;
@@ -73,7 +73,7 @@ boolean IsMemberSet(Set S, infotypeset Elmt)
 /* Mengembalikan true jika Elmt adalah member dari S */
 {
     boolean found = false;
-    address idx = 0, iterator;
+    setaddress idx = 0, iterator;
     while (!found && idx < S.Count)
     {
         if (S.Elements[idx] == Elmt)

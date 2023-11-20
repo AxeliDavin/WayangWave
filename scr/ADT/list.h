@@ -31,7 +31,7 @@ typedef struct {
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor: create list kosong */
-void MakeList();
+void MakeList(List *L);
 /* I.S. sembarang */
 /* F.S. Terbentuk list L kosong dengan kapasitas MaxElList */
 

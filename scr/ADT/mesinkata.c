@@ -15,6 +15,19 @@ void IgnoreBlanks()
     }
 }
 
+void IgnoreSC()
+{
+    /* Mengabaikan satu atau beberapa BLANK
+       I.S. : currentChar sembarang
+       F.S. : currentChar ≠ BLANK atau currentChar = MARK */
+    const char temp = currentChar;
+    while (temp == ';')
+    {
+        ADV();
+
+    }
+}
+
 void STARTWORD()
 {
     /* I.S. : currentChar sembarang
@@ -34,7 +47,7 @@ void STARTWORD()
     }
 }
 
-void ADVWORD()
+void ADVWORDBlank()
 {
     /* I.S. : currentChar adalah karakter pertama kata yang akan diakuisisi
        F.S. : currentWord adalah kata terakhir yang sudah diakuisisi,
@@ -51,6 +64,26 @@ void ADVWORD()
         endWord = false;
         CopyWord();
         IgnoreBlanks();
+    }
+}
+
+void ADVWORDSC()
+{
+    /* I.S. : currentChar adalah karakter pertama kata yang akan diakuisisi
+       F.S. : currentWord adalah kata terakhir yang sudah diakuisisi,
+              currentChar adalah karakter pertama dari kata berikutnya, mungkin MARK
+              Jika currentChar = MARK, endWord = true.
+       Proses : Akuisisi kata menggunakan procedure CopyWord */
+    IgnoreSC();
+    if (EOP)
+    {
+        endWord = true;
+    }
+    else
+    {
+        endWord = false;
+        CopyWord();
+        IgnoreSC();
     }
 }
 
@@ -102,4 +135,8 @@ int WordToInt(Word *word)
         result = result * 10 + (word->TabWord[i] - '0');
     }
     return result;
+}
+
+char WordToString(Word *word){
+    
 }

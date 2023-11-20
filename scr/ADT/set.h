@@ -11,12 +11,12 @@ Deklarasi stack yang dengan implementasi array eksplisit-statik rata kiri
 #define MaxElSet 100
 
 typedef int infotypeset;
-typedef int address;
+typedef int setaddress;
 
 typedef struct
 {
     infotypeset Elements[MaxElSet];
-    address Count;
+    setaddress Count;
 } Set;
 
 /* Definisi Set S kosong : S.Count = NilSet */

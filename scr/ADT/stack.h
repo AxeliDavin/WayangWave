@@ -12,13 +12,13 @@
 /* NilStack adalah stack dengan elemen kosong . */
 
 typedef int infotypestack;
-typedef int address;   /* indeks tabel */
+typedef int stackaddress;   /* indeks tabel */
 
 /* Contoh deklarasi variabel bertype stack dengan ciri TOP : */
 /* Versi I : dengan menyimpan tabel dan alamat top secara eksplisit*/
 typedef struct { 
   infotypestack T[MaxElStack]; /* tabel penyimpan elemen */
-  address TOP;  /* alamat TOP: elemen puncak */
+  stackaddress TOP;  /* alamat TOP: elemen puncak */
 } Stack;
 /* Definisi stack S kosong : S.TOP = NilStack */
 /* Elemen yang dipakai menyimpan NilStackai Stack T[0]..T[MaxElStack-1] */

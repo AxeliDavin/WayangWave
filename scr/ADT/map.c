@@ -29,7 +29,7 @@ valuetype Value(Map M, keytype k)
 /* Mengembalikan NilMapai value dengan key k dari M */
 /* Jika tidak ada key k pada M, akan mengembalikan Undefined */
 {
-    address idx = 0, iterator;
+    mapaddress idx = 0, iterator;
 
     while (idx < M.Count) {
         if (M.Elements[idx].Key == k) return M.Elements[idx].Value;
@@ -61,7 +61,7 @@ void DeleteMap(Map *M, keytype k)
     if (!IsMemberMap(*M, k)) return;
 
     boolean found = false;
-    address idx = 0, iterator;
+    mapaddress idx = 0, iterator;
 
     while (idx < M->Count) {
         if (M->Elements[idx].Key == k) break;
@@ -79,7 +79,7 @@ void DeleteMap(Map *M, keytype k)
 boolean IsMemberMap(Map M, keytype k)
 /* Mengembalikan true jika k adalah member dari M */
 {
-    address idx = 0, iterator;
+    mapaddress idx = 0, iterator;
     
     while (idx < M.Count) {
         if (M.Elements[idx].Key == k) return true;
