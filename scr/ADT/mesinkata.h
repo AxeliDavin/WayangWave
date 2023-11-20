@@ -72,4 +72,8 @@ int WordToInt(Word *word);
 char WordToString(Word *word);
 /* Ngubah word jadi string*/
 
+char takeword(Word filename, int n);
+
+char takekalimat(Word filename);
+
 #endif

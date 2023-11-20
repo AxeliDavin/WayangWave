@@ -3,7 +3,9 @@
 #include "console.h"
 
 /*Global Variable*/
-List singer, album, song;
+List *Penyanyi;
+Map *Album;
+Set *Song;
 List playlist;
 Queue queue;
 
@@ -12,13 +14,11 @@ Queue queue;
 /*Fungsi Utama*/
 void readCommand(){
 
-    /*Pembuatan List*/
-    MakeList(&singer);
-    MakeList(&album);
-    MakeList(&song);
+    /*Pembuatan Kosong*/
+    MakeList(&Penyanyi);
+    CreateEmptyMap(&Album);
+    CreateEmptySet(&Song);
     MakeList(&playlist);
-
-    /*Pembuatan Queue*/
     CreateQueue(&queue);
     
     boolean masuksesi = false, stopsesi = false;
@@ -47,7 +47,7 @@ void readCommand(){
         } 
         
         else if (IsKataSama(currentWord.TabWord, "LIST")){
-            ADVWORD();
+            ADVWORDBlank();
             if (IsKataSama(currentWord.TabWord, "DEFAULT")){
                 if (!masuksesi){
                     printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
@@ -64,7 +64,7 @@ void readCommand(){
         } 
 
         else if (IsKataSama(currentWord.TabWord, "PLAY")){
-            ADVWORD();
+            ADVWORDBlank();
             if (IsKataSama(currentWord.TabWord, "SONG")){
                 if (!masuksesi){
                     printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
@@ -81,7 +81,7 @@ void readCommand(){
         } 
 
         else if (IsKataSama(currentWord.TabWord, "QUEUE")){
-            ADVWORD();
+            ADVWORDBlank();
             if (IsKataSama(currentWord.TabWord, "SONG")){
                 if (!masuksesi){
                     printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
@@ -116,7 +116,7 @@ void readCommand(){
         }
                 
         else if (IsKataSama(currentWord.TabWord, "PLAYLIST")){
-            ADVWORD();
+            ADVWORDBlank();
             if (IsKataSama(currentWord.TabWord, "CREATE")){
                 if (!masuksesi){
                     printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
@@ -177,64 +177,113 @@ void readCommand(){
 
 /*START*/
 void Start(){
-    // List *Penyanyi;
-    // Map *Album;
-    // Set *Song;
-    // char *file;
-    // STARTWORD(file);
+    STARTFILE("../save/config.txt");
+    STARTWORD();
 
-    // int jlhPenyanyi = WordToInt(currentWord);
+    int jlhPenyanyi = WordToInt(&currentWord);
 
-    // (*Penyanyi).neff = jlhPenyanyi; // Banyak Penyanyi
-    // (*Album).Count = 0;
-    // (*Song).Count = 0;
+    (*Penyanyi).neff = jlhPenyanyi; // Banyak Penyanyi
+    (*Album).Count = 0;
+    (*Song).Count = 0;
 
-    // int count1 = 0, count2 = 0, keymaker = 0;
+    int count1 = 0, count2 = 0, keymaker = 0;
 
-    // // Masukkan penyanyi (Loop semua penyanyi)
-    // for (int i = 0; i < (*Penyanyi).neff; i++){
-    //     // Banyak Album → [2] BLACKPINK
-    //     ADVWORD();
-    //     int jlhalbum = WordToInt(Get(currentWord,1));
-    //     (*Album).Count += jlhalbum;
+    // Masukkan penyanyi (Loop semua penyanyi)
+    for (int i = 0; i < (*Penyanyi).neff; i++){
+        // Banyak Album → [2] BLACKPINK
+        ADVWORDBlank();
+        int jlhalbum = WordToInt(takeword(currentWord,1));
+        (*Album).Count += jlhalbum;
         
-    //     // Masukkan nama penyanyi ke ListPenyanyi → 2 [BLACKPINK]
-    //     valuetype namaP = WordTostring(takekata(currentWord));
-    //     (*Penyanyi).A[i] = namaP;
-    //     // Masukkan Album (Loop semua album per setiap artist)
-    //     for (int j = count1; j < (*Album).Count; j+){
-    //     // Masukkan banyak lagu dalam suatu album ke MapAlbum
-    //     // [4] BORN PINK
-    //         ADVWORD();
-    //         int jlhlagu = WordToInt(Get(currentWord,1));
-    //         (*Song).Count+=jlhlagu;
-    //         // Ambil nama album 4 [BORN PINK]
-    //         valuetype namaA = WordToString(takekata(currentWord));
+        // Masukkan nama penyanyi ke ListPenyanyi → 2 [BLACKPINK]
+        valuetype namaP = WordTostring(takekalimat(currentWord));
+        (*Penyanyi).A[i] = namaP;
+        // Masukkan Album (Loop semua album per setiap artist)
+        for (int j = count1; j < (*Album).Count; j++){
+        // Masukkan banyak lagu dalam suatu album ke MapAlbum
+        // [4] BORN PINK
+            ADVWORDBlank();
+            int jlhlagu = WordToInt(takeword(currentWord,1));
+            (*Song).Count+=jlhlagu;
+            // Ambil nama album 4 [BORN PINK]
+            valuetype namaA = WordToString(takekalimat(currentWord));
                 
-    //         // Masukkan data ke Album
-    //         AlbumElements[count1].keyAlbum = keymaker;
-    //         keymaker++;
-    //         (*Album).Elements[count1].IdPenyanyi = it1;
-    //         (*Album).Elements[count1].valueAlbum = namaA;
-    //         count1++;
-    //         // Masukkan lagu (loop lagu per setiap album)
-    //         for (int k = count2; k < Songcount; k++){
-    //             ADVWORD( );
-    //             // Ambil nama lagu
-    //             valuetype namaL = WordTostring(currentWord);
-    //             // Masukkan ke Song
-    //             (*Song).Elements[count2].Idalbum = count1;
-    //             (*Song).Elements[count2].namalagu = namaL;
-    //             count2++ ;
-    //         }
-    //     }
-    // }
+            // Masukkan data ke Album
+            Album->Elements[count1].Key = keymaker;
+            keymaker++;
+            (*Album).Elements[count1].IdPenyanyi = i+1;
+            (*Album).Elements[count1].Value = namaA;
+            count1++;
+            // Masukkan lagu (loop lagu per setiap album)
+            for (int k = count2; k < Song->Count; k++){
+                ADVWORDBlank( );
+                // Ambil nama lagu
+                valuetype namaL = WordTostring(currentWord);
+                // Masukkan ke Song
+                (*Song).Elements[count2].IdAlbum = count1;
+                (*Song).Elements[count2].namalagu = namaL;
+                count2++ ;
+            }
+        }
+    }
 }
 
 /*LOAD*/
 void Load()
 {   
+    ADVWORDBlank();
 
+    char *filename = currentWord.TabWord;
+    
+    STARTFILE(*filename);
+    STARTWORD();
+
+    int jlhPenyanyi = WordToInt(&currentWord);
+
+    (*Penyanyi).neff = jlhPenyanyi; // Banyak Penyanyi
+    (*Album).Count = 0;
+    (*Song).Count = 0;
+
+    int count1 = 0, count2 = 0, keymaker = 0;
+
+    // Masukkan penyanyi (Loop semua penyanyi)
+    for (int i = 0; i < (*Penyanyi).neff; i++){
+        // Banyak Album → [2] BLACKPINK
+        ADVWORDBlank();
+        int jlhalbum = WordToInt(takeword(currentWord,1));
+        (*Album).Count += jlhalbum;
+        
+        // Masukkan nama penyanyi ke ListPenyanyi → 2 [BLACKPINK]
+        valuetype namaP = WordTostring(takekalimat(currentWord));
+        (*Penyanyi).A[i] = namaP;
+        // Masukkan Album (Loop semua album per setiap artist)
+        for (int j = count1; j < (*Album).Count; j++){
+        // Masukkan banyak lagu dalam suatu album ke MapAlbum
+        // [4] BORN PINK
+            ADVWORDBlank();
+            int jlhlagu = WordToInt(takeword(currentWord,1));
+            (*Song).Count+=jlhlagu;
+            // Ambil nama album 4 [BORN PINK]
+            valuetype namaA = WordToString(takekalimat(currentWord));
+                
+            // Masukkan data ke Album
+            Album->Elements[count1].Key = keymaker;
+            keymaker++;
+            (*Album).Elements[count1].IdPenyanyi = i+1;
+            (*Album).Elements[count1].Value = namaA;
+            count1++;
+            // Masukkan lagu (loop lagu per setiap album)
+            for (int k = count2; k < Song->Count; k++){
+                ADVWORDBlank( );
+                // Ambil nama lagu
+                valuetype namaL = WordTostring(currentWord);
+                // Masukkan ke Song
+                (*Song).Elements[count2].IdAlbum = count1;
+                (*Song).Elements[count2].namalagu = namaL;
+                count2++ ;
+            }
+        }
+    }
 }
 
 

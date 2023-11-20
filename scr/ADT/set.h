@@ -15,12 +15,15 @@ typedef int setaddress;
 typedef char namalagutype;
 typedef int IdAlbumType;
 
+typedef struct {
+    namalagutype namalagu;
+    IdAlbumType IdAlbum;
+} infotypeset;
+
 typedef struct
 {
     infotypeset Elements[MaxElSet];
     setaddress Count;
-    namalagutype namalagu;
-    IdAlbumType IdAlbum;
 } Set;
 
 /* Definisi Set S kosong : S.Count = NilSet */
