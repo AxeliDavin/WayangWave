@@ -4,7 +4,7 @@
 
 /*Global Variable*/
 List singer, album, song;
-List playlist;
+Playlist playlist;
 Queue queue;
 
 /*Tempat Command*/
@@ -16,7 +16,9 @@ void readCommand(){
     MakeList(&singer);
     MakeList(&album);
     MakeList(&song);
-    MakeList(&playlist);
+
+    /*Pembuatan List Linier Playlist*/
+    CreateEmptyPlaylist(&playlist);
 
     /*Pembuatan Queue*/
     CreateQueue(&queue);
@@ -435,10 +437,11 @@ void songQueue() {
     printf("Masukkan ID Lagu yang dipilih : ");
     scanf("%d", &songIndex);
 
+
     // Nambahin lagu ke queue
-    ElTypeQueue songToAdd = Get(song, songIndex-1);
+    content songToAdd = SetContent(Get(song,songIndex-1), albumTitle, singerName);
     enqueue(&queue,songToAdd);
-    printf("Berhasil menambahkan lagu “%s” oleh “%s” ke queue.", songToAdd, singerName);
+    printf("Berhasil menambahkan lagu “%s” oleh “%s” ke queue.", Get(song,songIndex-1), singerName);
 }
 
 // Command: QUEUE PLAYLIST
@@ -451,7 +454,7 @@ void playlistQueue() {
 
     // Menambahkan lagu dalam playlist ke dalam queue
     
-    ElTypeList playlistToAdd = Get(playlist, playlistIndex-1);
+    content playlistToAdd = GetSongFromPlaylist(playlist, playlistIndex-1);
 
     // ini masih salah btww, masih clueless how to add the songs in the playlist meanwhile the eltypelist is int?! nanti coba nanya ke temen dulu yzzz
     enqueue(&queue,playlistToAdd);
@@ -468,7 +471,7 @@ void queueSwap() {
 
     if ((x >= 1 && x <= length(queue)) && (y >= 1 && y <= length(queue))) {
         // Mencari lagu dalam queue yang akan ditukar urutannya
-        ElTypeQueue temp[256] = queue.buffer[x];
+        content temp[256] = queue.buffer[x];
         queue.buffer[x] = queue.buffer[y];
         queue.buffer[y] = temp;
         printf("Lagu %s berhasil ditukar dengan %s\n", queue.buffer[x], queue.buffer[y]);
@@ -492,7 +495,7 @@ void queueRemove() {
     int id = WordToInt(&currentWord);
     if (id >= 1 && id <= length(queue)) { 
         Queue temp;
-        ElTypeQueue val;
+        content val;
         CreateQueue(&temp);
         for (int i=0; i < length(queue); i++) {
             dequeue(&queue, &val);

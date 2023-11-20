@@ -5,16 +5,16 @@
 #define QUEUE_H
 
 #include "boolean.h"
-
+#include "playlist.h"
 #define IDX_UNDEF -1
 #define CAPACITY 100
 
 /* Definisi elemen dan address */
-typedef int ElTypeQueue;
 typedef struct {
-	ElTypeQueue buffer[CAPACITY]; 
+	content buffer[CAPACITY]; 
 	int idxHead;
 	int idxTail;
+        int idPlaylist;
 } Queue;
 
 
@@ -22,6 +22,7 @@ typedef struct {
 /* Jika q adalah Queue, maka akses elemen : */
 #define IDX_HEAD(q) (q).idxHead
 #define IDX_TAIL(q) (q).idxTail
+#define ID_PLAYLIST(q) (q).idPlaylist
 #define     HEAD(q) (q).buffer[(q).idxHead]
 #define     TAIL(q) (q).buffer[(q).idxTail]
 
@@ -44,12 +45,12 @@ int length(Queue q);
 /* Mengirimkan banyaknya elemen queue. Mengirimkan 0 jika q kosong. */
 
 /* *** Primitif Add/Delete *** */
-void enqueue(Queue *q, ElTypeQueue val);
+void enqueue(Queue *q, content val);
 /* Proses: Menambahkan val pada q dengan aturan FIFO */
 /* I.S. q mungkin kosong, tabel penampung elemen q TIDAK penuh */
 /* F.S. val menjadi TAIL yang baru, IDX_TAIL "mundur" dalam buffer melingkar. */
 
-void dequeue(Queue *q, ElTypeQueue *val);
+void dequeue(Queue *q, content *val);
 /* Proses: Menghapus val pada q dengan aturan FIFO */
 /* I.S. q tidak mungkin kosong */
 /* F.S. val = nilai elemen HEAD pd I.S., IDX_HEAD "mundur";
