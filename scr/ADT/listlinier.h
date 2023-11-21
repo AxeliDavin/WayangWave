@@ -17,9 +17,9 @@ typedef struct {
 	Kalimat NamaPenyanyi;
 	Kalimat NamaAlbum;
 	Kalimat JudulLagu;
-} Song;
+} Songs;
 
-typedef Song infoType;
+typedef Songs infoType;
 
 typedef struct tElmtlist {
 	infoType info;

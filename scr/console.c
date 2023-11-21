@@ -278,7 +278,7 @@ void LOADFILE(ListPenyanyi * LP, char filename[])
 
                     ADVRECORD();
 
-                    InsVLast((&(*DU).AP[idUser].A[i]), Data);
+                    InsVLast(&playlist, Data);
 
                 }
             }
