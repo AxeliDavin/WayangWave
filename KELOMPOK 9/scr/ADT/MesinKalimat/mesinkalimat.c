@@ -40,12 +40,11 @@ void IgnoreTitikKoma()
 }
 
 void SalinInput() {
-    ResetInput();  // Reset array
+    ResetInput();  
     int i = 0;
     while ((currentChar != MARK) && (currentChar != NEWLINE) && (currentChar != EOF))
     {
         CInput.TabLine[i] = currentChar;
-        // printf("%c", currentChar);
         i+= 1;
         ADV();
     }
@@ -53,7 +52,7 @@ void SalinInput() {
 }
 
 void SalinKalimat() {
-    ResetKalimat();  // Reset array
+    ResetKalimat();  
     int i = 0;
     while ((currentChar != MARK) && (currentChar != NEWLINE) && (currentChar != SEMICOLON) && (currentChar != EOF))
     {
@@ -66,7 +65,7 @@ void SalinKalimat() {
 }
 
 void SalinSatuKata() {
-    ResetKalimat();  // Reset array
+    ResetKalimat();  
     int i = 0;
     while ((currentChar != ' ') && (currentChar != MARK))
     {
@@ -78,7 +77,7 @@ void SalinSatuKata() {
 }
 
 void SalinRecord() {
-    ResetKalimat();  // Reset array
+    ResetKalimat();  
     int i = 0;
     while ((currentChar != MARK) && (currentChar != NEWLINE))
     {
@@ -122,33 +121,6 @@ void SalinCommand() {
         ADV();
     }
     currentCharommand.Length = i;
-}
-
-Kalimat DirectoryCommand(Kalimat file)
-{
-    Kalimat Direct;
-    Direct.TabLine[0] = 'D';
-    Direct.TabLine[1] = 'a';
-    Direct.TabLine[2] = 't';
-    Direct.TabLine[3] = 'a';
-    Direct.TabLine[4] = '/';
-    Direct.Length = 5;
-
-    int i = Direct.Length;
-    int j = 0;
-
-    while (file.TabLine[j] != '\0')
-    {
-        Direct.TabLine[i] = file.TabLine[j];
-        // printf("%c", currentChar);
-        Direct.Length += 1;
-        i++;
-        j++;
-    }
-
-    Direct.TabLine[Direct.Length] = '\0';
-    
-    return Direct;
 }
 
 void ADVCOMMAND(){
@@ -236,7 +208,7 @@ void ResetCommand() {
     }
 }
 
-boolean isKalimatEqual(Kalimat K1, Kalimat K2) // belum dites
+boolean isKalimatEqual(Kalimat K1, Kalimat K2) 
 {   
     boolean equal = true;
     if (K1.Length == K2.Length)
@@ -261,7 +233,7 @@ boolean isKalimatEqual(Kalimat K1, Kalimat K2) // belum dites
     }
 }
 
-boolean isInputEqual(Kalimat Input, char * kata) // belum dites
+boolean isInputEqual(Kalimat Input, char * kata) 
 {   
     boolean equal = true;
     if (Input.Length == LengthKalimat(kata))

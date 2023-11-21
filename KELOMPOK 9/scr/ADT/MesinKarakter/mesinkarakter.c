@@ -34,10 +34,10 @@ void ADV()
 
        /* Algoritma */
        retval = fscanf(pita, "%c", &currentChar);
-       EOP = (currentChar == MARK || currentChar == ENTER || currentChar == SEMICOLON);
-       if (EOP){
-              currentChar = '\0';
-       }
+       //EOP = (currentChar == MARK || currentChar == ENTER || currentChar == SEMICOLON);
+       //if (EOP){
+       //       currentChar = '\0';
+       //}
 }
 
 void STARTFILE(char filename[])
@@ -50,5 +50,16 @@ void STARTFILE(char filename[])
 
        /* Algoritma */
        pita = fopen(filename, "r");
-       ADV();
+       if (pita != NULL) {
+              ADVFILE();
+       } else {
+              printf("\nERROR: File tidak ditemukan!\n\n");
+              exit(0);
+    }
+}
+void ADVFILE() {
+    retval = fscanf(pita,"%c",&currentChar);
+    if (feof(pita)) {
+       fclose(pita);
+    }
 }

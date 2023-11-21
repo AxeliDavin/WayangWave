@@ -80,11 +80,12 @@ int main(){
     /*Masuk Ke Command Utama*/
     while(!stopsesi){
 
-        readInput();
+        printf(">> ");
+        STARTCOMMAND();
 
-        if(IsKataSama(currentWord.TabWord, "START")){
+        if(isInputEqual(CCommand, "START")){
             if (masuksesi){
-                printf("Command tidak bisa dieksekusi!\n"); /*Udah masuk sesi jadi tidak bisa dirun*/
+                printf("Command tidak bisa dieksekusi!\n"); 
             } else {
                 Start(&Penyanyi, "../save/config.txt");
                 masuksesi = true;
