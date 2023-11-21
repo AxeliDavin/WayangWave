@@ -296,33 +296,36 @@ void Load()
 void listDefault(){
     printf("Daftar penyanyi :\n");
 
-    for (int i = 0; i < Length(singer); i++)
+    for (int i = 0; i < Length(Penyanyi); i++)
     {
-        printf("   %d. %s\n", i+1, Get(singer, i));
+        printf("   %d. %s\n", i+1, Get(Penyanyi, i));
     }
     
     char lookAlbum;
     printf("Ingin melihat album yang ada?(Y/N): ");
     scanf("%c", &lookAlbum);
+    // PILIH ALBUM
     if (lookAlbum == 'Y')
     {
         char chosenSinger[256];
         printf("Pilih penyanyi untuk melihat album mereka: ");
         scanf("%255s", &chosenSinger);
 
-        int chosenSingerIdx;
+        int chosenSingerIdx = InvalidIdx;
         // Cek apakah nama penyanyi valid
-        chosenSingerIdx = IndexOf(singer, chosenSinger);
-        if (chosenSinger == InvalidIdx) {
+        chosenSingerIdx = IndexOf(Penyanyi, chosenSinger);
+        if (chosenSingerIdx == InvalidIdx) {
             printf("Penyanyi %s tidak ada dalam daftar. Silakan coba lagi.\n", chosenSinger);
             return;
         }
 
         // Nampilin daftar album yang dimiliki penyanyi
         printf("Daftar Album oleh %s :\n", chosenSinger);
-        for (int i = 0; i < Length(album); i++) {
-            if (IsEqual(chosenSinger, Get(album, i))) {
-                printf("   %d. %s\n", i+1, Get(album, i));
+        int nomorAlbum = 0;
+        for (int i = 0; i < Album.Count; i++) {
+            if (Album.Elements[i].IdPenyanyi == chosenSingerIdx) {
+                nomorAlbum++;
+                printf("   %d. %s\n", nomorAlbum, Album.Elements[i].Value);
             }
         }
 
@@ -330,25 +333,35 @@ void listDefault(){
         printf("Ingin melihat lagu yang ada?(Y/N): ");
         scanf("%c", &lookSong);
 
+        // LIHAT LAGU
         if (lookSong == 'Y')
         {
             char chosenAlbum[256];
-            printf("Pilih penyanyi untuk melihat album mereka: ");
+            printf("Pilih album untuk melihat lagu yang ada di album: ");
             scanf("%255s", &chosenAlbum);
 
-            int chosenAlbumIdx;
             // Cek apakah nama album valid
-            chosenAlbumIdx = IndexOf(album, chosenAlbum);
-            if (chosenAlbum == InvalidIdx) {
+            int chosenAlbumIdx = InvalidIdx;
+            for (int i = 0; i < Album.Count; i++)
+            {
+                if (Album.Elements[i].Value == chosenAlbum)
+                {
+                    chosenAlbumIdx = Album.Elements[i].IdPenyanyi;
+                    break;
+                }
+            }
+            if (chosenAlbumIdx == InvalidIdx) {
                 printf("Album %s tidak ada dalam daftar. Silakan coba lagi.\n", chosenSinger);
                 return;
             }
 
             // Nampilin daftar lagu yang di dalam album
             printf("Daftar Lagu di %s :\n", chosenAlbum);
-            for (int i = 0; i < Length(song); i++) {
-                if (IsEqual(chosenAlbum, Get(song, i))) {
-                    printf("   %d. %s\n", i+1, Get(song, i));
+            int nomorLagu = 0;
+            for (int i = 0; i < Song.Count; i++) {
+                if (Song.Elements[i].IdAlbum == chosenAlbumIdx) {
+                    nomorLagu++;
+                    printf("   %d. %s\n", nomorLagu, Song.Elements[i].namalagu);
                 }
             }
         }
@@ -368,14 +381,19 @@ void listDefault(){
 // Command : LIST PLAYLIST
 void listPlaylist(){
     printf("Daftar playlist yang kamu miliki: ");
-    if (Length(playlist) > 0)
+
+    address P = First(playlist);
+    int nomorPlaylist = 0;
+    if (IsEmptyPlaylist(playlist))
     {
-        for (int i = 0; i < Length(playlist); i++)
-        {
-            printf("   %d. %s\n", i+1, Get(playlist, i));
-        }        
-    }else{
         printf("Kamu tidak memiliki playlist.");
+    }else{
+        while (P != Nil)
+        {
+            nomorPlaylist++;
+            printf("   %d. %s\n", nomorPlaylist, Info(P));
+            P = Next(P);
+        }
     }
 }
 
@@ -384,56 +402,90 @@ void listPlaylist(){
 // Command: PLAY SONG
 void playSong(){
     printf("Daftar Penyanyi: \n");
-    for (int i = 0; i < Length(singer); i++)
+    for (int i = 0; i < Length(Penyanyi); i++)
     {
-        printf("   %d. %s", i+1, Get(singer, i));
+        printf("   %d. %s", i+1, Get(Penyanyi, i));
     }
 
+    // PILIH PENYANYI
     char chosenSinger[256];
     printf("Masukkan Nama Penyanyi yang dipilih: ");
     scanf("%255s", &chosenSinger);
 
-    int chosenSingerIdx;
+    int chosenSingerIdx = InvalidIdx;
     // Cek apakah nama penyanyi valid
-    chosenSingerIdx = IndexOf(singer, chosenSinger);
+    chosenSingerIdx = IndexOf(Penyanyi, chosenSinger);
     if (chosenSinger == InvalidIdx) {
         printf("Penyanyi %s tidak ada dalam daftar. Silakan coba lagi.\n", chosenSinger);
         return;
     }
-
     // Nampilin daftar album yang dimiliki penyanyi
     printf("Daftar Album oleh %s :\n", chosenSinger);
-    for (int i = 0; i < Length(album); i++) {
-        if (IsEqual(chosenSinger, Get(album, i))) {
-            printf("   %d. %s\n", i+1, Get(album, i));
+    int nomorAlbum = 0;
+    for (int i = 0; i < Album.Count; i++) {
+        if (Album.Elements[i].IdPenyanyi == chosenSingerIdx) {
+            nomorAlbum++;
+            printf("   %d. %s\n", nomorAlbum, Album.Elements[i].Value);
         }
     }
 
+
+    // PILIH ALBUM
     char chosenAlbum[256];
     printf("Masukkan Nama Album yang dipilih: ");
     scanf("%255s", &chosenAlbum);
 
-    int chosenAlbumIdx;
     // Cek apakah nama album valid
-    chosenAlbumIdx = IndexOf(album, chosenAlbum);
-    if (chosenAlbum == InvalidIdx) {
+    int chosenAlbumIdx = InvalidIdx;
+    for (int i = 0; i < Album.Count; i++)
+    {
+        if (Album.Elements[i].Value == chosenAlbum)
+        {
+            chosenAlbumIdx = Album.Elements[i].IdPenyanyi;
+            break;
+        }
+    }
+    
+    if (chosenAlbumIdx == InvalidIdx) {
         printf("Album %s tidak ada dalam daftar. Silakan coba lagi.\n", chosenSinger);
         return;
     }
 
     // Nampilin daftar lagu yang di dalam album
-    printf("Daftar Lagu di %s :\n", chosenAlbum);
-    for (int i = 0; i < Length(song); i++) {
-        if (IsEqual(chosenAlbum, Get(song, i))) {
-            printf("   %d. %s\n", i+1, Get(song, i));
+    printf("Daftar Lagu Album %s oleh %s :\n", chosenAlbum, chosenSinger);
+    int nomorLagu = 0;
+    for (int i = 0; i < Song.Count; i++) {
+        if (Song.Elements[i].IdAlbum == chosenAlbumIdx) {
+            nomorLagu++;
+            printf("   %d. %s\n", nomorLagu, Song.Elements[i].namalagu);
         }
     }
 
+    // PILIH LAGU
     int chosenSongIdx;
     printf("Masukkan ID Lagu yang dipilih: ");
     scanf("%d", &chosenSongIdx);
 
-    printf("Memutar lagu \"%s\" oleh \"%s\".", Get(song, chosenSongIdx), Get(singer, chosenSingerIdx));
+    if (chosenSongIdx > nomorLagu)
+    {
+        printf("ID Lagu tidak valid\n");
+        return;
+    }
+    
+
+    int temp = 0;
+    int fixIdx = 0;
+    while (temp != chosenSongIdx)
+    {
+        fixIdx++;
+        if (Song.Elements[temp].IdAlbum == chosenAlbumIdx)
+        {
+            temp++;
+        }
+    }
+    
+
+    printf("Memutar lagu \"%s\" oleh \"%s\".", Song.Elements[fixIdx].namalagu, chosenSinger);
 }
 
 // Command : PLAY PLAYLIST
@@ -442,7 +494,7 @@ void playPlaylist(){
     printf("Masukkan ID Playlist: ");
     scanf("%d", &chosenPlaylistIdx);
 
-    printf("Memutar playlist \"%s\".", Get(playlist, chosenPlaylistIdx));
+    printf("Memutar playlist \"%s\".", GetSongFromPlaylist(playlist, chosenPlaylistIdx).lagu);
 }
 
 // FUNGSI QUEUE
