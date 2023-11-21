@@ -11,12 +11,13 @@
 
 /* Definisi elemen dan address */
 typedef struct {
-	content buffer[CAPACITY]; 
+    Kalimat JudulLagu[CAPACITY]; 
+    Kalimat NamaAlbum[CAPACITY];
+    Kalimat NamaPenyanyi[CAPACITY];
 	int idxHead;
 	int idxTail;
         int idPlaylist;
 } Queue;
-
 
 /* ********* AKSES (Selektor) ********* */
 /* Jika q adalah Queue, maka akses elemen : */

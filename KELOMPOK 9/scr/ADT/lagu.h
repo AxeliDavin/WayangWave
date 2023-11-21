@@ -1,24 +1,23 @@
-#ifndef set_H
-#define set_H
-#include <stdio.h>
-#include "../boolean.h"
+// lagu.h
 
-/* MODUL Set
-Deklarasi stack yang dengan implementasi array eksplisit-statik rata kiri
+#ifndef lagu_H
+#define lagu_H
+#include <stdio.h>
+#include "./MesinKalimat/mesinkalimat.h"
+#include "boolean.h"
+
+/* MODUL SET LAGU
+Deklarasi set yang dengan implementasi array eksplisit-statik rata kiri
 */
 
 #define NilSet 0
 #define MaxElSet 100
 
-
-typedef int infotypeset;
 typedef int setaddress;
-
-typedef struct
-{
-    infotypeset Elements[MaxElSet];
-    setaddress Count;
-} Set;
+typedef struct {   
+   Kalimat JudulLagu[MaxElSet];
+  int Count;
+} SetLagu;
 
 
 /* Definisi Set S kosong : S.Count = NilSet */
@@ -28,34 +27,34 @@ typedef struct
 /* ********* Prototype ********* */
 
 /* *** Konstruktor/Kreator *** */
-void CreateEmptySet(Set *S);
+void CreateEmptySet(SetLagu *S);
 /* I.S. Sembarang */
 /* F.S. Membuat sebuah Set S kosong berkapasitas MaxElSet */
 /* Ciri Set kosong : count berNilSetai NilSet */
 
 /* ********* Predikat Untuk test keadaan KOLEKSI ********* */
-boolean IsEmptySet(Set S);
+boolean IsEmptySet(SetLagu S);
 /* Mengirim true jika Set S kosong*/
 /* Ciri Set kosong : count berNilSetai NilSet */
 
-boolean IsFullSet(Set S);
+boolean IsFullSet(SetLagu S);
 /* Mengirim true jika Set S penuh */
 /* Ciri Set penuh : count berNilSetai MaxElSet */
 
 /* ********** Operator Dasar Set ********* */
-void Insert(Set *S, infotypeset Elmt);
+void Insert(SetLagu *S, Kalimat Elmt);
 /* Menambahkan Elmt sebagai elemen Set S. */
 /* I.S. S mungkin kosong, S tidak penuh
         S mungkin sudah beranggotakan Elmt */
 /* F.S. Elmt menjadi anggota dari S. Jika Elmt sudah merupakan anggota, operasi tidak dilakukan */
 
-void Delete(Set *S, infotypeset Elmt);
+void Delete(SetLagu *S, Kalimat Elmt);
 /* Menghapus Elmt dari Set S. */
 /* I.S. S tidak kosong
         Elmt mungkin anggota / bukan anggota dari S */
 /* F.S. Elmt bukan anggota dari S */
 
-boolean IsMemberSet(Set S, infotypeset Elmt);
+boolean IsMemberSet(SetLagu S, Kalimat Elmt);
 /* Mengembalikan true jika Elmt adalah member dari S */
 
 #endif
