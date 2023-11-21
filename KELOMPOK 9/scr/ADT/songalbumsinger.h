@@ -40,7 +40,7 @@ typedef struct
 // 2
 typedef struct {
 	Kalimat NamaPenyanyi;
-	ListAlbum ListAlbum; // array of ListAlbum yang dimiliki penyanyi
+	ListAlbum ListAlbums; // array of ListAlbum yang dimiliki penyanyi
 } MapAlbum;
 
 // 1
@@ -48,5 +48,13 @@ typedef struct {
 	MapAlbum PenyanyiAlbum[20];
 	int NEff;
 } ListPenyanyi;
+
+void CreateEmptyListPenyanyi(ListPenyanyi *LP);
+
+void AddPenyanyi(ListPenyanyi * LP, Kalimat NamaPenyanyi);
+
+void AddAlbum(ListPenyanyi * LP, Kalimat Album);
+
+void AddLagu(ListPenyanyi * LP, Kalimat NamaLagu);
 
 #endif

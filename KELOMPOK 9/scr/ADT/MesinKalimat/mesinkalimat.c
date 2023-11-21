@@ -264,7 +264,7 @@ boolean isKalimatEqual(Kalimat K1, Kalimat K2) // belum dites
 boolean isInputEqual(Kalimat Input, char * kata) // belum dites
 {   
     boolean equal = true;
-    if (Input.Length == Length(kata))
+    if (Input.Length == LengthKalimat(kata))
     {
         int i = 0;
         while (i < Input.Length && equal)

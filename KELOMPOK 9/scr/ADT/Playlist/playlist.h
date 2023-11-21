@@ -16,27 +16,27 @@
 typedef char *infotype;
 typedef char *name;
 
-typedef struct tElmtlist *address;
+typedef struct tElmtplaylist *playlistaddress;
 typedef struct {
     infotype lagu;
     infotype album;
     infotype penyanyi;
-} content;
+} contents;
 
-typedef struct tElmtlist { 
-	content infoLagu;
-	address next;
-} ElmtList;
+typedef struct tElmtplaylist { 
+	contents infoLagu;
+	playlistaddress next;
+} ElmtPlayList;
 
 typedef struct {
     name namaPlaylist;
-	address First;
+	playlistaddress First;
 } Playlist;
 
 typedef struct {
     Playlist *A; // Ukuran Alokasi saat ini
     int capacity; //Elemen List
     int nEff; // Jumlah Elemen Efektif
-} ListPlaylist
+} ListPlaylist;
 
 #endif

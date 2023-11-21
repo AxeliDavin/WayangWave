@@ -7,6 +7,7 @@
 
 #include "../boolean.h"
 #include "../MesinKalimat/mesinkalimat.h"
+#include "../Song.h"
 
 #define NilStack -1
 #define MaxElStack 100
@@ -45,13 +46,13 @@ boolean IsFullStack(Stack S);
 /* Mengirim true jika tabel penampung NilStackai elemen stack penuh */
 
 /* ************ Menambahkan sebuah elemen ke Stack ************ */
-void Push(Stack * S, infotypestack X);
+void Push(Stack *S, Kalimat JudulLagu, Kalimat NamaAlbum, Kalimat NamaPenyanyi);
 /* Menambahkan X sebagai elemen Stack S. */
 /* I.S. S mungkin kosong, tabel penampung elemen stack TIDAK penuh */
 /* F.S. X menjadi TOP yang baru,TOP bertambah 1 */
 
 /* ************ Menghapus sebuah elemen Stack ************ */
-void Pop(Stack * S, infotypestack* X);
+void Pop(Stack * S, CurrentSong* X);
 /* Menghapus X dari Stack S. */
 /* I.S. S  tidak mungkin kosong */
 /* F.S. X adalah NilStackai elemen TOP yang lama, TOP berkurang 1 */

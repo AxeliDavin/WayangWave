@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "boolean.h"
+#include "../boolean.h"
 #include "stack.h"
 
 /* *** Konstruktor/Kreator *** */
@@ -51,11 +51,13 @@ void Push (Stack *S, Kalimat JudulLagu, Kalimat NamaAlbum, Kalimat NamaPenyanyi)
 }
 
 /* ************ Menghapus sebuah elemen Stack ************ */
-void Pop (Stack * S, infotypestack* X)
+void Pop (Stack * S, CurrentSong* X)
 /* Menghapus X dari Stack S. */
 /* I.S. S  tidak mungkin kosong */
 /* F.S. X adalah NilStackai elemen TOP yang lama, TOP berkurang 1 */
 {
-    *X = InfoTop(*S);
+    (*X).JudulLagu = (*S).JudulLagu[(*S).IDXTOP];
+    (*X).NamaAlbum = (*S).NamaAlbum[(*S).IDXTOP];
+    (*X).NamaPenyanyi = (*S).NamaPenyanyi[(*S).IDXTOP];
     Top(*S) -= 1;
 }

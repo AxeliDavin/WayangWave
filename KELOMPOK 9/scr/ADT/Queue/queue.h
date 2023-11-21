@@ -6,18 +6,25 @@
 
 #include "../boolean.h"
 #include "../Playlist/playlist.h"
+#include "../MesinKalimat/mesinkalimat.h"
+
 #define IDX_UNDEF -1
 #define CAPACITY 100
 
 /* Definisi elemen dan address */
 typedef struct {
-    Kalimat JudulLagu[CAPACITY]; 
-    Kalimat NamaAlbum[CAPACITY];
-    Kalimat NamaPenyanyi[CAPACITY];
+    Kalimat JudulLagu; 
+    Kalimat NamaAlbum;
+    Kalimat NamaPenyanyi;
+}content;
+
+typedef struct {
+        content buffer[CAPACITY];
 	int idxHead;
 	int idxTail;
         int idPlaylist;
 } Queue;
+
 
 /* ********* AKSES (Selektor) ********* */
 /* Jika q adalah Queue, maka akses elemen : */
