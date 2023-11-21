@@ -7,23 +7,37 @@
 #define ListLinierlinier_H
 
 #include "boolean.h"
+#include "mesinkalimat.h"
 
 #define Nil NULL
 
-typedef int infotype;
-typedef struct tElmtListLinier *listlinieraddress;
-typedef struct tElmtListLinier { 
-	infotype info;
+typedef struct tElmtlist *listlinieraddress;
+
+typedef struct {
+	Kalimat NamaPenyanyi;
+	Kalimat NamaAlbum;
+	Kalimat JudulLagu;
+} Song;
+
+typedef Song infoType;
+
+typedef struct tElmtlist {
+	infoType info;
 	listlinieraddress next;
-} ElmtListLinier;
+} ElmtList;
+
 typedef struct {
 	listlinieraddress First;
 } ListLinier;
+
 
 /* Definisi ListLinier : */
 /* ListLinier kosong : First(L) = Nil */
 /* Setiap elemen dengan listlinieraddress P dapat diacu Info(P), Next(P) */
 /* Elemen terakhir ListLinier : jika listlinieraddressnya Last, maka Next(Last)=Nil */
+#define NamaPenyanyi(P) (P)->info.NamaPenyanyi
+#define NamaAlbum(P) (P)->info.NamaAlbum
+#define JudulLagu(P) (P)->info.JudulLagu
 #define Info(P) (P)->info
 #define Next(P) (P)->next
 #define First(L) ((L).First)
@@ -39,7 +53,7 @@ void CreateEmptyListLinier (ListLinier *L);
 /* F.S. Terbentuk ListLinier kosong */
 
 /****************** Manajemen Memori ******************/
-listlinieraddress Alokasi (infotype X);
+listlinieraddress Alokasi (infoType X);
 /* Mengirimkan listlinieraddress hasil alokasi sebuah elemen */
 /* Jika alokasi berhasil, maka listlinieraddress tidak nil, dan misalnya */
 /* menghasilkan P, maka info(P)=X, Next(P)=Nil */
@@ -50,29 +64,29 @@ void Dealokasi (listlinieraddress *P);
 /* Melakukan dealokasi/pengembalian listlinieraddress P */
 
 /****************** PENCARIAN SEBUAH ELEMEN ListLinier ******************/
-listlinieraddress SearchListLinier (ListLinier L, infotype X);
+listlinieraddress SearchListLinier (ListLinier L, infoType X);
 /* Mencari apakah ada elemen ListLinier dengan info(P)= X */
 /* Jika ada, mengirimkan listlinieraddress elemen tersebut. */
 /* Jika tidak ada, mengirimkan Nil */
 
 /****************** PRIMITIF BERDASARKAN NILAI ******************/
 /*** PENAMBAHAN ELEMEN ***/
-void InsVFirst (ListLinier *L, infotype X);
+void InsVFirst (ListLinier *L, infoType X);
 /* I.S. L mungkin kosong */
 /* F.S. Melakukan alokasi sebuah elemen dan */
 /* menambahkan elemen pertama dengan nilai X jika alokasi berhasil */
-void InsVLast (ListLinier *L, infotype X);
+void InsVLast (ListLinier *L, infoType X);
 /* I.S. L mungkin kosong */
 /* F.S. Melakukan alokasi sebuah elemen dan */
 /* menambahkan elemen ListLinier di akhir: elemen terakhir yang baru */
 /* bernilai X jika alokasi berhasil. Jika alokasi gagal: I.S.= F.S. */
 
 /*** PENGHAPUSAN ELEMEN ***/
-void DelVFirst (ListLinier *L, infotype *X);
+void DelVFirst (ListLinier *L, infoType *X);
 /* I.S. ListLinier L tidak kosong  */
 /* F.S. Elemen pertama ListLinier dihapus: nilai info disimpan pada X */
 /*      dan alamat elemen pertama di-dealokasi */
-void DelVLast (ListLinier *L, infotype *X);
+void DelVLast (ListLinier *L, infoType *X);
 /* I.S. ListLinier tidak kosong */
 /* F.S. Elemen terakhir ListLinier dihapus: nilai info disimpan pada X */
 /*      dan alamat elemen terakhir di-dealokasi */
@@ -96,7 +110,7 @@ void DelFirst (ListLinier *L, listlinieraddress *P);
 /* F.S. P adalah alamat elemen pertama ListLinier sebelum penghapusan */
 /*      Elemen ListLinier berkurang satu (mungkin menjadi kosong) */
 /* First element yg baru adalah suksesor elemen pertama yang lama */
-void DelP (ListLinier *L, infotype X);
+void DelP (ListLinier *L, infoType X);
 /* I.S. Sembarang */
 /* F.S. Jika ada elemen ListLinier berlistlinieraddress P, dengan info(P)=X  */
 /* Maka P dihapus dari ListLinier dan di-dealokasi */
@@ -124,11 +138,11 @@ int NbElmt (ListLinier L);
 /* Mengirimkan banyaknya elemen ListLinier; mengirimkan 0 jika ListLinier kosong */
 
 /*** Prekondisi untuk Max/Min/rata-rata : ListLinier tidak kosong ***/
-infotype Max (ListLinier L);
+infoType Max (ListLinier L);
 /* Mengirimkan nilai info(P) yang maksimum */
 listlinieraddress AdrMax (ListLinier L);
 /* Mengirimkan listlinieraddress P, dengan info(P) yang bernilai maksimum */
-infotype Min (ListLinier L);
+infoType Min (ListLinier L);
 /* Mengirimkan nilai info(P) yang minimum */
 listlinieraddress AdrMin (ListLinier L);
 /* Mengirimkan listlinieraddress P, dengan info(P) yang bernilai minimum */
