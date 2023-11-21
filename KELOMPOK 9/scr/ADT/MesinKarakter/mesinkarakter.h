@@ -8,6 +8,7 @@
 
 #define MARK '.'
 #define ENTER '\n'
+#define SEMICOLON ';'
 
 /* State Mesin */
 extern char currentChar;

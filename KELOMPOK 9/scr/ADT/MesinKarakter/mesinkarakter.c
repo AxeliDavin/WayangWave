@@ -34,10 +34,13 @@ void ADV()
 
        /* Algoritma */
        retval = fscanf(pita, "%c", &currentChar);
-       EOP = (currentChar == MARK || currentChar == ENTER || currentChar == ';');
+       EOP = (currentChar == MARK || currentChar == ENTER || currentChar == SEMICOLON);
+       if (EOP){
+              currentChar = '\0';
+       }
 }
 
-void STARTFILE(char *filename)
+void STARTFILE(char filename[])
 {
        /* Mesin siap dioperasikan. Pita disiapkan untuk dibaca.
           Karakter pertama yang ada pada pita posisinya adalah pada jendela.
