@@ -3,9 +3,9 @@
 #include "console.h"
 
 /*Global Variable*/
-List *Penyanyi;
-Map *Album;
-Set *Song;
+List Penyanyi;
+Map Album;
+Set Song;
 Playlist playlist;
 Queue queue;
 
@@ -184,51 +184,52 @@ void Start(){
 
     int jlhPenyanyi = WordToInt(&currentWord);
 
-    (*Penyanyi).neff = jlhPenyanyi; // Banyak Penyanyi
-    (*Album).Count = 0;
-    (*Song).Count = 0;
+    Penyanyi.neff = jlhPenyanyi; // Banyak Penyanyi
+    Album.Count = 0;
+    Song.Count = 0;
 
     int count1 = 0, count2 = 0, keymaker = 0;
 
     // Masukkan penyanyi (Loop semua penyanyi)
-    for (int i = 0; i < (*Penyanyi).neff; i++){
+    for (int i = 0; i < Penyanyi.neff; i++){
         // Banyak Album → [2] BLACKPINK
         ADVWORDBlank();
         int jlhalbum = WordToInt(takeword(currentWord,1));
-        (*Album).Count += jlhalbum;
+        Album.Count += jlhalbum;
         
         // Masukkan nama penyanyi ke ListPenyanyi → 2 [BLACKPINK]
         valuetype namaP = WordTostring(takekalimat(currentWord));
-        (*Penyanyi).A[i] = namaP;
+        Penyanyi.A[i] = namaP;
         // Masukkan Album (Loop semua album per setiap artist)
-        for (int j = count1; j < (*Album).Count; j++){
+        for (int j = count1; j < Album.Count; j++){
         // Masukkan banyak lagu dalam suatu album ke MapAlbum
         // [4] BORN PINK
             ADVWORDBlank();
             int jlhlagu = WordToInt(takeword(currentWord,1));
-            (*Song).Count+=jlhlagu;
+            Song.Count+=jlhlagu;
             // Ambil nama album 4 [BORN PINK]
             valuetype namaA = WordToString(takekalimat(currentWord));
                 
             // Masukkan data ke Album
-            Album->Elements[count1].Key = keymaker;
+            Album.Elements[count1].Key = keymaker;
             keymaker++;
-            (*Album).Elements[count1].IdPenyanyi = i+1;
-            (*Album).Elements[count1].Value = namaA;
+            Album.Elements[count1].IdPenyanyi = i+1;
+            Album.Elements[count1].Value = namaA;
             count1++;
             // Masukkan lagu (loop lagu per setiap album)
-            for (int k = count2; k < Song->Count; k++){
+            for (int k = count2; k < Song.Count; k++){
                 ADVWORDBlank( );
                 // Ambil nama lagu
                 valuetype namaL = WordTostring(currentWord);
                 // Masukkan ke Song
-                (*Song).Elements[count2].IdAlbum = count1;
-                (*Song).Elements[count2].namalagu = namaL;
+                Song.Elements[count2].IdAlbum = count1;
+                Song.Elements[count2].namalagu = namaL;
                 count2++ ;
             }
         }
     }
 }
+
 
 /*LOAD*/
 void Load()
@@ -242,46 +243,46 @@ void Load()
 
     int jlhPenyanyi = WordToInt(&currentWord);
 
-    (*Penyanyi).neff = jlhPenyanyi; // Banyak Penyanyi
-    (*Album).Count = 0;
-    (*Song).Count = 0;
+    Penyanyi.neff = jlhPenyanyi; // Banyak Penyanyi
+    Album.Count = 0;
+    Song.Count = 0;
 
     int count1 = 0, count2 = 0, keymaker = 0;
 
     // Masukkan penyanyi (Loop semua penyanyi)
-    for (int i = 0; i < (*Penyanyi).neff; i++){
+    for (int i = 0; i < Penyanyi.neff; i++){
         // Banyak Album → [2] BLACKPINK
         ADVWORDBlank();
         int jlhalbum = WordToInt(takeword(currentWord,1));
-        (*Album).Count += jlhalbum;
+        Album.Count += jlhalbum;
         
         // Masukkan nama penyanyi ke ListPenyanyi → 2 [BLACKPINK]
         valuetype namaP = WordTostring(takekalimat(currentWord));
-        (*Penyanyi).A[i] = namaP;
+        Penyanyi.A[i] = namaP;
         // Masukkan Album (Loop semua album per setiap artist)
-        for (int j = count1; j < (*Album).Count; j++){
+        for (int j = count1; j < Album.Count; j++){
         // Masukkan banyak lagu dalam suatu album ke MapAlbum
         // [4] BORN PINK
             ADVWORDBlank();
             int jlhlagu = WordToInt(takeword(currentWord,1));
-            (*Song).Count+=jlhlagu;
+            Song.Count+=jlhlagu;
             // Ambil nama album 4 [BORN PINK]
             valuetype namaA = WordToString(takekalimat(currentWord));
                 
             // Masukkan data ke Album
-            Album->Elements[count1].Key = keymaker;
+            Album.Elements[count1].Key = keymaker;
             keymaker++;
-            (*Album).Elements[count1].IdPenyanyi = i+1;
-            (*Album).Elements[count1].Value = namaA;
+            Album.Elements[count1].IdPenyanyi = i+1;
+            Album.Elements[count1].Value = namaA;
             count1++;
             // Masukkan lagu (loop lagu per setiap album)
-            for (int k = count2; k < Song->Count; k++){
+            for (int k = count2; k < Song.Count; k++){
                 ADVWORDBlank( );
                 // Ambil nama lagu
                 valuetype namaL = WordTostring(currentWord);
                 // Masukkan ke Song
-                (*Song).Elements[count2].IdAlbum = count1;
-                (*Song).Elements[count2].namalagu = namaL;
+                Song.Elements[count2].IdAlbum = count1;
+                Song.Elements[count2].namalagu = namaL;
                 count2++ ;
             }
         }
