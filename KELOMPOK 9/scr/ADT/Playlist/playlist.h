@@ -39,4 +39,6 @@ typedef struct {
     int nEff; // Jumlah Elemen Efektif
 } ListPlaylist;
 
+void CreateEmptyPlaylist(Playlist *x);
+
 #endif
