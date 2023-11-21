@@ -4,8 +4,8 @@
 #ifndef __MESINKATA_H__
 #define __MESINKATA_H__
 
-#include "boolean.h"
-#include "mesinkarakter.h"
+#include "../boolean.h"
+#include "../MesinKarakter/mesinkarakter.h"
 
 #define NMax 50
 #define BLANK ' '
@@ -68,12 +68,5 @@ void readInput();
 
 int WordToInt(Word *word);
 /* Ngubah word jadi integer*/
-
-char WordToString(Word *word);
-/* Ngubah word jadi string*/
-
-char takeword(Word filename, int n);
-
-char takekalimat(Word filename);
 
 #endif

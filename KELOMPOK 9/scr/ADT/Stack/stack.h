@@ -5,8 +5,8 @@
 #ifndef stackt_H
 #define stackt_H
 
-#include "boolean.h"
-#include "mesinkalimat.h"
+#include "../boolean.h"
+#include "../MesinKalimat/mesinkalimat.h"
 
 #define NilStack -1
 #define MaxElStack 100

@@ -1,8 +1,8 @@
 #ifndef __MESINKALIMAT_H__
 #define __MESINKALIMAT_H__
 
-#include "boolean.h"
-#include "mesinkarakter.h"
+#include "../boolean.h"
+#include "../MesinKarakter/mesinkarakter.h"
 
 #define NMaks 100
 #define NEWLINE '\n'

@@ -6,9 +6,9 @@
 #include <stdio.h>
 
 #include "songalbumsinger.h"
-#include "stack.h"
-#include "queue.h"
-#include "mesinkalimat.h"
+#include "./Stack/stack.h"
+#include "./Queue/queue.h"
+#include "./MesinKalimat/mesinkalimat.h"
 
 typedef struct {
 	Kalimat JudulLagu; 

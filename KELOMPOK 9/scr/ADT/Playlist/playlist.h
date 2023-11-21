@@ -6,7 +6,7 @@
 #ifndef playlist_H
 #define playlist_H
 
-#include "boolean.h"
+#include "../boolean.h"
 
 #define Nil NULL
 
