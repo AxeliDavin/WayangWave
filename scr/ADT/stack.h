@@ -6,6 +6,7 @@
 #define stackt_H
 
 #include "boolean.h"
+#include "mesinkalimat.h"
 
 #define NilStack -1
 #define MaxElStack 100
@@ -16,19 +17,18 @@ typedef int stackaddress;   /* indeks tabel */
 
 /* Contoh deklarasi variabel bertype stack dengan ciri TOP : */
 /* Versi I : dengan menyimpan tabel dan alamat top secara eksplisit*/
-typedef struct { 
-  infotypestack T[MaxElStack]; /* tabel penyimpan elemen */
-  stackaddress TOP;  /* alamat TOP: elemen puncak */
+typedef struct {
+    Kalimat JudulLagu[15];
+    Kalimat NamaAlbum[15];
+    Kalimat NamaPenyanyi[15];
+    int IDXTOP;
 } Stack;
-/* Definisi stack S kosong : S.TOP = NilStack */
-/* Elemen yang dipakai menyimpan NilStackai Stack T[0]..T[MaxElStack-1] */
-/* Jika S adalah Stack maka akses elemen : */
-   /* S.T[(S.TOP)] untuk mengakses elemen TOP */
-   /* S.TOP adalah alamat elemen TOP */
 
 /* Definisi akses dengan Selektor : Set dan Get */
-#define Top(S) (S).TOP
-#define InfoTop(S) (S).T[(S).TOP]
+#define Top(S) (S).IDXTOP
+#define InfoLagu(S) (S).JudulLagu[(S).IDXTOP]
+#define InfoAlbum(S) (S).NamaAlbum[(S).IDXTOP]
+#define InfoPenyanyi(S) (S).NamaPenyanyi[(S).IDXTOP]
 
 /* ************ Prototype ************ */
 /* *** Konstruktor/Kreator *** */

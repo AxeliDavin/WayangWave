@@ -9,7 +9,7 @@ void CreateEmptyStack(Stack *S)
 /* jadi indeksnya antara 0.. MaxElStack */
 /* Ciri stack kosong : TOP berNilStackai NilStack */
 {
-    Top(*S) = NilStack;
+    (*S).IDXTOP = -1;
 }
 
 /* ************ Predikat Untuk test keadaan KOLEKSI ************ */
@@ -26,13 +26,28 @@ boolean IsFullStack(Stack S)
 }
 
 /* ************ Menambahkan sebuah elemen ke Stack ************ */
-void Push (Stack * S, infotypestack X)
+void Push (Stack *S, Kalimat JudulLagu, Kalimat NamaAlbum, Kalimat NamaPenyanyi)
 /* Menambahkan X sebagai elemen Stack S. */
 /* I.S. S mungkin kosong, tabel penampung elemen stack TIDAK penuh */
 /* F.S. X menjadi TOP yang baru,TOP bertambah 1 */
 {
-    Top(*S) += 1;
-    InfoTop(*S) = X;
+    if ((*S).IDXTOP == -1)
+    {
+        Top(*S) = 0;
+        InfoLagu(*S) = JudulLagu;
+        InfoAlbum(*S) = NamaAlbum;
+        InfoPenyanyi(*S) = NamaPenyanyi;
+        
+    }
+    else
+    {
+        if ((*S).IDXTOP < 50-1) {
+            Top(*S)++;
+            InfoLagu(*S) = JudulLagu;
+            InfoAlbum(*S) = NamaAlbum;
+            InfoPenyanyi(*S) = NamaPenyanyi;
+        }
+    }
 }
 
 /* ************ Menghapus sebuah elemen Stack ************ */
