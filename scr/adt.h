@@ -7,3 +7,5 @@
 #include "./ADT/stack.h"
 #include "./ADT/listlinier.h"
 #include "./ADT/playlist.h"
+#include "./ADT/mesinkalimat.h"
+#include "./ADT/songalbumsinger.h"

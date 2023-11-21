@@ -179,113 +179,114 @@ void readCommand(){
 
 /*START*/
 void Start(){
-    STARTFILE("../save/config.txt");
-    STARTWORD();
-
-    int jlhPenyanyi = WordToInt(&currentWord);
-
-    Penyanyi.neff = jlhPenyanyi; // Banyak Penyanyi
-    Album.Count = 0;
-    Song.Count = 0;
-
-    int count1 = 0, count2 = 0, keymaker = 0;
-
-    // Masukkan penyanyi (Loop semua penyanyi)
-    for (int i = 0; i < Penyanyi.neff; i++){
-        // Banyak Album → [2] BLACKPINK
-        ADVWORDBlank();
-        int jlhalbum = WordToInt(takeword(currentWord,1));
-        Album.Count += jlhalbum;
-        
-        // Masukkan nama penyanyi ke ListPenyanyi → 2 [BLACKPINK]
-        valuetype namaP = WordTostring(takekalimat(currentWord));
-        Penyanyi.A[i] = namaP;
-        // Masukkan Album (Loop semua album per setiap artist)
-        for (int j = count1; j < Album.Count; j++){
-        // Masukkan banyak lagu dalam suatu album ke MapAlbum
-        // [4] BORN PINK
-            ADVWORDBlank();
-            int jlhlagu = WordToInt(takeword(currentWord,1));
-            Song.Count+=jlhlagu;
-            // Ambil nama album 4 [BORN PINK]
-            valuetype namaA = WordToString(takekalimat(currentWord));
-                
-            // Masukkan data ke Album
-            Album.Elements[count1].Key = keymaker;
-            keymaker++;
-            Album.Elements[count1].IdPenyanyi = i+1;
-            Album.Elements[count1].Value = namaA;
-            count1++;
-            // Masukkan lagu (loop lagu per setiap album)
-            for (int k = count2; k < Song.Count; k++){
-                ADVWORDBlank( );
-                // Ambil nama lagu
-                valuetype namaL = WordTostring(currentWord);
-                // Masukkan ke Song
-                Song.Elements[count2].IdAlbum = count1;
-                Song.Elements[count2].namalagu = namaL;
-                count2++ ;
-            }
-        }
-    }
+    
 }
 
 
 /*LOAD*/
-void Load()
-{   
-    ADVWORDBlank();
+void LOADFILE(ListPenyanyi * LP, char filename[])
+{
 
-    char *filename = currentWord.TabWord;
-    
-    STARTFILE(*filename);
-    STARTWORD();
+    STARTKALIMATFILE(filename);
 
-    int jlhPenyanyi = WordToInt(&currentWord);
+    Kalimat NamaPenyanyi;
+    Kalimat NamaAlbum;
+    Kalimat NamaLagu;
 
-    Penyanyi.neff = jlhPenyanyi; // Banyak Penyanyi
-    Album.Count = 0;
-    Song.Count = 0;
+    int loop = atoi(CLine.TabLine);
 
-    int count1 = 0, count2 = 0, keymaker = 0;
+    if (loop > 0)
+    {
 
-    // Masukkan penyanyi (Loop semua penyanyi)
-    for (int i = 0; i < Penyanyi.neff; i++){
-        // Banyak Album → [2] BLACKPINK
-        ADVWORDBlank();
-        int jlhalbum = WordToInt(takeword(currentWord,1));
-        Album.Count += jlhalbum;
-        
-        // Masukkan nama penyanyi ke ListPenyanyi → 2 [BLACKPINK]
-        valuetype namaP = WordTostring(takekalimat(currentWord));
-        Penyanyi.A[i] = namaP;
-        // Masukkan Album (Loop semua album per setiap artist)
-        for (int j = count1; j < Album.Count; j++){
-        // Masukkan banyak lagu dalam suatu album ke MapAlbum
-        // [4] BORN PINK
-            ADVWORDBlank();
-            int jlhlagu = WordToInt(takeword(currentWord,1));
-            Song.Count+=jlhlagu;
-            // Ambil nama album 4 [BORN PINK]
-            valuetype namaA = WordToString(takekalimat(currentWord));
-                
-            // Masukkan data ke Album
-            Album.Elements[count1].Key = keymaker;
-            keymaker++;
-            Album.Elements[count1].IdPenyanyi = i+1;
-            Album.Elements[count1].Value = namaA;
-            count1++;
-            // Masukkan lagu (loop lagu per setiap album)
-            for (int k = count2; k < Song.Count; k++){
-                ADVWORDBlank( );
-                // Ambil nama lagu
-                valuetype namaL = WordTostring(currentWord);
-                // Masukkan ke Song
-                Song.Elements[count2].IdAlbum = count1;
-                Song.Elements[count2].namalagu = namaL;
-                count2++ ;
+        for (int i = 0; i < loop; i++){
+            ADVSATUKATA();
+            int album = atoi(CLine.TabLine);
+            
+            ADVKALIMAT();
+            
+            AddPenyanyi(LP, CLine);
+
+            for (int j = 0; j < album; j++){
+            ADVSATUKATA();
+            int lagu = atoi(CLine.TabLine);
+
+            ADVKALIMAT();
+
+            AddAlbum(LP, CLine);
+
+            for (int k = 0; k < lagu; k++)
+            {
+                ADVKALIMAT();
+
+                AddLagu(LP, CLine);
+            }
             }
         }
+
+        ADVKALIMAT();
+
+            int loopRecordQ = atoi(CLine.TabLine);
+
+            for (int i = 0; i < loopRecordQ; i++) // Record Queue
+            {  
+                ADVRECORD();
+                Kalimat NamaPenyanyi = CLine;
+                ADVRECORD();
+                Kalimat NamaAlbum = CLine;
+                ADVRECORD();
+                Kalimat NamaLagu = CLine;
+
+                enqueueLagu(NamaLagu, NamaAlbum, NamaPenyanyi);
+            }
+
+            ADVKALIMAT();
+            int loopRecordR = atoi(CLine.TabLine);
+
+            for (int i = 0; i < loopRecordR; i++) // Record Riwayat
+            {
+                ADVRECORD();
+                Kalimat NamaPenyanyi = CLine;
+                ADVRECORD();
+                Kalimat NamaAlbum = CLine;
+                ADVRECORD();
+                Kalimat NamaLagu = CLine;
+
+                PushRiwayatLagu(NamaLagu, NamaAlbum, NamaPenyanyi);
+            }
+
+
+            ADVKALIMAT();
+            int loopRecordP = atoi(CLine.TabLine); // Jumlah Playlist
+
+            for (int i = 0; i < loopRecordP; i++) // Loop Playlist
+            {
+
+                ADVSATUKATA();
+                int LaguPlaylist = atoi(CLine.TabLine);
+
+                ADVKALIMAT();
+
+                for (int j = 0; j < LaguPlaylist; j++)
+                {   
+                    infoType Data;
+
+                    ADVRECORD();
+                    Data.NamaPenyanyi = CLine;
+
+                    ADVRECORD();
+                    Data.NamaAlbum = CLine;
+
+                    ADVRECORD();
+
+                    InsVLast((&(*DU).AP[idUser].A[i]), Data);
+
+                }
+            }
+        printf("Save file berhasil dibaca. WayangWave berhasil dijalankan.\n");
+        }
+    else
+    {
+        printf("Save file tidak ditemukan. WayangWave gagal dijalankan.\n");
     }
 }
 
@@ -827,122 +828,39 @@ void deletePlaylist() {
 }
 
 
-// void updateSaveUser(){
-//     arrOfPlaylist[userId] = MapPlaylist;
-//     arrOfLagu[userId] = currentPlaying;
-//     arrOfStack[userId] = StackLagu;
-//     arrOfQueue[userId] = QueueLagu;
-// }
-
 /*SAVE*/
-void Save(){
-// {
-//     updateSaveUser();
+void Save(ListPenyanyi * LP, char filename[])
+{
+    static FILE * File;
+    File = fopen(filename, "w");
 
-//     Word filePath; 
-//     if(!Quit){
-//         ADVWORD();
-//         SetWord(&filePath, "../save/");
-//         ConcatWord(currentWord,&filePath);
-//     }
+    // printf("\n%sJumlah Penyanyi: %s%d\n", WHITE, MAGENTA, loop);
 
-//     else{
-//         SetWord(&filePath, "../save/savefile.txt");
-//     }
+    fprintf(File, "%d\n", (*LP).NEff);
 
-//     printf("%s\n",filePath.TabWord);
-//     FILE *file = fopen(filePath.TabWord, "w");
+    for (int i = 0; i < (*LP).NEff; i++){
 
-//     //BAGIAN MAP LAGU dan ALBUM 
-//     //Print Jumlah Penyanyi
+        fprintf(File, "%d %s\n", (*LP).PenyanyiAlbum[i].ListAlbum.NEff, (*LP).PenyanyiAlbum[i].NamaPenyanyi.TabLine);
 
-//     int numOfSinger = SetDaftarPenyanyi.Count;
-//     fprintf(file, "%d\n", numOfSinger);
+        for (int j = 0; j < (*LP).PenyanyiAlbum[i].ListAlbum.NEff; j++){
+            
+            fprintf(File, "%d %s\n", (*LP).PenyanyiAlbum[i].ListAlbum.AlbumLagu[j].IsiLagu.Count, (*LP).PenyanyiAlbum[i].ListAlbum.AlbumLagu[j].NamaAlbum.TabLine);
+            for (int k = 0; k < (*LP).PenyanyiAlbum[i].ListAlbum.AlbumLagu[j].IsiLagu.Count; k++)
+            {
+                ADVKALIMAT();
+                if (i == (*LP).NEff && j == (*LP).PenyanyiAlbum[i].ListAlbum.NEff && k == (*LP).PenyanyiAlbum[i].ListAlbum.AlbumLagu[j].IsiLagu.Count)
+                {
+                    fprintf(File, "%s", (*LP).PenyanyiAlbum[i].ListAlbum.AlbumLagu[j].IsiLagu.JudulLagu[k].TabLine);
+                }
+                else
+                {
+                    fprintf(File, "%s\n", (*LP).PenyanyiAlbum[i].ListAlbum.AlbumLagu[j].IsiLagu.JudulLagu[k].TabLine);
+                }
+            }
 
-//     //Nama Penyanyi dan Jumlah Album dari Penyanyi
-//     for(int i = 0; i < numOfSinger; i++){
-//         //Banyak Album 
-//         SetOfWord newSet = Value(MapAlbum, SetDaftarPenyanyi.buffer[i]);
-//         int numOfAlbum = newSet.Count;
-//         fprintf(file, "%d %s\n", numOfAlbum, SetDaftarPenyanyi.buffer[i].TabWord); //Menulis Penyanyi
+        }
 
-//         for(int j = 0; j < numOfAlbum; j++){
-//             SetOfWord setLagu = Value(MapLagu, newSet.buffer[j]);
-//             int numOfSongs = setLagu.Count;
-//             fprintf(file, "%d %s\n",numOfSongs, newSet.buffer[j].TabWord);
-//             for(int k = 0;k < numOfSongs; k++){
-//                 fprintf(file, "%s\n",setLagu.buffer[k].TabWord);
-//             }
-//         }
-//     }
-
-//     //Bagian Daftar User 
-//     fprintf(file, "%d\n",numOfSinger);
-//     for(int ac = 0; ac<SetDaftarUser.Count; ac++){
-//         fprintf(file, "%s\n",SetDaftarUser.buffer[ac].TabWord);
-//     }
-
-//     for(int n = 0 ; n < SetDaftarUser.Count; n++){
-//         currentPlaying = arrOfLagu[n+1];
-//         StackLagu = arrOfStack[n+1];
-//         MapPlaylist = arrOfPlaylist[n+1];
-//         QueueLagu = arrOfQueue[n+1];
-
-//         //Bagian CurrentPlaying
-//         if(IsEmptyLagu(currentPlaying)){
-//             fprintf(file,"-\n");
-//         }
-//         else fprintf(file, "%s;%s;%s\n", currentPlaying.Penyanyi.TabWord, currentPlaying.Album.TabWord, currentPlaying.Judul.TabWord);
-//         //BAGIAN QUEUE 
-//         int numOfQ = QueueLagu.idxTail+1;
-//         fprintf(file,"%d\n",numOfQ);
-//         Queue newQueue = QueueLagu; 
-//         for(int i =0; i< numOfQ; i++){
-//             Lagu temp; 
-//             dequeue(&newQueue, &temp);
-//             fprintf(file,"%s;%s;%s\n",temp.Penyanyi.TabWord, temp.Album.TabWord, temp.Judul.TabWord);
-//         }
-
-//         //BAGIAN STACK 
-//         Stack newStack;
-//         CreateEmpty(&newStack);
-//         int cnt =0; 
-//         while(!IsEmptyStack(StackLagu)){
-//             Lagu temp; 
-//             Pop(&StackLagu, &temp);
-//             Push(&newStack, temp);
-//             cnt++; 
-//         }
-//         fprintf(file, "%d\n",cnt);
-//         while(cnt){
-//             Lagu temp; 
-//             Pop(&newStack, &temp);
-//             fprintf(file, "%s;%s;%s\n",temp.Penyanyi.TabWord, temp.Album.TabWord, temp.Judul.TabWord);
-//             Push(&StackLagu,temp);
-//             cnt--;
-//         }
-
-//         //BAGIAN PLAYLIST
-//         int numOfPlaylist = MapPlaylist.Count; 
-//         fprintf(file, "%d\n",numOfPlaylist);
-//         for(int i =0; i<numOfPlaylist; i++){
-//             Word Key = MapPlaylist.Elements[i].Key; 
-//             LinkedList l = MapPlaylist.Elements[i].Value;
-//             int numOfSong = NbElmt(l);
-//             fprintf(file, "%d %s\n",numOfSong,Key.TabWord);
-//             listlinieraddress p = l.First; 
-//             while(p != Nil){
-//             fprintf(file, "%s;%s;%s\n",p->info.Penyanyi.TabWord, p->info.Album.TabWord, p->info.Judul.TabWord);
-//             p = p->next;
-//             }
-//         }
-//     }
-
-//     fclose(file);
-//     printf("Save file berhasil disimpan.\n"); 
-//     START();
-
-//     }
+    }
 }
 
 /*QUIT*/
