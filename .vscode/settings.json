@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "playlist.h": "c",
+        "mesinkalimat.h": "c",
+        "random": "c"
+    }
+}

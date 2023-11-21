@@ -11,6 +11,11 @@ void LOADFILE(ListPenyanyi * LP, char filename[])
     Kalimat NamaPenyanyi;
     Kalimat NamaAlbum;
     Kalimat NamaLagu;
+    Stack History;
+    Queue antre;
+
+    CreateEmptyStack(&History);
+    CreateQueue(&antre);
 
     int loop = atoi(CLine.TabLine);
 
@@ -46,31 +51,32 @@ void LOADFILE(ListPenyanyi * LP, char filename[])
 
             int loopRecordQ = atoi(CLine.TabLine);
 
-            for (int i = 0; i < loopRecordQ; i++) // Record Queue
-            {  
+            for (int i = 0; i < loopRecordQ; i++) // Queue
+            {  contentQueue lagu;
                 ADVRECORD();
-                Kalimat NamaPenyanyi = CLine;
+                lagu.NamaPenyanyi = CLine;
                 ADVRECORD();
-                Kalimat NamaAlbum = CLine;
+                lagu.NamaAlbum = CLine;
                 ADVRECORD();
-                Kalimat NamaLagu = CLine;
+                lagu.JudulLagu = CLine;
 
-                enqueueLagu(NamaLagu, NamaAlbum, NamaPenyanyi);
+                enqueue(&antre, lagu);
             }
 
             ADVKALIMAT();
             int loopRecordR = atoi(CLine.TabLine);
 
-            for (int i = 0; i < loopRecordR; i++) // Record Riwayat
+            for (int i = 0; i < loopRecordR; i++) // History input
             {
+                contentStack song;
                 ADVRECORD();
-                Kalimat NamaPenyanyi = CLine;
+                song.NamaPenyanyi = CLine;
                 ADVRECORD();
-                Kalimat NamaAlbum = CLine;
+                song.NamaAlbum = CLine;
                 ADVRECORD();
-                Kalimat NamaLagu = CLine;
+                song.JudulLagu = CLine;
 
-                PushRiwayatLagu(NamaLagu, NamaAlbum, NamaPenyanyi);
+                Push(&History, song);
             }
 
 

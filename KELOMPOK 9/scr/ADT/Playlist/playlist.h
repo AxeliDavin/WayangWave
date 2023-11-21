@@ -13,7 +13,7 @@
 #define Nil NULL
 
 /*Definisi Struktur Data*/
-typedef char *infotype;
+typedef Kalimat infotype;
 typedef char *name;
 
 typedef struct tElmtplaylist *playlistaddress;

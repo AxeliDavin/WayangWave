@@ -19,17 +19,19 @@ typedef int stackaddress;   /* indeks tabel */
 /* Contoh deklarasi variabel bertype stack dengan ciri TOP : */
 /* Versi I : dengan menyimpan tabel dan alamat top secara eksplisit*/
 typedef struct {
-    Kalimat JudulLagu[15];
-    Kalimat NamaAlbum[15];
-    Kalimat NamaPenyanyi[15];
+    Kalimat JudulLagu; 
+    Kalimat NamaAlbum;
+    Kalimat NamaPenyanyi;
+}contentStack;
+
+typedef struct {
+    contentStack buffer[CAPACITY];
     int IDXTOP;
 } Stack;
 
 /* Definisi akses dengan Selektor : Set dan Get */
 #define Top(S) (S).IDXTOP
-#define InfoLagu(S) (S).JudulLagu[(S).IDXTOP]
-#define InfoAlbum(S) (S).NamaAlbum[(S).IDXTOP]
-#define InfoPenyanyi(S) (S).NamaPenyanyi[(S).IDXTOP]
+#define     TOP(S) (S).buffer[(S).IDXTOP]
 
 /* ************ Prototype ************ */
 /* *** Konstruktor/Kreator *** */
@@ -46,7 +48,7 @@ boolean IsFullStack(Stack S);
 /* Mengirim true jika tabel penampung NilStackai elemen stack penuh */
 
 /* ************ Menambahkan sebuah elemen ke Stack ************ */
-void Push(Stack *S, Kalimat JudulLagu, Kalimat NamaAlbum, Kalimat NamaPenyanyi);
+void Push(Stack *S, contentStack val);
 /* Menambahkan X sebagai elemen Stack S. */
 /* I.S. S mungkin kosong, tabel penampung elemen stack TIDAK penuh */
 /* F.S. X menjadi TOP yang baru,TOP bertambah 1 */

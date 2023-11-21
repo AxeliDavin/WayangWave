@@ -16,10 +16,10 @@ typedef struct {
     Kalimat JudulLagu; 
     Kalimat NamaAlbum;
     Kalimat NamaPenyanyi;
-}content;
+}contentQueue;
 
 typedef struct {
-        content buffer[CAPACITY];
+        contentQueue buffer[CAPACITY];
 	int idxHead;
 	int idxTail;
         int idPlaylist;
@@ -53,12 +53,12 @@ int length(Queue q);
 /* Mengirimkan banyaknya elemen queue. Mengirimkan 0 jika q kosong. */
 
 /* *** Primitif Add/Delete *** */
-void enqueue(Queue *q, content val);
+void enqueue(Queue *q, contentQueue val);
 /* Proses: Menambahkan val pada q dengan aturan FIFO */
 /* I.S. q mungkin kosong, tabel penampung elemen q TIDAK penuh */
 /* F.S. val menjadi TAIL yang baru, IDX_TAIL "mundur" dalam buffer melingkar. */
 
-void dequeue(Queue *q, content *val);
+void dequeue(Queue *q, contentQueue *val);
 /* Proses: Menghapus val pada q dengan aturan FIFO */
 /* I.S. q tidak mungkin kosong */
 /* F.S. val = nilai elemen HEAD pd I.S., IDX_HEAD "mundur";
