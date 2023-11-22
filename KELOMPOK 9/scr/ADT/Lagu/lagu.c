@@ -1,7 +1,7 @@
 #include "lagu.h"
 
 /* *** Konstruktor/Kreator *** */
-void CreateEmptySet(SetLagu *S)
+void CreateEmptySetLagu(SetLagu *S)
 /* I.S. Sembarang */
 /* F.S. Membuat sebuah Set S kosong berkapasitas MaxElSet */
 /* Ciri Set kosong : count berNilSetai NilSet */
@@ -10,14 +10,14 @@ void CreateEmptySet(SetLagu *S)
 }
 
 /* ********* Predikat Untuk test keadaan KOLEKSI ********* */
-boolean IsEmptySet(SetLagu S)
+boolean IsEmptySetLagu(SetLagu S)
 /* Mengirim true jika Set S kosong*/
 /* Ciri Set kosong : count berNilSetai NilSet */
 {
     return S.Count == NilSet;
 }
 
-boolean IsFullSet(SetLagu S)
+boolean IsFullSetLagu(SetLagu S)
 /* Mengirim true jika Set S penuh */
 /* Ciri Set penuh : count berNilSetai MaxElSet */
 {
@@ -25,13 +25,13 @@ boolean IsFullSet(SetLagu S)
 }
 
 /* ********** Operator Dasar Set ********* */
-void Insert(SetLagu *S, Kalimat Elmt)
+void InsertLagu(SetLagu *S, Kalimat Elmt)
 /* Menambahkan Elmt sebagai elemen Set S. */
 /* I.S. S mungkin kosong, S tidak penuh
         S mungkin sudah beranggotakan Elmt */
 /* F.S. Elmt menjadi anggota dari S. Jika Elmt sudah merupakan anggota, operasi tidak dilakukan */
 {
-    if (IsMemberSet(*S, Elmt))
+    if (IsMemberSetLagu(*S, Elmt))
     {
         return;
     }
@@ -39,7 +39,7 @@ void Insert(SetLagu *S, Kalimat Elmt)
     S->Count++;
 }
 
-void Delete(SetLagu *S, Kalimat Elmt)
+void DeleteLagu(SetLagu *S, Kalimat Elmt)
 /* Menghapus Elmt dari Set S. */
 /* I.S. S tidak kosong
         Elmt mungkin anggota / bukan anggota dari S */
@@ -47,7 +47,7 @@ void Delete(SetLagu *S, Kalimat Elmt)
 {
     boolean found = false;
     setaddress idx = 0, iterator;
-    if (!IsMemberSet(*S, Elmt))
+    if (!IsMemberSetLagu(*S, Elmt))
     {
         return;
     }
@@ -69,7 +69,7 @@ void Delete(SetLagu *S, Kalimat Elmt)
     S->Count--;
 }
 
-boolean IsMemberSet(SetLagu S, Kalimat Elmt)
+boolean IsMemberSetLagu(SetLagu S, Kalimat Elmt)
 /* Mengembalikan true jika Elmt adalah member dari S */
 {
     boolean found = false;

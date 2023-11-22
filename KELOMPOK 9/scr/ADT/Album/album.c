@@ -1,7 +1,7 @@
 #include "album.h"
 
 /* *** Konstruktor/Kreator *** */
-void CreateEmptyMap(Album *M)
+void CreateEmptyMapAlbum(Album *M)
 /* I.S. Sembarang */
 /* F.S. Membuat sebuah Map M kosong berkapasitas MaxElMap */
 /* Ciri Map kosong : count bernilai NilMap */
@@ -10,14 +10,14 @@ void CreateEmptyMap(Album *M)
 }
 
 /* ********* Predikat Untuk test keadaan KOLEKSI ********* */
-boolean IsEmptyMap(Album M)
+boolean IsEmptyMapAlbum(Album M)
 /* Mengirim true jika Map M kosong*/
 /* Ciri Map kosong : count bernilai NilMap */
 {
     return M.Count == NilMap;
 }
 
-boolean IsFullMap(Album M)
+boolean IsFullMapAlbum(Album M)
 /* Mengirim true jika Map M penuh */
 /* Ciri Map penuh : count bernilai MaxElMap */
 {
@@ -25,7 +25,7 @@ boolean IsFullMap(Album M)
 }
 
 /* ********** Operator Dasar Map ********* */
-valtypeAlbum Value(Album M, keytype k)
+valtypeAlbum ValueAlbum(Album M, keytype k)
 /* Mengembalikan nilai value dengan key k dari M */
 /* Jika tidak ada key k pada M, tidak mengembalikan apa-apa */
 {
@@ -39,26 +39,26 @@ valtypeAlbum Value(Album M, keytype k)
     return;
 }
 
-void InsertMap(Album *M, keytype k, valtypeAlbum v)
+void InsertMapAlbum(Album *M, keytype k, valtypeAlbum v)
 /* Menambahkan Elmt sebagai elemen Map M. */
 /* I.S. M mungkin kosong, M tidak penuh
         M mungkin sudah beranggotakan v dengan key k */
 /* F.S. v menjadi anggota dari M dengan key k. Jika k sudah ada, operasi tidak dilakukan */
 {
-    if (IsMemberMap(*M, k)) return;
+    if (IsMemberMapAlbum(*M, k)) return;
 
     M->AlbumLagu[M->Count].NamaAlbum = k;
     M->AlbumLagu[M->Count].IsiLagu = v;
     M->Count++;
 }
 
-void DeleteMap(Album *M, keytype k)
+void DeleteMapAlbum(Album *M, keytype k)
 /* Menghapus Elmt dari Map M. */
 /* I.S. M tidak kosong
         element dengan key k mungkin anggota / bukan anggota dari M */
 /* F.S. element dengan key k bukan anggota dari M */
 {
-    if (!IsMemberMap(*M, k)) return;
+    if (!IsMemberMapAlbum(*M, k)) return;
 
     boolean found = false;
     address idx = 0, iterator;
@@ -76,7 +76,7 @@ void DeleteMap(Album *M, keytype k)
     M->Count--;
 }
 
-boolean IsMemberMap(Album M, keytype k)
+boolean IsMemberMapAlbum(Album M, keytype k)
 /* Mengembalikan true jika k adalah member dari M */
 {
     address idx = 0, iterator;
