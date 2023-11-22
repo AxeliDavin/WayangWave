@@ -34,18 +34,18 @@ void Push (Stack *S, contentStack val)
     if ((*S).IDXTOP == -1)
     {
         Top(*S) = 0;
-        InfoLagu(*S) = JudulLagu;
-        InfoAlbum(*S) = NamaAlbum;
-        InfoPenyanyi(*S) = NamaPenyanyi;
+        TOP(*S).JudulLagu = val.JudulLagu;
+        TOP(*S).NamaAlbum = val.NamaAlbum;
+        TOP(*S).NamaPenyanyi = val.NamaPenyanyi;
         
     }
     else
     {
-        if ((*S).IDXTOP < 50-1) {
+        if ((*S).IDXTOP < MaxElStack-1) {
             Top(*S)++;
-            InfoLagu(*S) = JudulLagu;
-            InfoAlbum(*S) = NamaAlbum;
-            InfoPenyanyi(*S) = NamaPenyanyi;
+            TOP(*S).JudulLagu = val.JudulLagu;
+            TOP(*S).NamaAlbum = val.NamaAlbum;
+            TOP(*S).NamaPenyanyi = val.NamaPenyanyi;
         }
     }
 }
@@ -56,8 +56,8 @@ void Pop (Stack * S, CurrentSong* X)
 /* I.S. S  tidak mungkin kosong */
 /* F.S. X adalah NilStackai elemen TOP yang lama, TOP berkurang 1 */
 {
-    (*X).JudulLagu = (*S).JudulLagu[(*S).IDXTOP];
-    (*X).NamaAlbum = (*S).NamaAlbum[(*S).IDXTOP];
-    (*X).NamaPenyanyi = (*S).NamaPenyanyi[(*S).IDXTOP];
+    (*X).JudulLagu = TOP(*S).JudulLagu;
+    (*X).NamaAlbum = TOP(*S).NamaAlbum;
+    (*X).NamaPenyanyi = TOP(*S).NamaPenyanyi;
     Top(*S) -= 1;
 }

@@ -38,7 +38,7 @@ int length(Queue q){
         return IDX_TAIL(q) - IDX_HEAD(q) + CAPACITY + 1;
 }
 /* *** Primitif Add/Delete *** */
-void enqueue(Queue *q, content val){
+void enqueue(Queue *q, contentQueue val){
 /* Proses: Menambahkan val pada q dengan aturan FIFO */
 /* I.S. q mungkin kosong, tabel penampung elemen q TIDAK penuh */
 /* F.S. val menjadi TAIL yang baru, IDX_TAIL "mundur" dalam buffer melingkar. */
@@ -54,14 +54,18 @@ void enqueue(Queue *q, content val){
             IDX_TAIL(*q) += 1;
         }
     }
-    TAIL(*q) = val;
+    TAIL(*q).JudulLagu = val.JudulLagu;
+    TAIL(*q).NamaAlbum = val.NamaAlbum;
+    TAIL(*q).NamaPenyanyi = val.NamaPenyanyi;
 }
-void dequeue(Queue *q, content *val){
+void dequeue(Queue *q, CurrentSong *val){
 /* Proses: Menghapus val pada q dengan aturan FIFO */
 /* I.S. q tidak mungkin kosong */
 /* F.S. val = nilai elemen HEAD pd I.S., IDX_HEAD "mundur";
         q mungkin kosong */
-    *val = HEAD(*q);
+    (*val).JudulLagu = HEAD(*q).JudulLagu;
+    (*val).NamaAlbum = HEAD(*q).NamaAlbum;
+    (*val).NamaPenyanyi = HEAD(*q).NamaPenyanyi;
     if (IDX_HEAD(*q) == IDX_TAIL(*q))
     {
         IDX_HEAD(*q) = IDX_UNDEF;
