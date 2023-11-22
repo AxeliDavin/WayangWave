@@ -53,7 +53,7 @@ void Delete(SetLagu *S, Kalimat Elmt)
     }
     while (!found && idx < S->Count)
     {
-        if (S->JudulLagu[idx] == Elmt)
+        if (isKalimatEqual(S->JudulLagu[idx],Elmt))
         {
             found = true;
         }
@@ -76,7 +76,7 @@ boolean IsMemberSet(SetLagu S, Kalimat Elmt)
     setaddress idx = 0, iterator;
     while (!found && idx < S.Count)
     {
-        if (S.JudulLagu[idx] == Elmt)
+        if (isKalimatEqual(S.JudulLagu[idx],Elmt))
         {
             found = true;
         }
