@@ -3,9 +3,9 @@
 #ifndef album_H
 #define album_H
 #include <stdio.h>
-#include "../boolean.h"
-#include "../MesinKalimat/mesinkalimat.h"
-#include "../lagu.h"
+#include "./MesinKalimat/mesinkalimat.h"
+#include "lagu.h"
+#include "boolean.h"
 
 /* MODUL MAP ALBUM
 */
