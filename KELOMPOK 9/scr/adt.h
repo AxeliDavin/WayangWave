@@ -10,4 +10,6 @@
 #include "./ADT/MesinKalimat/mesinkalimat.h"
 #include "./ADT/SongAlbumSinger/songalbumsinger.h"
 #include "./ADT/Song.h"
+#include "./ADT/Lagu/lagu.h"
 #include "./ADT/Album/album.h"
+#include "./ADT/Singer/singer.h"

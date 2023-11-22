@@ -3,9 +3,9 @@
 #include "console.h"
 
 /*Global Variable*/
-List Penyanyi;
-Map Album;
-Set Song;
+ListPenyanyi Penyanyi;
+MapAlbum Album;
+SetLagu Song;
 Playlist playlist;
 Queue queue;
 
@@ -544,8 +544,8 @@ void songQueue() {
     // Belum ada penanganan inputan tidak valid. Butuh ga ya?
     // Menampilkan list daftar penyanyi
     printf("Daftar Penyanyi :\n");
-    for (int i=0; i<Length(singer); i++) {
-        printf("%s\n", Get(singer, i));
+    for (int i=0; i<Length(Penyanyi); i++) {
+        printf("%s\n", );
     }
 
     // Menerima inputan nama penyanyi
