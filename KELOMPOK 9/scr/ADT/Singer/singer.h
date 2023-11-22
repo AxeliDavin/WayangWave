@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include "../boolean.h"
 #include "../MesinKalimat/mesinkalimat.h"
-#include "../album.h"
+#include "../Album/album.h"
 
 // MODUL MAP SINGER
 
@@ -39,38 +39,38 @@ typedef struct
 /* ********* Prototype ********* */
 
 /* *** Konstruktor/Kreator *** */
-void CreateEmptyMap(Album *M);
+void CreateEmptyMapSinger(Singer *M);
 /* I.S. Sembarang */
 /* F.S. Membuat sebuah Map M kosong berkapasitas MaxEl */
 /* Ciri Map kosong : count bernilai NilMap */
 
 /* ********* Predikat Untuk test keadaan KOLEKSI ********* */
-boolean IsEmptyMap(Album M);
+boolean IsEmptyMapSinger(Singer M);
 /* Mengirim true jika Map M kosong*/
 /* Ciri Map kosong : count bernilai NilMap */
 
-boolean IsFullMap(Album M);
+boolean IsFullMapSinger(Singer M);
 /* Mengirim true jika Map M penuh */
 /* Ciri Map penuh : count bernilai MaxEl */
 
 /* ********** Operator Dasar Map ********* */
-valtypeAlbum Value(Album M, keytype k);
+valtypeSinger ValueSinger(Singer M, keytype k);
 /* Mengembalikan nilai value dengan key k dari M */
 /* Jika tidak ada key k pada M, akan mengembalikan Undefined */
 
-void InsertMap(Album *M, keytype k, valtypeAlbum v);
+void InsertMapSinger(Singer *M, keytype k, valtypeSinger v);
 /* Menambahkan Elmt sebagai elemen Map M. */
 /* I.S. M mungkin kosong, M tidak penuh
         M mungkin sudah beranggotakan v dengan key k */
 /* F.S. v menjadi anggota dari M dengan key k. Jika k sudah ada, operasi tidak dilakukan */
 
-void DeleteMap(Album *M, keytype k);
+void DeleteMapSinger(Singer *M, keytype k);
 /* Menghapus Elmt dari Map M. */
 /* I.S. M tidak kosong
         element dengan key k mungkin anggota / bukan anggota dari M */
 /* F.S. element dengan key k bukan anggota dari M */
 
-boolean IsMemberMap(Album M, keytype k);
+boolean IsMemberMapSinger(Singer M, keytype k);
 /* Mengembalikan true jika k adalah member dari M */
 
 #endif
