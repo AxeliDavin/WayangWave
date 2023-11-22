@@ -39,6 +39,9 @@ void ADV()
        //if (EOP){
        //       currentChar = '\0';
        //}
+       if (EOP) {
+              fclose(pita);
+       }
 }
 
 void STARTFILE(char filename[])
@@ -63,4 +66,16 @@ void ADVFILE() {
     if (feof(pita)) {
        fclose(pita);
     }
+}
+
+char GetCC() {
+    /* Mengirimkan currentChar */
+    /* Algoritma */
+    return currentChar;
+}
+
+boolean IsEOP() {
+    /* Mengirimkan true jika currentChar = MARK */
+    /* Algoritma */
+    return EOP;
 }

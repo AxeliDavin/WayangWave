@@ -136,32 +136,4 @@ void PrintInfo (ListLinier L);
 int NbElmt (ListLinier L);
 /* Mengirimkan banyaknya elemen ListLinier; mengirimkan 0 jika ListLinier kosong */
 
-/*** Prekondisi untuk Max/Min/rata-rata : ListLinier tidak kosong ***/
-infoType Max (ListLinier L);
-/* Mengirimkan nilai info(P) yang maksimum */
-address AdrMax (ListLinier L);
-/* Mengirimkan address P, dengan info(P) yang bernilai maksimum */
-infoType Min (ListLinier L);
-/* Mengirimkan nilai info(P) yang minimum */
-address AdrMin (ListLinier L);
-/* Mengirimkan address P, dengan info(P) yang bernilai minimum */
-float Average (ListLinier L);
-/* Mengirimkan nilai rata-rata info(P) */
-
-/****************** PROSES TERHADAP ListLinier ******************/
-
-void InversListLinier (ListLinier *L);
-/* I.S. sembarang. */
-/* F.S. elemen ListLinier dibalik : */
-/* Elemen terakhir menjadi elemen pertama, dan seterusnya. */
-/* Membalik elemen ListLinier, tanpa melakukan alokasi/dealokasi. */
-
-void Konkat1 (ListLinier *L1, ListLinier *L2, ListLinier *L3);
-/* I.S. L1 dan L2 sembarang */
-/* F.S. L1 dan L2 kosong, L3 adalah hasil konkatenasi L1 & L2 */
-/* Konkatenasi dua buah list : L1 dan L2    */
-/* menghasilkan L3 yang baru (dengan elemen list L1 dan L2) */
-/* dan L1 serta L2 menjadi list kosong.*/
-/* Tidak ada alokasi/dealokasi pada prosedur ini */
-
 #endif

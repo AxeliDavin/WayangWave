@@ -34,4 +34,10 @@ void STARTFILE(char filename[]);
 
 void ADVFILE();
 
+char GetCC();
+/* Mengirimkan currentChar */
+
+boolean IsEOP();
+/* Mengirimkan true jika currentChar = MARK */
+
 #endif
