@@ -6,11 +6,10 @@
 Queue queue;
 Stack History;
 Queue antre;
-Playlist Playlists;
+Playlist playlist;
 ListPenyanyi Penyanyi;
 MapAlbum Album;
 SetLagu Song;
-Playlist Playlists;
 
 /*Tempat Command*/
 
@@ -21,7 +20,7 @@ void readCommand(){
     CreateEmptyListPenyanyi(&Penyanyi);
 
     /*Pembuatan List Linier Playlist*/
-    CreateEmptyPlaylist(&Playlists);
+    CreateEmptyPlaylist(&playlist);
     CreateQueue(&queue);
     
     boolean masuksesi = false, stopsesi = false;
@@ -55,7 +54,7 @@ void readCommand(){
         } 
         
         else if (IsKataSama(currentWord.TabWord, "LIST")){
-            ADVWORDBlank();
+            ADVWORD();
             if (IsKataSama(currentWord.TabWord, "DEFAULT")){
                 if (!masuksesi){
                     printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
@@ -72,7 +71,7 @@ void readCommand(){
         } 
 
         else if (IsKataSama(currentWord.TabWord, "PLAY")){
-            ADVWORDBlank();
+            ADVWORD();
             if (IsKataSama(currentWord.TabWord, "SONG")){
                 if (!masuksesi){
                     printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
@@ -89,7 +88,7 @@ void readCommand(){
         } 
 
         else if (IsKataSama(currentWord.TabWord, "QUEUE")){
-            ADVWORDBlank();
+            ADVWORD();
             if (IsKataSama(currentWord.TabWord, "SONG")){
                 if (!masuksesi){
                     printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
@@ -124,7 +123,7 @@ void readCommand(){
         }
                 
         else if (IsKataSama(currentWord.TabWord, "PLAYLIST")){
-            ADVWORDBlank();
+            ADVWORD();
             if (IsKataSama(currentWord.TabWord, "CREATE")){
                 if (!masuksesi){
                     printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
@@ -223,7 +222,7 @@ void Start(ListPenyanyi *LP, char path[])
 
 
 /*LOAD*/
-void LOADFILE(ListPenyanyi * LP, char filename[])
+void Load(ListPenyanyi * LP, char filename[])
 {
 
     STARTKALIMATFILE(filename);
@@ -266,31 +265,32 @@ void LOADFILE(ListPenyanyi * LP, char filename[])
 
             int loopRecordQ = atoi(CLine.TabLine);
 
-            for (int i = 0; i < loopRecordQ; i++) // Record Queue
-            {  
+            for (int i = 0; i < loopRecordQ; i++) // Queue
+            {  contentQueue lagu;
                 ADVRECORD();
-                Kalimat NamaPenyanyi = CLine;
+                lagu.NamaPenyanyi = CLine;
                 ADVRECORD();
-                Kalimat NamaAlbum = CLine;
+                lagu.NamaAlbum = CLine;
                 ADVRECORD();
-                Kalimat NamaLagu = CLine;
+                lagu.JudulLagu = CLine;
 
-                enqueueLagu(NamaLagu, NamaAlbum, NamaPenyanyi);
+                enqueue(&antre, lagu);
             }
 
             ADVKALIMAT();
             int loopRecordR = atoi(CLine.TabLine);
 
-            for (int i = 0; i < loopRecordR; i++) // Record Riwayat
+            for (int i = 0; i < loopRecordR; i++) // History input
             {
+                contentStack song;
                 ADVRECORD();
-                Kalimat NamaPenyanyi = CLine;
+                song.NamaPenyanyi = CLine;
                 ADVRECORD();
-                Kalimat NamaAlbum = CLine;
+                song.NamaAlbum = CLine;
                 ADVRECORD();
-                Kalimat NamaLagu = CLine;
+                song.JudulLagu = CLine;
 
-                PushRiwayatLagu(NamaLagu, NamaAlbum, NamaPenyanyi);
+                Push(&History, song);
             }
 
 
@@ -303,22 +303,21 @@ void LOADFILE(ListPenyanyi * LP, char filename[])
                 ADVSATUKATA();
                 int LaguPlaylist = atoi(CLine.TabLine);
 
-                ADVKALIMAT();
-
                 for (int j = 0; j < LaguPlaylist; j++)
                 {   
-                    infoType Data;
+                    
+                    infoType Songs;
 
                     ADVRECORD();
-                    Data.NamaPenyanyi = CLine;
+                    Songs.NamaPenyanyi = CLine;
 
                     ADVRECORD();
-                    Data.NamaAlbum = CLine;
+                    Songs.NamaAlbum = CLine;
 
                     ADVRECORD();
+                    Songs.JudulLagu = CLine;
 
-                    InsVLast(&playlist, Data);
-
+                    InsVLast(playlist.A, Songs);
                 }
             }
         printf("Save file berhasil dibaca. WayangWave berhasil dijalankan.\n");
