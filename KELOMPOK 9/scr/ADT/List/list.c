@@ -73,12 +73,11 @@ void InsertFirstList(List *L, ElTypeList X) {
 }
 
 void InsertAt(List *L, ElTypeList X, IdxType i) {
-    IdxType j = LastIdx(*L);
-	while (i <= j) {
-		SetList(L, j+1, Get(*L, j));
-        j--;
-	}
-	SetList(L, i, X);
+    for (int j = Length(*L); j > i; j--)
+    {
+        L->A[j] = L->A[j-1];
+    }
+    L->A[i] = X;
 }
 
 void InsertLastList(List *L, ElTypeList X) {
@@ -128,4 +127,17 @@ List Concat(List L1, List L2) {
 	}
 
     return L3;
+}
+
+void DisplayList(List L){
+	printf("[");
+	if (!IsEmptyList(L))
+	{
+		for (int i = 0; i < LastIdx(L); i++)
+		{
+			printf("%d,", Get(L, i));
+		}	
+		printf("%d", Get(L, LastIdx(L)));
+	}
+	printf("]\n");
 }
