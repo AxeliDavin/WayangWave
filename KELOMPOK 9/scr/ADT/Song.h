@@ -15,14 +15,9 @@ typedef struct {
     Kalimat NamaAlbum;
     Kalimat NamaPenyanyi;
     Kalimat NamaPlaylist;
-    int status;
+    //int status;
     int statusPL;
 } CurrentSong;
 
-typedef struct {
-	Kalimat NamaUser;
-    int idUser;
-    int status;
-} CurrentUser;
 
 #endif

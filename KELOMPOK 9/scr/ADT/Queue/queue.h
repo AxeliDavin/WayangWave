@@ -7,6 +7,8 @@
 #include "../boolean.h"
 #include "../Playlist/playlist.h"
 #include "../MesinKalimat/mesinkalimat.h"
+#include "../Song.h"
+
 
 #define IDX_UNDEF -1
 #define CAPACITY 100
