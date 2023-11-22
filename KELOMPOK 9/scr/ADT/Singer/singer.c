@@ -1,7 +1,7 @@
 #include "singer.h"
 
 /* *** Konstruktor/Kreator *** */
-void CreateEmptyMap(Singer *M)
+void CreateEmptyMapSinger(Singer *M)
 /* I.S. Sembarang */
 /* F.S. Membuat sebuah Map M kosong berkapasitas MaxElMap */
 /* Ciri Map kosong : NEff bernilai NilMap */
@@ -10,14 +10,14 @@ void CreateEmptyMap(Singer *M)
 }
 
 /* ********* Predikat Untuk test keadaan KOLEKSI ********* */
-boolean IsEmptyMap(Singer M)
+boolean IsEmptyMapSinger(Singer M)
 /* Mengirim true jika Map M kosong*/
 /* Ciri Map kosong : NEff bernilai NilMap */
 {
     return M.NEff == NilMap;
 }
 
-boolean IsFullMap(Singer M)
+boolean IsFullMapSinger(Singer M)
 /* Mengirim true jika Map M penuh */
 /* Ciri Map penuh : NEff bernilai MaxElMap */
 {
@@ -25,7 +25,7 @@ boolean IsFullMap(Singer M)
 }
 
 /* ********** Operator Dasar Map ********* */
-valtypeSinger Value(Singer M, keytype k)
+valtypeSinger ValueSinger(Singer M, keytype k)
 /* Mengembalikan nilai value dengan key k dari M */
 /* Jika tidak ada key k pada M, tidak mengembalikan apa-apa */
 {
@@ -39,26 +39,26 @@ valtypeSinger Value(Singer M, keytype k)
     return;
 }
 
-void InsertMap(Singer *M, keytype k, valtypeSinger v)
+void InsertMapSinger(Singer *M, keytype k, valtypeSinger v)
 /* Menambahkan Elmt sebagai elemen Map M. */
 /* I.S. M mungkin kosong, M tidak penuh
         M mungkin sudah beranggotakan v dengan key k */
 /* F.S. v menjadi anggota dari M dengan key k. Jika k sudah ada, operasi tidak dilakukan */
 {
-    if (IsMemberMap(*M, k)) return;
+    if (IsMemberMapSinger(*M, k)) return;
 
     M->PenyanyiAlbum[M->NEff].NamaPenyanyi = k;
     M->PenyanyiAlbum[M->NEff].isiAlbum = v;
     M->NEff++;
 }
 
-void DeleteMap(Singer *M, keytype k)
+void DeleteMapSinger(Singer *M, keytype k)
 /* Menghapus Elmt dari Map M. */
 /* I.S. M tidak kosong
         element dengan key k mungkin anggota / bukan anggota dari M */
 /* F.S. element dengan key k bukan anggota dari M */
 {
-    if (!IsMemberMap(*M, k)) return;
+    if (!IsMemberMapSinger(*M, k)) return;
 
     boolean found = false;
     address idx = 0, iterator;
@@ -76,7 +76,7 @@ void DeleteMap(Singer *M, keytype k)
     M->NEff--;
 }
 
-boolean IsMemberMap(Singer M, keytype k)
+boolean IsMemberMapSinger(Singer M, keytype k)
 /* Mengembalikan true jika k adalah member dari M */
 {
     address idx = 0, iterator;
