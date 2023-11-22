@@ -6,6 +6,13 @@ Kalimat CLine;
 Kalimat CInput;
 Kalimat currentCharommand;
 
+Kalimat createKalimat(){
+    Kalimat K;
+    K.Length = MARK2;
+
+    return K;
+}
+
 void Ignoreblanks()
 /* Mengabaikan satu atau beberapa BLANK
    I.S. : currentChar sembarang
@@ -244,3 +251,31 @@ int LengthKalimat(char * S2){
 }
 
 
+void displayKalimat(Kalimat K){
+    printf("%s", K.TabLine);
+}
+
+boolean isInputEqual(Kalimat Input, char * kata) 
+{   
+    boolean equal = true;
+    if (Input.Length == LengthKalimat(kata))
+    {
+        int i = 0;
+        while (i < Input.Length && equal)
+        {
+            if (Input.TabLine[i] != kata[i])
+            {
+                equal = false;
+            }
+            else
+            {
+                i++;
+            }
+        }
+        return equal;
+    }
+    else
+    {
+        return false;
+    }
+}

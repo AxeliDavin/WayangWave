@@ -19,6 +19,7 @@ extern Kalimat CLine;
 extern Kalimat CInput;
 extern Kalimat CCommand;
 
+Kalimat createKalimat();
 
 void IgnoreNewline();
 void Ignoreblanks();
@@ -48,5 +49,8 @@ void ResetKalimat();
 
 boolean isKalimatEqual(Kalimat K1, Kalimat K2);
 int LengthKalimat(char * S2);
+
+void displayKalimat(Kalimat K);
+boolean isInputEqual(Kalimat Input, char * kata);
 
 #endif

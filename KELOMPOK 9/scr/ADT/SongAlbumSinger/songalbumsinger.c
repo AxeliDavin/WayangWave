@@ -30,3 +30,25 @@ int indeksAlbum = (*LP).PenyanyiAlbum[indeksPenyanyi].ListAlbums.NEff - 1;
 (*LP).PenyanyiAlbum[indeksPenyanyi].ListAlbums.AlbumLagu[indeksAlbum].IsiLagu.JudulLagu[(*LP).PenyanyiAlbum[indeksPenyanyi].ListAlbums.AlbumLagu[indeksAlbum].IsiLagu.Count] = NamaLagu;
 (*LP).PenyanyiAlbum[indeksPenyanyi].ListAlbums.AlbumLagu[indeksAlbum].IsiLagu.Count ++;
 }
+
+MapAlbum SearchListAlbum(ListPenyanyi *LP, Kalimat Penyanyi){
+	for (int i = 0; i < LP->NEff; i++)
+	{
+		if (isKalimatEqual(LP->PenyanyiAlbum[i].NamaPenyanyi, Penyanyi))
+		{
+			return LP->PenyanyiAlbum[i];
+		}
+	}
+	
+
+}
+
+MapLagu SearchListLagu(ListPenyanyi *LP, Kalimat Penyanyi, Kalimat Album){
+	for (int i = 0; i < SearchListAlbum(LP, Penyanyi).ListAlbums.NEff; i++)
+	{
+		if (isKalimatEqual(SearchListAlbum(LP, Penyanyi).ListAlbums.AlbumLagu[i].NamaAlbum, Album))
+		{
+			return SearchListAlbum(LP, Penyanyi).ListAlbums.AlbumLagu[i];
+		}
+	}
+}

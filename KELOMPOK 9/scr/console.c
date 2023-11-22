@@ -336,16 +336,16 @@ void LOADFILE(ListPenyanyi * LP, char filename[])
 void listDefault(){
     printf("Daftar penyanyi :\n");
 
-    for (int i = 0; i < Length(Penyanyi); i++)
+    for (int i = 0; i < Penyanyi.NEff; i++)
     {
-        printf("   %d. %s\n", i+1, Get(Penyanyi, i));
+        printf("   %d. %s\n", i+1, Penyanyi.PenyanyiAlbum[i].NamaPenyanyi.TabLine);
     }
     
     char lookAlbum;
     printf("Ingin melihat album yang ada?(Y/N): ");
     scanf("%c", &lookAlbum);
     // PILIH ALBUM
-    if (lookAlbum == 'Y')
+    if (lookAlbum == 'Y' || lookAlbum == 'y')
     {
         char chosenSinger[256];
         printf("Pilih penyanyi untuk melihat album mereka: ");
@@ -353,7 +353,17 @@ void listDefault(){
 
         int chosenSingerIdx = InvalidIdx;
         // Cek apakah nama penyanyi valid
-        chosenSingerIdx = IndexOf(Penyanyi, chosenSinger);
+        for (int i = 0; i < Penyanyi.NEff; i++)
+        {
+            if (isInputEqual(Penyanyi.PenyanyiAlbum[i].NamaPenyanyi, chosenSinger))
+            {
+                chosenSingerIdx = i;
+                break;
+            }
+            
+        }
+        
+        // chosenSingerIdx = IndexOf(Penyanyi, chosenSinger);
         if (chosenSingerIdx == InvalidIdx) {
             printf("Penyanyi %s tidak ada dalam daftar. Silakan coba lagi.\n", chosenSinger);
             return;
@@ -361,12 +371,10 @@ void listDefault(){
 
         // Nampilin daftar album yang dimiliki penyanyi
         printf("Daftar Album oleh %s :\n", chosenSinger);
-        int nomorAlbum = 0;
-        for (int i = 0; i < Album.Count; i++) {
-            if (Album.Elements[i].IdPenyanyi == chosenSingerIdx) {
-                nomorAlbum++;
-                printf("   %d. %s\n", nomorAlbum, Album.Elements[i].Value);
-            }
+        int nomorAlbum = 0;        
+        for (int i = 0; i < Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.NEff; i++) {
+            nomorAlbum++;
+            printf("   %d. %s\n", nomorAlbum, Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.AlbumLagu[i].NamaAlbum.TabLine);
         }
 
         char lookSong;
@@ -374,7 +382,7 @@ void listDefault(){
         scanf("%c", &lookSong);
 
         // LIHAT LAGU
-        if (lookSong == 'Y')
+        if (lookSong == 'Y' || lookSong == 'y')
         {
             char chosenAlbum[256];
             printf("Pilih album untuk melihat lagu yang ada di album: ");
@@ -382,14 +390,15 @@ void listDefault(){
 
             // Cek apakah nama album valid
             int chosenAlbumIdx = InvalidIdx;
-            for (int i = 0; i < Album.Count; i++)
+            for (int i = 0; i < Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.NEff; i++)
             {
-                if (Album.Elements[i].Value == chosenAlbum)
+                if (isInputEqual(Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.AlbumLagu[i].NamaAlbum, chosenAlbum))
                 {
-                    chosenAlbumIdx = Album.Elements[i].IdPenyanyi;
+                    chosenAlbumIdx = i;
                     break;
                 }
             }
+
             if (chosenAlbumIdx == InvalidIdx) {
                 printf("Album %s tidak ada dalam daftar. Silakan coba lagi.\n", chosenSinger);
                 return;
@@ -398,20 +407,18 @@ void listDefault(){
             // Nampilin daftar lagu yang di dalam album
             printf("Daftar Lagu di %s :\n", chosenAlbum);
             int nomorLagu = 0;
-            for (int i = 0; i < Song.Count; i++) {
-                if (Song.Elements[i].IdAlbum == chosenAlbumIdx) {
-                    nomorLagu++;
-                    printf("   %d. %s\n", nomorLagu, Song.Elements[i].namalagu);
-                }
+            for (int i = 0; i < Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.AlbumLagu[i].IsiLagu.Count; i++) {
+                nomorLagu++;
+                printf("   %d. %s\n", nomorLagu, Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.AlbumLagu[chosenAlbumIdx].IsiLagu.JudulLagu[i].TabLine);
             }
         }
-        else if(lookSong == 'N'){
+        else if(lookSong == 'N' || lookSong == 'n'){
             return;
         }
         else{
             printf("Input tidak valid\n");
         }  
-    }else if(lookAlbum == 'N'){
+    }else if(lookAlbum == 'N' || lookAlbum == 'n'){
         return;
     }else{
         printf("Input tidak valid\n");
@@ -442,9 +449,9 @@ void listPlaylist(){
 // Command: PLAY SONG
 void playSong(){
     printf("Daftar Penyanyi: \n");
-    for (int i = 0; i < Length(Penyanyi); i++)
+    for (int i = 0; i < Penyanyi.NEff; i++)
     {
-        printf("   %d. %s", i+1, Get(Penyanyi, i));
+        printf("   %d. %s\n", i+1, Penyanyi.PenyanyiAlbum[i].NamaPenyanyi.TabLine);
     }
 
     // PILIH PENYANYI
@@ -454,19 +461,26 @@ void playSong(){
 
     int chosenSingerIdx = InvalidIdx;
     // Cek apakah nama penyanyi valid
-    chosenSingerIdx = IndexOf(Penyanyi, chosenSinger);
+    for (int i = 0; i < Penyanyi.NEff; i++)
+    {
+        if (isInputEqual(Penyanyi.PenyanyiAlbum[i].NamaPenyanyi, chosenSinger))
+        {
+            chosenSingerIdx = i;
+            break;
+        }
+        
+    }
     if (chosenSinger == InvalidIdx) {
         printf("Penyanyi %s tidak ada dalam daftar. Silakan coba lagi.\n", chosenSinger);
         return;
     }
+
     // Nampilin daftar album yang dimiliki penyanyi
     printf("Daftar Album oleh %s :\n", chosenSinger);
     int nomorAlbum = 0;
-    for (int i = 0; i < Album.Count; i++) {
-        if (Album.Elements[i].IdPenyanyi == chosenSingerIdx) {
-            nomorAlbum++;
-            printf("   %d. %s\n", nomorAlbum, Album.Elements[i].Value);
-        }
+    for (int i = 0; i < Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.NEff; i++) {
+        nomorAlbum++;
+        printf("   %d. %s\n", nomorAlbum, Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.AlbumLagu[i].NamaAlbum.TabLine);
     }
 
 
@@ -477,11 +491,11 @@ void playSong(){
 
     // Cek apakah nama album valid
     int chosenAlbumIdx = InvalidIdx;
-    for (int i = 0; i < Album.Count; i++)
+    for (int i = 0; i < Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.NEff; i++)
     {
-        if (Album.Elements[i].Value == chosenAlbum)
+        if (isInputEqual(Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.AlbumLagu[i].NamaAlbum, chosenAlbum))
         {
-            chosenAlbumIdx = Album.Elements[i].IdPenyanyi;
+            chosenAlbumIdx = i;
             break;
         }
     }
@@ -494,11 +508,9 @@ void playSong(){
     // Nampilin daftar lagu yang di dalam album
     printf("Daftar Lagu Album %s oleh %s :\n", chosenAlbum, chosenSinger);
     int nomorLagu = 0;
-    for (int i = 0; i < Song.Count; i++) {
-        if (Song.Elements[i].IdAlbum == chosenAlbumIdx) {
-            nomorLagu++;
-            printf("   %d. %s\n", nomorLagu, Song.Elements[i].namalagu);
-        }
+    for (int i = 0; i < Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.AlbumLagu[i].IsiLagu.Count; i++) {
+        nomorLagu++;
+        printf("   %d. %s\n", nomorLagu, Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.AlbumLagu[chosenAlbumIdx].IsiLagu.JudulLagu[i].TabLine);
     }
 
     // PILIH LAGU
@@ -512,20 +524,7 @@ void playSong(){
         return;
     }
     
-
-    int temp = 0;
-    int fixIdx = 0;
-    while (temp != chosenSongIdx)
-    {
-        fixIdx++;
-        if (Song.Elements[temp].IdAlbum == chosenAlbumIdx)
-        {
-            temp++;
-        }
-    }
-    
-
-    printf("Memutar lagu \"%s\" oleh \"%s\".", Song.Elements[fixIdx].namalagu, chosenSinger);
+    printf("Memutar lagu \"%s\" oleh \"%s\".", Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.AlbumLagu[chosenAlbumIdx].IsiLagu.JudulLagu[chosenSongIdx].TabLine, chosenSinger);
 }
 
 // Command : PLAY PLAYLIST
