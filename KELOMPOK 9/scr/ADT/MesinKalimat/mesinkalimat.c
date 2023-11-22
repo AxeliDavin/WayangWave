@@ -233,31 +233,6 @@ boolean isKalimatEqual(Kalimat K1, Kalimat K2)
     }
 }
 
-boolean isInputEqual(Kalimat Input, char * kata) 
-{   
-    boolean equal = true;
-    if (Input.Length == LengthKalimat(kata))
-    {
-        int i = 0;
-        while (i < Input.Length && equal)
-        {
-            if (Input.TabLine[i] != kata[i])
-            {
-                equal = false;
-            }
-            else
-            {
-                i++;
-            }
-        }
-        return equal;
-    }
-    else
-    {
-        return false;
-    }
-}
-
 int LengthKalimat(char * S2){
     int i = 0;
 

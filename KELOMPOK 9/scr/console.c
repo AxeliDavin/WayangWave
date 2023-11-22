@@ -184,7 +184,7 @@ void Start(ListPenyanyi *LP, char path[])
     // ListPenyanyi LP;
     // CreateEmptyListPenyanyi(&LP);
     // char path[120] = "../save/config.txt";
-
+    
     STARTKALIMATFILE(path);
 
     Kalimat NamaPenyanyi;
@@ -873,27 +873,25 @@ void Save(ListPenyanyi * LP, char filename[])
     static FILE * File;
     File = fopen(filename, "w");
 
-    // printf("\n%sJumlah Penyanyi: %s%d\n", WHITE, MAGENTA, loop);
-
     fprintf(File, "%d\n", (*LP).NEff);
 
     for (int i = 0; i < (*LP).NEff; i++){
 
-        fprintf(File, "%d %s\n", (*LP).PenyanyiAlbum[i].ListAlbum.NEff, (*LP).PenyanyiAlbum[i].NamaPenyanyi.TabLine);
+        fprintf(File, "%d %s\n", (*LP).PenyanyiAlbum[i].ListAlbums.NEff, (*LP).PenyanyiAlbum[i].NamaPenyanyi.TabLine);
 
-        for (int j = 0; j < (*LP).PenyanyiAlbum[i].ListAlbum.NEff; j++){
+        for (int j = 0; j < (*LP).PenyanyiAlbum[i].ListAlbums.NEff; j++){
             
-            fprintf(File, "%d %s\n", (*LP).PenyanyiAlbum[i].ListAlbum.AlbumLagu[j].IsiLagu.Count, (*LP).PenyanyiAlbum[i].ListAlbum.AlbumLagu[j].NamaAlbum.TabLine);
-            for (int k = 0; k < (*LP).PenyanyiAlbum[i].ListAlbum.AlbumLagu[j].IsiLagu.Count; k++)
+            fprintf(File, "%d %s\n", (*LP).PenyanyiAlbum[i].ListAlbums.AlbumLagu[j].IsiLagu.Count, (*LP).PenyanyiAlbum[i].ListAlbums.AlbumLagu[j].NamaAlbum.TabLine);
+            for (int k = 0; k < (*LP).PenyanyiAlbum[i].ListAlbums.AlbumLagu[j].IsiLagu.Count; k++)
             {
                 ADVKALIMAT();
-                if (i == (*LP).NEff && j == (*LP).PenyanyiAlbum[i].ListAlbum.NEff && k == (*LP).PenyanyiAlbum[i].ListAlbum.AlbumLagu[j].IsiLagu.Count)
+                if (i == (*LP).NEff && j == (*LP).PenyanyiAlbum[i].ListAlbums.NEff && k == (*LP).PenyanyiAlbum[i].ListAlbums.AlbumLagu[j].IsiLagu.Count)
                 {
-                    fprintf(File, "%s", (*LP).PenyanyiAlbum[i].ListAlbum.AlbumLagu[j].IsiLagu.JudulLagu[k].TabLine);
+                    fprintf(File, "%s", (*LP).PenyanyiAlbum[i].ListAlbums.AlbumLagu[j].IsiLagu.JudulLagu[k].TabLine);
                 }
                 else
                 {
-                    fprintf(File, "%s\n", (*LP).PenyanyiAlbum[i].ListAlbum.AlbumLagu[j].IsiLagu.JudulLagu[k].TabLine);
+                    fprintf(File, "%s\n", (*LP).PenyanyiAlbum[i].ListAlbums.AlbumLagu[j].IsiLagu.JudulLagu[k].TabLine);
                 }
             }
 

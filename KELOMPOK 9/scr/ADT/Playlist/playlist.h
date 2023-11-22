@@ -1,4 +1,3 @@
-
 // playlist.h
 /* File : playlist.h */
 /* ADT Playlist menggunakan list berkait dengan representasi fisik pointer  */
@@ -8,6 +7,8 @@
 #ifndef playlist_H
 #define playlist_H
 
+#include <stdio.h>
+#include "../MesinKalimat/mesinkalimat.h"
 /* Kamus Umum */
 #define INITIAL_CAPACITY 100
 #define Nil NULL

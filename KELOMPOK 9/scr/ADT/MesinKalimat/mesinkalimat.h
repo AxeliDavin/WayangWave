@@ -47,7 +47,6 @@ void copyKalimat (Kalimat k1, Kalimat *k2);
 void ResetKalimat();
 
 boolean isKalimatEqual(Kalimat K1, Kalimat K2);
-boolean isInputEqual(Kalimat Input, char * kata);
 int LengthKalimat(char * S2);
 
 #endif
