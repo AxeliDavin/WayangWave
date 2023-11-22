@@ -15,9 +15,8 @@ Queue queue;
 void readCommand(){
 
     /*Pembuatan Kosong*/
-    MakeList(&Penyanyi);
-    CreateEmptyMap(&Album);
-    CreateEmptySet(&Song);
+    CreateEmptyListPenyanyi(&Penyanyi);
+
 
     /*Pembuatan List Linier Playlist*/
     CreateEmptyPlaylist(&playlist);
@@ -181,10 +180,6 @@ void readCommand(){
 void Start(ListPenyanyi *LP, char path[])
 {
 
-    // ListPenyanyi LP;
-    // CreateEmptyListPenyanyi(&LP);
-    // char path[120] = "../save/config.txt";
-    
     STARTKALIMATFILE(path);
 
     Kalimat NamaPenyanyi;
@@ -192,7 +187,6 @@ void Start(ListPenyanyi *LP, char path[])
     Kalimat NamaLagu;
 
     int loop = atoi(CLine.TabLine);
-
     if (loop > 0)
     {
 
@@ -217,7 +211,6 @@ void Start(ListPenyanyi *LP, char path[])
             }
             }
         }
-        // ADVKALIMAT();
     }
 }
 

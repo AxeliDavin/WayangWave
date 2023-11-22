@@ -1,7 +1,10 @@
 #include "playlist.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 void CreateEmptyPlaylist(Playlist *x){
-    (*x).First = Nil;
-    (*x).namaPlaylist = Nil;
+    (*x).A = (ListLinier *)malloc(INITIAL_CAPACITY * sizeof(ListLinier));
+    (*x).namaPlaylist = (Kalimat *)malloc(INITIAL_CAPACITY * sizeof(Kalimat));
+    (*x).capacity = INITIAL_CAPACITY;
+    (*x).nEff = 0;
 }

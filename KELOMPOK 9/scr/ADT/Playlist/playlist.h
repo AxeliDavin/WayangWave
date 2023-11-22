@@ -9,13 +9,14 @@
 
 #include <stdio.h>
 #include "../MesinKalimat/mesinkalimat.h"
+#include "../Listlinier/listlinier.h"
+
 /* Kamus Umum */
 #define INITIAL_CAPACITY 100
 #define Nil NULL
 
 /*Definisi Struktur Data*/
 typedef Kalimat infotype;
-typedef char *name;
 
 typedef struct tElmtplaylist *playlistaddress;
 typedef struct {
@@ -30,16 +31,26 @@ typedef struct tElmtplaylist {
 } ElmtPlayList;
 
 typedef struct {
-    name namaPlaylist;
+    Kalimat namaPlaylist;
 	playlistaddress First;
-} Playlist;
+} Isi;
 
 typedef struct {
-    Playlist *A; // Ukuran Alokasi saat ini
+    Isi A; // Ukuran Alokasi saat ini
     int capacity; //Elemen List
     int nEff; // Jumlah Elemen Efektif
 } ListPlaylist;
 
+typedef struct {
+    int nEff;
+    int capacity;
+    Kalimat *namaPlaylist;
+    ListLinier *A;
+} Playlist;
+
+
 void CreateEmptyPlaylist(Playlist *x);
+
+
 
 #endif

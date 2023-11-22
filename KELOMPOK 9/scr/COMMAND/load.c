@@ -1,9 +1,19 @@
 #include "../adt.h"
+#include <stdio.h>
+#include <stdlib.h>
 
-Playlist playlist;
 
+// gcc ../ADT/boolean.h ../ADT/List/list.c ../ADT/SongAlbumSinger/songalbumsinger.c ../ADT/ListLinier/listlinier.c ../ADT/MAP/map.c ../ADT/MesinKalimat/mesinkalimat.c ../ADT/MesinKarakter/mesinkarakter.c ../ADT/Playlist/playlist.c ../ADT/MesinKata/mesinkata.c ../ADT/Queue/queue.c ../ADT/Set/set.c ../ADT/Stack/stack.c ../ADT/Song.h load.c -o load 
+
+Stack History;
+Queue antre;
+Playlist Playlists;
+ListPenyanyi Penyanyi;
+MapAlbum Album;
+SetLagu Song;
+Playlist Playlists;
 /*LOAD*/
-void LOADFILE(ListPenyanyi * LP, char filename[])
+void Load(ListPenyanyi * LP, char filename[])
 {
 
     STARTKALIMATFILE(filename);
@@ -11,11 +21,6 @@ void LOADFILE(ListPenyanyi * LP, char filename[])
     Kalimat NamaPenyanyi;
     Kalimat NamaAlbum;
     Kalimat NamaLagu;
-    Stack History;
-    Queue antre;
-
-    CreateEmptyStack(&History);
-    CreateQueue(&antre);
 
     int loop = atoi(CLine.TabLine);
 
@@ -89,22 +94,21 @@ void LOADFILE(ListPenyanyi * LP, char filename[])
                 ADVSATUKATA();
                 int LaguPlaylist = atoi(CLine.TabLine);
 
-                ADVKALIMAT();
-
                 for (int j = 0; j < LaguPlaylist; j++)
                 {   
-                    infoType Data;
+                    
+                    infoType Songs;
 
                     ADVRECORD();
-                    Data.NamaPenyanyi = CLine;
+                    Songs.NamaPenyanyi = CLine;
 
                     ADVRECORD();
-                    Data.NamaAlbum = CLine;
+                    Songs.NamaAlbum = CLine;
 
                     ADVRECORD();
+                    Songs.JudulLagu = CLine;
 
-                    InsVLast(&playlist, Data);
-
+                    InsVLast(Playlists.A, Songs);
                 }
             }
         printf("Save file berhasil dibaca. WayangWave berhasil dijalankan.\n");
@@ -113,4 +117,43 @@ void LOADFILE(ListPenyanyi * LP, char filename[])
     {
         printf("Save file tidak ditemukan. WayangWave gagal dijalankan.\n");
     }
+}
+
+int main(){
+
+
+
+    CreateEmptyStack(&History);
+    CreateQueue(&antre);
+    CreateEmptyPlaylist(&Playlists);
+
+    /*Pembuatan Kosong*/
+    CreateEmptyListPenyanyi(&Penyanyi);
+    // CreateEmptyMap(&Album);
+    // CreateEmptySet(&Song);
+    
+    boolean masuksesi = false, stopsesi = false;
+
+    /*Masuk Ke Command Utama*/
+    while(!stopsesi){
+
+        readInput();
+
+        if (IsKataSama(currentWord.TabWord, "LOAD")){
+            if (masuksesi){
+                printf("Command tidak bisa dieksekusi!\n"); /*Udah masuk sesi jadi tidak bisa dirun*/
+            } else {
+                printf("2\n");
+                ADVWORDBlank();
+                printf("1\n");
+                char path[] = "../../save/";
+                for (int i = 0; i <currentWord.Length; i++){
+                    path[i+11] = currentWord.TabWord[i];
+                }
+                Load(&Penyanyi, path);
+                masuksesi = true;
+            }           
+        } 
+    }
+    return 0;
 }
