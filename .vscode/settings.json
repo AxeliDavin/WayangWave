@@ -2,6 +2,8 @@
     "files.associations": {
         "playlist.h": "c",
         "mesinkalimat.h": "c",
-        "random": "c"
+        "random": "c",
+        "mesinkata.h": "c",
+        "list.h": "c"
     }
 }
