@@ -894,9 +894,7 @@ void Save(ListPenyanyi * LP, char filename[])
                     fprintf(File, "%s\n", (*LP).PenyanyiAlbum[i].ListAlbums.AlbumLagu[j].IsiLagu.JudulLagu[k].TabLine);
                 }
             }
-
         }
-
     }
 }
 

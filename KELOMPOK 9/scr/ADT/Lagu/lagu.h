@@ -3,8 +3,8 @@
 #ifndef lagu_H
 #define lagu_H
 #include <stdio.h>
-#include "./MesinKalimat/mesinkalimat.h"
-#include "boolean.h"
+#include "../MesinKalimat/mesinkalimat.h"
+#include "../boolean.h"
 
 /* MODUL SET LAGU
 Deklarasi set yang dengan implementasi array eksplisit-statik rata kiri

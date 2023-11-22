@@ -53,7 +53,7 @@ int main(){
 
     /*Global Variable*/
     ListPenyanyi Penyanyi;
-    MapAlbum Album;
+    Album Albums;
     SetLagu Song;
     Playlist playlist;
     Queue queue;
@@ -82,7 +82,7 @@ int main(){
                 Start(&Penyanyi, "../../save/config.txt");
                 masuksesi = true;
                 printf("%d\n", Penyanyi.NEff);
-                printf("%d\n", Album.NEff);
+                printf("%d\n", Albums.Count);
                 printf("%d\n", Penyanyi.NEff);
             }
         } 

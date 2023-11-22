@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include "../boolean.h"
 #include "../MesinKalimat/mesinkalimat.h"
-#include "../lagu.h"
+#include "../Lagu/lagu.h"
 
 /* MODUL MAP ALBUM
 */
