@@ -57,4 +57,8 @@ void AddAlbum(ListPenyanyi * LP, Kalimat Album);
 
 void AddLagu(ListPenyanyi * LP, Kalimat NamaLagu);
 
+MapAlbum SearchListAlbum(ListPenyanyi *LP, Kalimat Penyanyi);
+
+MapLagu SearchListLagu(ListPenyanyi *LP, Kalimat Penyanyi, Kalimat Album);
+
 #endif
