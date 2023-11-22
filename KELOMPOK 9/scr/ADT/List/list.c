@@ -14,7 +14,7 @@ boolean IsEmptyList(List L) {
 	return (L.A[0] == Mark);
 }
 
-int Length(List L) {
+int LengthList(List L) {
 	int i = 0;
 	while (L.A[i] != Mark) {
 		i += 1;
@@ -22,7 +22,7 @@ int Length(List L) {
 	return i;
 }
 
-ElTypeList Get(List L, IdxType i) {
+ElTypeList GetList(List L, IdxType i) {
 	return L.A[i];
 }
 
@@ -30,29 +30,29 @@ void SetList(List *L, IdxType i, ElTypeList v) {
 	(*L).A[i] = v;
 }
 
-IdxType FirstIdx(List L) {
+IdxType FirstIdxList(List L) {
     return 0;
 }
 
-IdxType LastIdx(List L) {
-	int i = FirstIdx(L);
+IdxType LastIdxList(List L) {
+	int i = FirstIdxList(L);
 	while ((i < MaxElList) && (L.A[i+1] != Mark)) {
 		i += 1;
 	}
 	return i;
 }
 
-boolean IsIdxValid (List L, IdxType i) {
+boolean IsIdxValidList (List L, IdxType i) {
 	return (0 <= i) && (MaxElList >= i);
 }
 
-boolean IsIdxEff (List L, IdxType i) {
-	return (FirstIdx(L) <= i) && (LastIdx(L) >= i);
+boolean IsIdxEffList (List L, IdxType i) {
+	return (FirstIdxList(L) <= i) && (LastIdxList(L) >= i);
 }
 
 boolean SearchList(List L, ElTypeList X) {
-	int i = FirstIdx(L);
-	int j = LastIdx(L);
+	int i = FirstIdxList(L);
+	int j = LastIdxList(L);
 	boolean found = false;
 	while ((i <= j) && !found) {
 		if (L.A[i] == X) {
@@ -64,16 +64,16 @@ boolean SearchList(List L, ElTypeList X) {
 }
 
 void InsertFirstList(List *L, ElTypeList X) {
-	IdxType i = LastIdx(*L);
+	IdxType i = LastIdxList(*L);
 	while (i >= 0) {
-		SetList(L, i+1, Get(*L, i));
+		SetList(L, i+1, GetList(*L, i));
 		i--;
 	}
 	SetList(L, 0, X);
 }
 
-void InsertAt(List *L, ElTypeList X, IdxType i) {
-    for (int j = Length(*L); j > i; j--)
+void InsertAtList(List *L, ElTypeList X, IdxType i) {
+    for (int j = LengthList(*L); j > i; j--)
     {
         L->A[j] = L->A[j-1];
     }
@@ -84,43 +84,43 @@ void InsertLastList(List *L, ElTypeList X) {
     if (IsEmptyList(*L)) {
         InsertFirstList(L, X);
     } else {
-        (*L).A[LastIdx(*L) + 1] = X;
+        (*L).A[LastIdxList(*L) + 1] = X;
     }
 }
 
-void DeleteFirst(List *L) {
-	int i = FirstIdx(*L);
-	while (i < LastIdx(*L)) {
+void DeleteFirstList(List *L) {
+	int i = FirstIdxList(*L);
+	while (i < LastIdxList(*L)) {
 		(*L).A[i] = (*L).A[i+1];
         i++;
 	}
     (*L).A[i] = Mark;
 }
 
-void DeleteAt(List *L, IdxType i) {
-	int j = LastIdx(*L);
+void DeleteAtList(List *L, IdxType i) {
+	int j = LastIdxList(*L);
 	while (i <= j) {
 		(*L).A[i] = (*L).A[i+1];
         i++;
 	}
 }
 
-void DeleteLast(List *L) {
-	(*L).A[LastIdx(*L)] = Mark;
+void DeleteLastList(List *L) {
+	(*L).A[LastIdxList(*L)] = Mark;
 }
 
-List Concat(List L1, List L2) {
+List Concatlist(List L1, List L2) {
 	List L3;
 	MakeList(&L3);
-	int i = FirstIdx(L1);
-	int j = FirstIdx(L2);
+	int i = FirstIdxList(L1);
+	int j = FirstIdxList(L2);
 	int idx = 0;
-	while (i <= LastIdx(L1)) {
+	while (i <= LastIdxList(L1)) {
 		L3.A[idx] = L1.A[i];
         idx++;
         i++;
 	}
-	while (j <= LastIdx(L2)) {
+	while (j <= LastIdxList(L2)) {
 		L3.A[idx] = L2.A[j];
         idx++;
         j++;
@@ -133,11 +133,11 @@ void DisplayList(List L){
 	printf("[");
 	if (!IsEmptyList(L))
 	{
-		for (int i = 0; i < LastIdx(L); i++)
+		for (int i = 0; i < LastIdxList(L); i++)
 		{
-			printf("%d,", Get(L, i));
+			printf("%d,", GetList(L, i));
 		}	
-		printf("%d", Get(L, LastIdx(L)));
+		printf("%d", GetList(L, LastIdxList(L)));
 	}
 	printf("]\n");
 }

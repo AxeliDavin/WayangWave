@@ -12,20 +12,20 @@ int main(){
     // Cek fungsi Insert
     InsertFirstList(&lagu, 9);
     InsertLastList(&lagu, 10);
-    InsertAt(&lagu, 4, 1);
+    InsertAtList(&lagu, 4, 1);
     DisplayList(lagu);
 
     // Cek fungsi FirstIdx, LastIdx, Length
-    printf("First Index: %d\n", FirstIdx(lagu));
-    printf("Last Index: %d\n", LastIdx(lagu));
-    printf("Panjang list: %d\n", Length(lagu));
+    printf("First Index: %d\n", FirstIdxList(lagu));
+    printf("Last Index: %d\n", LastIdxList(lagu));
+    printf("Panjang list: %d\n", LengthList(lagu));
 
-    printf("Nilai elemen pertama: %d\n", Get(lagu, FirstIdx(lagu))); // Cek fungsi Get
-    SetList(&lagu, FirstIdx(lagu), 2); // Cek fungsi SetList
-    printf("Nilai elemen pertama setelah perubahan: %d\n", Get(lagu, FirstIdx(lagu)));
+    printf("Nilai elemen pertama: %d\n", GetList(lagu, FirstIdxList(lagu))); // Cek fungsi Get
+    SetList(&lagu, FirstIdxList(lagu), 2); // Cek fungsi SetList
+    printf("Nilai elemen pertama setelah perubahan: %d\n", GetList(lagu, FirstIdxList(lagu)));
 
     // Cek fungsi IsIdxValid
-    if (IsIdxValid(lagu, 120))
+    if (IsIdxValidList(lagu, 120))
     {
         printf("Index 120 valid\n");
     }else{
@@ -33,7 +33,7 @@ int main(){
     }
 
     // Cek fungsi IdxIdxEff
-    if (IsIdxEff(lagu, 4))
+    if (IsIdxEffList(lagu, 4))
     {
         printf("Index 4 efektif\n");
     }else{
@@ -50,9 +50,9 @@ int main(){
     DisplayList(lagu);
 
     // Cek fungsi Delete
-    DeleteAt(&lagu, 1);
-    DeleteFirst(&lagu);
-    DeleteLast(&lagu);
+    DeleteAtList(&lagu, 1);
+    DeleteFirstList(&lagu);
+    DeleteLastList(&lagu);
     printf("Nilai list setelah di delete: ");
     DisplayList(lagu);
     
@@ -63,7 +63,7 @@ int main(){
     InsertFirstList(&L1, 2);
     InsertFirstList(&L2, 20);
     printf("Hasil list gabungan L1 dan L2: ");
-    List L3 = Concat(L1,L2);
+    List L3 = Concatlist(L1,L2);
     DisplayList(L3);
 }
 
