@@ -61,7 +61,7 @@ void SalinInput() {
 void SalinKalimat() {
     ResetKalimat();  
     int i = 0;
-    while ((currentChar != MARK) && (currentChar != NEWLINE) && (currentChar != SEMICOLON) && (currentChar != EOF))
+    while ((currentChar != MARK) && (currentChar != NEWLINE) && (currentChar != EOF))
     {
         CLine.TabLine[i] = currentChar;
         // printf("%c", currentChar);

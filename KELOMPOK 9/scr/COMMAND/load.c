@@ -107,7 +107,6 @@ void Load(ListPenyanyi * LP, char filename[])
 
                     ADVRECORD();
                     Songs.JudulLagu = CLine;
-
                     InsVLast(Playlists.A, Songs);
                 }
             }
@@ -143,11 +142,9 @@ int main(){
             if (masuksesi){
                 printf("Command tidak bisa dieksekusi!\n"); /*Udah masuk sesi jadi tidak bisa dirun*/
             } else {
-                printf("2\n");
-                ADVWORDBlank();
-                printf("1\n");
-                char path[] = "../../save/";
-                for (int i = 0; i <currentWord.Length; i++){
+                ADVWORD();
+                char path[50] = "../../save/";
+                for (int i = 0; i < currentWord.Length; i++){
                     path[i+11] = currentWord.TabWord[i];
                 }
                 Load(&Penyanyi, path);

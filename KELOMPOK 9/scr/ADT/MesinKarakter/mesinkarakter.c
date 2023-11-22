@@ -35,10 +35,9 @@ void ADV()
 
        /* Algoritma */
        retval = fscanf(pita, "%c", &currentChar);
-       //EOP = (currentChar == MARK || currentChar == ENTER || currentChar == SEMICOLON);
-       //if (EOP){
-       //       currentChar = '\0';
-       //}
+       if(currentChar == '\n' || currentChar == ';'){
+              EOP = true;
+       };
 }
 
 void STARTFILE(char filename[])

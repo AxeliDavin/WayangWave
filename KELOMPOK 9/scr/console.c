@@ -3,11 +3,14 @@
 #include "console.h"
 
 /*Global Variable*/
+Queue queue;
+Stack History;
+Queue antre;
+Playlist Playlists;
 ListPenyanyi Penyanyi;
 MapAlbum Album;
 SetLagu Song;
-Playlist playlist;
-Queue queue;
+Playlist Playlists;
 
 /*Tempat Command*/
 
@@ -17,9 +20,8 @@ void readCommand(){
     /*Pembuatan Kosong*/
     CreateEmptyListPenyanyi(&Penyanyi);
 
-
     /*Pembuatan List Linier Playlist*/
-    CreateEmptyPlaylist(&playlist);
+    CreateEmptyPlaylist(&Playlists);
     CreateQueue(&queue);
     
     boolean masuksesi = false, stopsesi = false;
@@ -38,11 +40,16 @@ void readCommand(){
             }
         } 
         
-        else if (IsKataSama(currentWord.TabWord, "LOAD")){
+        if (IsKataSama(currentWord.TabWord, "LOAD")){
             if (masuksesi){
                 printf("Command tidak bisa dieksekusi!\n"); /*Udah masuk sesi jadi tidak bisa dirun*/
             } else {
-                Load();
+                ADVWORD();
+                char path[50] = "../../save/";
+                for (int i = 0; i < currentWord.Length; i++){
+                    path[i+11] = currentWord.TabWord[i];
+                }
+                Load(&Penyanyi, path);
                 masuksesi = true;
             }           
         } 

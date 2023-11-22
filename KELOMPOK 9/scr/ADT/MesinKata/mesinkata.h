@@ -31,7 +31,8 @@ void STARTWORD();
    F.S. : EndWord = true, dan currentChar = MARK;
           atau EndWord = false, currentWord adalah kata yang sudah diakuisisi,
           currentChar karakter pertama sesudah karakter terakhir kata */
-
+void cleanWORD();
+void ADVWORD();
 void ADVWORDBlank();
     /* I.S. : currentChar adalah karakter pertama kata yang akan diakuisisi
        F.S. : currentWord adalah kata terakhir yang sudah diakuisisi,

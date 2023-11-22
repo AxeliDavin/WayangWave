@@ -34,9 +34,10 @@ void STARTWORD()
        F.S. : endWord = true, dan currentChar = MARK;
               atau endWord = false, currentWord adalah kata yang sudah diakuisisi,
               currentChar karakter pertama sesudah karakter terakhir kata */
+    cleanWORD();    
     START();
     IgnoreBlanks();
-    if (EOP)
+    if (currentChar == MARK || currentChar == '\r' || currentChar == '\n')
     {
         endWord = true;
     }
@@ -44,6 +45,32 @@ void STARTWORD()
     {
         endWord = false;
         CopyWord();
+    }
+}
+
+void cleanWORD(){
+  for(int i =0; i<currentWord.Length; i++){
+    currentWord.TabWord[i] = '\0'; 
+  }
+}
+
+void ADVWORD()
+{
+    /* I.S. : currentChar adalah karakter pertama kata yang akan diakuisisi
+       F.S. : currentWord adalah kata terakhir yang sudah diakuisisi,
+              currentChar adalah karakter pertama dari kata berikutnya, mungkin MARK
+              Jika currentChar = MARK, endWord = true.
+       Proses : Akuisisi kata menggunakan procedure CopyWord */
+    cleanWORD();
+    IgnoreBlanks();
+    if(currentChar == MARK || currentChar == '\r' || currentChar == '\n'){
+        endWord = true;
+    }
+    else
+    {
+        endWord = false;
+        CopyWord();
+        IgnoreBlanks();
     }
 }
 
@@ -96,7 +123,7 @@ void CopyWord()
               currentChar adalah karakter sesudah karakter terakhir yang diakuisisi.
               Jika panjang kata melebihi CAPACITY, maka sisa kata terpotong */
     currentWord.Length = 0;
-    while (currentChar != BLANK && currentChar != ';')
+    while (currentChar != BLANK && currentChar != MARK && currentChar != '\r' && currentChar != '\n')
     {
         if (currentWord.Length < NMax)
         { // jika lebih akan terpotong
@@ -124,7 +151,6 @@ boolean IsKataSama(Word *k1, char *k2){
 void readInput(){
     printf(">> ");
     STARTWORD();
-    while ((getchar()) != '\n');
 }
 
 int WordToInt(Word *word)
