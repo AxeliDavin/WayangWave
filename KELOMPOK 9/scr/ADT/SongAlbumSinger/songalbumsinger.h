@@ -1,8 +1,8 @@
 #ifndef MAPSETLIST_H
 #define MAPSETLIST_H
 #include <stdio.h>
-#include "./MesinKalimat/mesinkalimat.h"
-#include "boolean.h"
+#include "../MesinKalimat/mesinkalimat.h"
+#include "../boolean.h"
 
 /* MODUL MapAlbum
 Deklarasi stack yang dengan implementasi array eksplisit-statik rata kiri

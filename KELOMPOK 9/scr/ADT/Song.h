@@ -5,9 +5,7 @@
 
 #include <stdio.h>
 
-#include "songalbumsinger.h"
-#include "./Stack/stack.h"
-#include "./Queue/queue.h"
+#include "./SongAlbumSinger/songalbumsinger.h"
 #include "./MesinKalimat/mesinkalimat.h"
 
 typedef struct {
@@ -15,7 +13,7 @@ typedef struct {
     Kalimat NamaAlbum;
     Kalimat NamaPenyanyi;
     Kalimat NamaPlaylist;
-    //int status;
+    int status;
     int statusPL;
 } CurrentSong;
 

@@ -1,10 +1,9 @@
 #include "../adt.h"
-#include "../ADT/songalbumsinger.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 
-// gcc ../ADT/boolean.h ../ADT/List/list.c ../ADT/songalbumsinger.c ../ADT/ListLinier/listlinier.c ../ADT/MAP/map.c ../ADT/MesinKalimat/mesinkalimat.c ../ADT/MesinKarakter/mesinkarakter.c ../ADT/Playlist/playlist.c ../ADT/MesinKata/mesinkata.c ../ADT/Queue/queue.c ../ADT/Set/set.c ../ADT/Stack/stack.c start.c -o start 
+// gcc ../ADT/boolean.h ../ADT/List/list.c ../ADT/SongAlbumSinger/songalbumsinger.c ../ADT/ListLinier/listlinier.c ../ADT/MAP/map.c ../ADT/MesinKalimat/mesinkalimat.c ../ADT/MesinKarakter/mesinkarakter.c ../ADT/Playlist/playlist.c ../ADT/MesinKata/mesinkata.c ../ADT/Queue/queue.c ../ADT/Set/set.c ../ADT/Stack/stack.c ../ADT/Song.h start.c -o start 
 
 /*Fungsi Utama*/
 void Start(ListPenyanyi *LP, char path[])
@@ -21,7 +20,6 @@ void Start(ListPenyanyi *LP, char path[])
     Kalimat NamaLagu;
 
     int loop = atoi(CLine.TabLine);
-
     if (loop > 0)
     {
 
@@ -83,6 +81,9 @@ int main(){
             } else {
                 Start(&Penyanyi, "../../save/config.txt");
                 masuksesi = true;
+                printf("%d\n", Penyanyi.NEff);
+                printf("%d\n", Album.NEff);
+                printf("%d\n", Penyanyi.NEff);
             }
         } 
     }

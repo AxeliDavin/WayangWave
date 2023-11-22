@@ -8,5 +8,5 @@
 #include "./ADT/ListLinier/listlinier.h"
 #include "./ADT/Playlist/playlist.h"
 #include "./ADT/MesinKalimat/mesinkalimat.h"
-#include "./ADT/songalbumsinger.h"
+#include "./ADT/SongAlbumSinger/songalbumsinger.h"
 #include "./ADT/Song.h"

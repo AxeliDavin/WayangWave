@@ -25,7 +25,7 @@ typedef struct {
 }contentStack;
 
 typedef struct {
-    contentStack buffer[CAPACITY];
+    contentStack buffer[MaxElStack];
     int IDXTOP;
 } Stack;
 
