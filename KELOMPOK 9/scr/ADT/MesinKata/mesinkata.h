@@ -67,6 +67,9 @@ boolean IsKataSama();
 void readInput();
 /*Mengeluarkan setup default yaitu >> lalu meminta input*/
 
+void readInputCommand();
+/*Meminta input tanpa >>*/
+
 int WordToInt(Word *word);
 /* Ngubah word jadi integer*/
 

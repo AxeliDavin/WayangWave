@@ -154,6 +154,11 @@ void readInput(){
     START();
 }
 
+void readInputCommand(){
+    STARTWORD();
+    START();
+}
+
 int WordToInt(Word *word)
 {
     int result = 0;
