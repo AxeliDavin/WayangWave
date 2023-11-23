@@ -5,8 +5,8 @@
 
 #include <stdio.h>
 
-#include "./SongAlbumSinger/songalbumsinger.h"
-#include "./MesinKalimat/mesinkalimat.h"
+#include "../SongAlbumSinger/songalbumsinger.h"
+#include "../MesinKalimat/mesinkalimat.h"
 
 #define Nil NULL
 
