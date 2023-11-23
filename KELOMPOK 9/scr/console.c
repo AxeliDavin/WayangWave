@@ -818,13 +818,13 @@ void addSongToPlaylist() {
 
     printf("Daftar Playlist Pengguna: \n");
     int nomorDaftarPlaylist = 0;
-    playlistaddress P = First(daftarPlaylist.A);
+    playlistaddress P = FirstPL(daftarPlaylist.A);
 
     while (P != Nil)
     {
         nomorDaftarPlaylist++;
-        printf("   %d. %s", nomorDaftarPlaylist, Info(P).TabLine);
-        P = Next(P);
+        printf("   %d. %s", nomorDaftarPlaylist, P->detail.namaPlaylist.TabLine);
+        P = NextPL(P);
     }
     
     int chosenPlaylistIdx;
@@ -832,10 +832,10 @@ void addSongToPlaylist() {
     readInputCommand();
     chosenPlaylistIdx = WordToInt(&currentWord);
 
-    playlistaddress temp = First(daftarPlaylist.A);
+    playlistaddress temp = FirstPL(daftarPlaylist.A);
     for (int i = 0; i < chosenPlaylistIdx; i++)
     {
-        temp = Next(temp);
+        temp = NextPL(temp);
     }
     
     printf("Lagu dengan judul \"%s\" pada album %s oleh penyanyi %s berhasil ditambahkan ke dalam playlist %s", Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.AlbumLagu[chosenAlbumIdx].IsiLagu.JudulLagu[chosenSongIdx].TabLine, chosenAlbum, chosenSinger, temp->namaPlaylist.TabLine);
@@ -844,7 +844,7 @@ void addSongToPlaylist() {
 /**
  * command: PLAYLIST SWAP <id> <x> <y>
 */
-void swapPlaylist(ListPlaylist daftarPlaylist) {
+void swapPlaylist() {
     // Penerimaan id, x, dan y melalui command
     readInputCommand();
     int id = WordToInt(&currentWord);
@@ -859,25 +859,25 @@ void swapPlaylist(ListPlaylist daftarPlaylist) {
         return;
     }
     
-    if (x > First(daftarPlaylist.A)->detail.nEff)
+    if (x > FirstPL(daftarPlaylist.A)->detail.nEff)
     {
         printf("Tidak ada lagu dengan urutan %d di playlist \"%s\"", x, valuePlaylist(daftarPlaylist, id).namaPlaylist.TabLine);
         return;
     }    
     
-    if (x > First(daftarPlaylist.A)->detail.nEff)
+    if (x > FirstPL(daftarPlaylist.A)->detail.nEff)
     {
         printf("Tidak ada lagu dengan urutan %d di playlist \"%s\"", x, valuePlaylist(daftarPlaylist, id).namaPlaylist.TabLine);
         return;
     }
     
-    address P = First(daftarPlaylist.A)->detail.lagu2->First;
+    address P = FirstPL(daftarPlaylist.A)->detail.lagu2->First;
     for (int i = 1; i < x; i++)
     {
         P = P->next;
     }    
     
-    address P1 = First(daftarPlaylist.A)->detail.lagu2->First;
+    address P1 = FirstPL(daftarPlaylist.A)->detail.lagu2->First;
     for (int i = 1; i < y; i++)
     {
         P1 = P1->next;
@@ -894,7 +894,6 @@ void swapPlaylist(ListPlaylist daftarPlaylist) {
  * 
 */
 void removePlaylist() {
-
 }
 
 /**
