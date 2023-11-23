@@ -846,11 +846,11 @@ void addSongToPlaylist() {
 */
 void swapPlaylist() {
     // Penerimaan id, x, dan y melalui command
-    readInputCommand();
+    ADV();
     int id = WordToInt(&currentWord);
-    readInputCommand();    
+    ADV();    
     int x = WordToInt(&currentWord);
-    readInputCommand();
+    ADV();
     int y = WordToInt(&currentWord);
 
     if (id > daftarPlaylist.nEff)
@@ -865,9 +865,9 @@ void swapPlaylist() {
         return;
     }    
     
-    if (x > FirstPL(daftarPlaylist.A)->detail.nEff)
+    if (y> FirstPL(daftarPlaylist.A)->detail.nEff)
     {
-        printf("Tidak ada lagu dengan urutan %d di playlist \"%s\"", x, valuePlaylist(daftarPlaylist, id).namaPlaylist.TabLine);
+        printf("Tidak ada lagu dengan urutan %d di playlist \"%s\"", y, valuePlaylist(daftarPlaylist, id).namaPlaylist.TabLine);
         return;
     }
     
@@ -894,6 +894,39 @@ void swapPlaylist() {
  * 
 */
 void removePlaylist() {
+    ADV();
+    int id = WordToInt(&currentWord);
+    ADV();    
+    int n = WordToInt(&currentWord);
+
+    if (id > daftarPlaylist.nEff)
+    {
+        printf("Tidak ada playlist dengan ID %d\n", id);
+        return;
+    }
+    
+    if (n > FirstPL(daftarPlaylist.A)->detail.nEff)
+    {
+        printf("Tidak ada lagu dengan urutan %d di playlist \"%s\"", n, valuePlaylist(daftarPlaylist, id).namaPlaylist.TabLine);
+        return;
+    }   
+
+    address P = FirstPL(daftarPlaylist.A)->detail.lagu2->First;
+    address prec = Nil;
+    for (int i = 1; i < n; i++)
+    {
+        prec = P;
+        P = P->next;
+    }  
+
+    printf("Lagu \"%s\" oleh \"%s\" telah dihapus dari playlist \"%s\"!", P->info.JudulLagu.TabLine, P->info.NamaPenyanyi.TabLine, valuePlaylist(daftarPlaylist, id));
+
+    if (prec == Nil)
+    {
+        FirstPL(daftarPlaylist.A)->detail.lagu2->First = FirstPL(daftarPlaylist.A)->detail.lagu2->First->next;
+    }else{
+        prec->next = P->next;   
+    }
 }
 
 /**
@@ -901,28 +934,44 @@ void removePlaylist() {
  * Untuk nampilin daftar playlist sebenernya bisa pake fungsi/command listPlaylist (dibuat Ammar)
 */
 void deletePlaylist() {
-    // Nampilin daftar playlist + nerima input id playlist
-    printf("Daftar Playlist Pengguna : \n");
-    for (int i = FirstIdx(playlist); i <= LastIdx(playlist); i++) {
-        printf("%s\n", Get(playlist, i));
+    printf("Daftar Playlist Pengguna: \n");
+    int nomorDaftarPlaylist = 0;
+    playlistaddress P = FirstPL(daftarPlaylist.A);
+
+    while (P != Nil)
+    {
+        nomorDaftarPlaylist++;
+        printf("   %d. %s", nomorDaftarPlaylist, P->detail.namaPlaylist.TabLine);
+        P = NextPL(P);
+    }
+    
+    int chosenPlaylistIdx;
+    printf("Masukkan ID Playlist yang dipilih: ");
+    readInputCommand();
+    chosenPlaylistIdx = WordToInt(&currentWord);
+
+    if (chosenPlaylistIdx > daftarPlaylist.nEff)
+    {
+        printf("Tidak ada playlist dengan ID %d dalam daftar playlist pengguna. Silakan coba lagi.", chosenPlaylistIdx);
+        return;
+    }
+    
+
+    playlistaddress temp = FirstPL(daftarPlaylist.A);
+    playlistaddress prec = Nil;
+    for (int i = 0; i < chosenPlaylistIdx; i++)
+    {
+        prec = temp;
+        temp = NextPL(temp);
     }
 
-    int playlistId;
-    printf("\nMasukkan ID Playlist yang dipilih : ");
-    readInputCommand();
-    playlistId = WordToInt(currentWord.TabWord);
+    printf("Playlist ID %d dengan judul \"%s\" berhasil dihapus", chosenPlaylistIdx, valuePlaylist(daftarPlaylist, chosenPlaylistIdx).namaPlaylist.TabLine);
 
-    // Cek apakah id valid or no
-    if (IsIdxValid(playlist, playlistId)) {
-        // Dapetin nama playlistnya
-        ElTypeList deletedPlaylistTitle = Get(playlist, playlistId - 1);
-
-        // Ngapus elemen list dari list of playlists
-        DeleteAt(&playlist, playlistId - 1);
-
-        printf("\nPlaylist ID %d dengan judul \"%s\" berhasil dihapus.\n", playlistId, deletedPlaylistTitle);
-    } else {
-        printf("\nTidak ada playlist dengan ID %d dalam daftar playlist pengguna. Silakan coba lagi.\n", playlistId);
+    if (prec == Nil)
+    {
+        FirstPL(daftarPlaylist.A) == NextPL(FirstPL(daftarPlaylist.A));
+    }else{
+        prec = NextPL(temp);
     }
 }
 
