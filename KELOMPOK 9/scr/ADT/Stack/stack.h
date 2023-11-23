@@ -7,7 +7,7 @@
 
 #include "../boolean.h"
 #include "../MesinKalimat/mesinkalimat.h"
-#include "../Song.h"
+#include "../Song/Song.h"
 
 #define NilStack -1
 #define MaxElStack 100

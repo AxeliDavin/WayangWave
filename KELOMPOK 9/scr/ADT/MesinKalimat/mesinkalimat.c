@@ -8,10 +8,19 @@ Kalimat currentCharommand;
 
 Kalimat createKalimat(){
     Kalimat K;
-    K.Length = MARK2;
+    K.Length = 0;
 
     return K;
 }
+
+boolean IsKalimatEmpty(Kalimat K){
+    if (K.Length != 0)
+    {
+        return false;
+    }
+    return true;
+}
+
 
 void Ignoreblanks()
 /* Mengabaikan satu atau beberapa BLANK

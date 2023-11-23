@@ -7,7 +7,7 @@
 #include "../boolean.h"
 #include "../Playlist/playlist.h"
 #include "../MesinKalimat/mesinkalimat.h"
-#include "../Song.h"
+#include "../Song/Song.h"
 
 
 #define IDX_UNDEF -1

@@ -20,6 +20,7 @@ extern Kalimat CInput;
 extern Kalimat CCommand;
 
 Kalimat createKalimat();
+boolean IsKalimatEmpty(Kalimat K);
 
 void IgnoreNewline();
 void Ignoreblanks();

@@ -430,6 +430,8 @@ void listDefault(){
 void listPlaylist(){
     printf("Daftar playlist yang kamu miliki: ");
 
+    
+
     address P = First(playlist);
     int nomorPlaylist = 0;
     if (IsEmptyPlaylist(playlist))
