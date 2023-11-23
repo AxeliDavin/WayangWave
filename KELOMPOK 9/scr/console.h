@@ -8,7 +8,7 @@ void readCommand();
 void Start(ListPenyanyi *LP, char path[]);
 /*Pertama kali memulai WayangWave*/
 
-// void Load(ListPenyanyi * LP, char filename[]);
+void Load(ListPenyanyi * LP, char filename[]);
 
 void listDefault();
 

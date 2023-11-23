@@ -43,19 +43,19 @@ void readCommand(){
             }
         } 
         
-        // if (IsKataSama(currentWord.TabWord, "LOAD")){
-        //     if (masuksesi){
-        //         printf("Command tidak bisa dieksekusi!\n"); /*Udah masuk sesi jadi tidak bisa dirun*/
-        //     } else {
-        //         ADVWORD();
-        //         char path[50] = "../save/";
-        //         for (int i = 0; i < currentWord.Length; i++){
-        //             path[i+8] = currentWord.TabWord[i];
-        //         }
-        //         Load(&Penyanyi, path);
-        //         masuksesi = true;
-        //     }           
-        // } 
+        else if (IsKataSama(currentWord.TabWord, "LOAD")){
+            if (masuksesi){
+                printf("Command tidak bisa dieksekusi!\n"); /*Udah masuk sesi jadi tidak bisa dirun*/
+            } else {
+                ADVWORD();
+                char path[50] = "../save/";
+                for (int i = 0; i < currentWord.Length; i++){
+                    path[i+8] = currentWord.TabWord[i];
+                }
+                Load(&Penyanyi, path);
+                masuksesi = true;
+            }           
+        } 
         
         else if (IsKataSama(currentWord.TabWord, "LIST")){
             ADVWORD();
@@ -72,6 +72,7 @@ void readCommand(){
                     listPlaylist();
                 } 
             } 
+            START();
         } 
 
         else if (IsKataSama(currentWord.TabWord, "PLAY")){
@@ -90,6 +91,7 @@ void readCommand(){
                 } 
             } 
             isPlaying = true;
+            START();
         } 
 
         // else if (IsKataSama(currentWord.TabWord, "QUEUE")){
@@ -125,6 +127,7 @@ void readCommand(){
         //             clearQueue();
         //         } 
         //     }
+        // START();
         // }
                 
         else if (IsKataSama(currentWord.TabWord, "PLAYLIST")){
@@ -160,6 +163,7 @@ void readCommand(){
                     deletePlaylist();
                 } 
             }
+            START();
         }
 
         else if (IsKataSama(currentWord.TabWord, "STATUS")){
@@ -168,7 +172,8 @@ void readCommand(){
             } else {
                 masuksesi = true;
                 Status();
-            }           
+            }          
+            START(); 
         }
 
         else if (IsKataSama(currentWord.TabWord, "QUIT")){
@@ -178,6 +183,7 @@ void readCommand(){
                 masuksesi = true;
                 Quit();
             }           
+            START();
         }
 
         else if (IsKataSama(currentWord.TabWord, "HELP")){
@@ -187,13 +193,13 @@ void readCommand(){
                 masuksesi = true;
                 helpAfterStart();
             }           
+            START();
         }
 
         else {
             printf("kata 2: %s\n", currentWord.TabWord);
             printf("Command tidak diketahui!\n"); /*Tidak ada di list command*/
         }
-
     }
 }
 
@@ -238,110 +244,110 @@ void Start(ListPenyanyi *LP, char path[])
 
 
 /*LOAD*/
-// void Load(ListPenyanyi * LP, char filename[])
-// {
+void Load(ListPenyanyi * LP, char filename[])
+{
 
-//     STARTKALIMATFILE(filename);
+    STARTKALIMATFILE(filename);
 
-//     Kalimat NamaPenyanyi;
-//     Kalimat NamaAlbum;
-//     Kalimat NamaLagu;
+    Kalimat NamaPenyanyi;
+    Kalimat NamaAlbum;
+    Kalimat NamaLagu;
 
-//     int loop = atoi(CLine.TabLine);
-//     if (loop > 0)
-//     {
+    int loop = atoi(CLine.TabLine);
+    if (loop > 0)
+    {
 
-//         for (int i = 0; i < loop; i++){
-//             ADVSATUKATA();
-//             int album = atoi(CLine.TabLine);
+        for (int i = 0; i < loop; i++){
+            ADVSATUKATA();
+            int album = atoi(CLine.TabLine);
             
-//             ADVKALIMAT();
+            ADVKALIMAT();
             
-//             AddPenyanyi(LP, CLine);
-//             for (int j = 0; j < album; j++){
-//             ADVSATUKATA();
-//             int lagu = atoi(CLine.TabLine);
+            AddPenyanyi(LP, CLine);
+            for (int j = 0; j < album; j++){
+            ADVSATUKATA();
+            int lagu = atoi(CLine.TabLine);
 
-//             ADVKALIMAT();
+            ADVKALIMAT();
 
-//             AddAlbum(LP, CLine);
+            AddAlbum(LP, CLine);
 
-//             for (int k = 0; k < lagu; k++)
-//             {
-//                 ADVKALIMAT();
+            for (int k = 0; k < lagu; k++)
+            {
+                ADVKALIMAT();
 
-//                 AddLagu(LP, CLine);
-//             }
-//             }
-//         }
-//         ADVKALIMAT();
-//         Lagu.NamaPenyanyi = CLine;
-//         ADVRECORD();
-//         Lagu.NamaAlbum = CLine;
-//         ADVRECORD();
-//         Lagu.JudulLagu = CLine;
-//         ADVKALIMAT();
+                AddLagu(LP, CLine);
+            }
+            }
+        }
+        ADVKALIMAT();
+        Lagu.NamaPenyanyi = CLine;
+        ADVRECORD();
+        Lagu.NamaAlbum = CLine;
+        ADVRECORD();
+        Lagu.JudulLagu = CLine;
+        ADVKALIMAT();
 
-//             int loopRecordQ = atoi(CLine.TabLine);
-//             for (int i = 0; i < loopRecordQ; i++) // Queue
-//             {  contentQueue lagu;
-//                 ADVRECORD();
-//                 lagu.NamaPenyanyi = CLine;
-//                 ADVRECORD();
-//                 lagu.NamaAlbum = CLine;
-//                 ADVRECORD();
-//                 lagu.JudulLagu = CLine;
+            int loopRecordQ = atoi(CLine.TabLine);
+            for (int i = 0; i < loopRecordQ; i++) // Queue
+            {  contentQueue lagu;
+                ADVRECORD();
+                lagu.NamaPenyanyi = CLine;
+                ADVRECORD();
+                lagu.NamaAlbum = CLine;
+                ADVRECORD();
+                lagu.JudulLagu = CLine;
 
-//                 enqueue(&antre, lagu);
-//             }
+                enqueue(&antre, lagu);
+            }
 
-//             ADVKALIMAT();
-//             int loopRecordR = atoi(CLine.TabLine);
-//             for (int i = 0; i < loopRecordR; i++) // History input
-//             {
-//                 contentStack song;
-//                 ADVRECORD();
-//                 song.NamaPenyanyi = CLine;
-//                 ADVRECORD();
-//                 song.NamaAlbum = CLine;
-//                 ADVRECORD();
-//                 song.JudulLagu = CLine;
+            ADVKALIMAT();
+            int loopRecordR = atoi(CLine.TabLine);
+            for (int i = 0; i < loopRecordR; i++) // History input
+            {
+                contentStack song;
+                ADVRECORD();
+                song.NamaPenyanyi = CLine;
+                ADVRECORD();
+                song.NamaAlbum = CLine;
+                ADVRECORD();
+                song.JudulLagu = CLine;
 
-//                 Push(&History, song);
-//             }
+                Push(&History, song);
+            }
 
 
-//             ADVKALIMAT();
-//             int loopRecordP = atoi(CLine.TabLine); // Jumlah Playlist
-//             for (int i = 0; i < loopRecordP; i++) // Loop Playlist
-//             {
+            ADVKALIMAT();
+            int loopRecordP = atoi(CLine.TabLine); // Jumlah Playlist
+            for (int i = 0; i < loopRecordP; i++) // Loop Playlist
+            {
 
-//                 ADVSATUKATA();
-//                 int LaguPlaylist = atoi(CLine.TabLine);
+                ADVSATUKATA();
+                int LaguPlaylist = atoi(CLine.TabLine);
 
-//                 for (int j = 0; j < LaguPlaylist; j++)
-//                 {   
+                for (int j = 0; j < LaguPlaylist; j++)
+                {   
                     
-//                     infoType Songss;
+                    infoType Songss;
 
-//                     ADVRECORD();
-//                     Songss.NamaPenyanyi = CLine;
+                    ADVRECORD();
+                    Songss.NamaPenyanyi = CLine;
 
-//                     ADVRECORD();
-//                     Songss.NamaAlbum = CLine;
+                    ADVRECORD();
+                    Songss.NamaAlbum = CLine;
 
-//                     ADVRECORD();
-//                     Songss.JudulLagu = CLine;
-//                     InsVLastLinked(playlist.lagu2, Songss);
-//                 }
-//             }
-//         printf("Save file berhasil dibaca. WayangWave berhasil dijalankan.\n");
-//         }
-//     else
-//     {
-//         printf("Save file tidak ditemukan. WayangWave gagal dijalankan.\n");
-//     }
-// }
+                    ADVRECORD();
+                    Songss.JudulLagu = CLine;
+                    InsVLastLinked(playlist.lagu2, Songss);
+                }
+            }
+        printf("Save file berhasil dibaca. WayangWave berhasil dijalankan.\n");
+        }
+    else
+    {
+        printf("Save file tidak ditemukan. WayangWave gagal dijalankan.\n");
+    }
+}
 
 
 
@@ -355,23 +361,23 @@ void listDefault(){
         printf("   %d. %s\n", i+1, Penyanyi.PenyanyiAlbum[i].NamaPenyanyi.TabLine);
     }
     
-    char *lookAlbum;
     printf("Ingin melihat album yang ada?(Y/N): ");
-    readInputCommand();
-    lookAlbum = currentWord.TabWord;
+    STARTWORD();
+    STARTWORD();
+
     // PILIH ALBUM
-    if (lookAlbum == "Y" || lookAlbum == "y")
+    if (IsKataSama(currentWord.TabWord, "Y") || IsKataSama(currentWord.TabWord, "y"))
     {
-        char *chosenSinger;
+
         printf("Pilih penyanyi untuk melihat album mereka: ");
-        readInputCommand();
-        chosenSinger = currentWord.TabWord;
+        STARTWORD();
 
         int chosenSingerIdx = InvalidIdx;
         // Cek apakah nama penyanyi valid
         for (int i = 0; i < Penyanyi.NEff; i++)
-        {
-            if (isInputEqual(Penyanyi.PenyanyiAlbum[i].NamaPenyanyi, chosenSinger))
+        {   
+
+            if (isInputEqual(Penyanyi.PenyanyiAlbum[i].NamaPenyanyi, currentWord.TabWord))
             {
                 chosenSingerIdx = i;
                 break;
@@ -381,12 +387,12 @@ void listDefault(){
         
         // chosenSingerIdx = IndexOf(Penyanyi, chosenSinger);
         if (chosenSingerIdx == InvalidIdx) {
-            printf("Penyanyi %s tidak ada dalam daftar. Silakan coba lagi.\n", chosenSinger);
+            printf("Penyanyi %s tidak ada dalam daftar. Silakan coba lagi.\n", currentWord.TabWord);
             return;
         }
 
         // Nampilin daftar album yang dimiliki penyanyi
-        printf("Daftar Album oleh %s :\n", chosenSinger);
+        printf("Daftar Album oleh %s :\n", currentWord.TabWord);
         int nomorAlbum = 0;        
         for (int i = 0; i < Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.NEff; i++) {
             nomorAlbum++;
@@ -395,22 +401,21 @@ void listDefault(){
 
         char *lookSong;
         printf("Ingin melihat lagu yang ada?(Y/N): ");
-        readInputCommand();
-        lookSong = currentWord.TabWord;
+        STARTWORD();
+        STARTWORD();
 
         // LIHAT LAGU
-        if (lookSong == "Y"|| lookSong == "y")
+        if (IsKataSama(currentWord.TabWord, "Y") || IsKataSama(currentWord.TabWord, "y"))
         {
-            char *chosenAlbum;
+
             printf("Pilih album untuk melihat lagu yang ada di album: ");
-            readInputCommand();
-            chosenAlbum = currentWord.TabWord;
+            STARTWORD();
 
             // Cek apakah nama album valid
             int chosenAlbumIdx = InvalidIdx;
             for (int i = 0; i < Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.NEff; i++)
             {
-                if (isInputEqual(Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.AlbumLagu[i].NamaAlbum, chosenAlbum))
+                if (isInputEqual(Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.AlbumLagu[i].NamaAlbum, currentWord.TabWord))
                 {
                     chosenAlbumIdx = i;
                     break;
@@ -418,12 +423,12 @@ void listDefault(){
             }
 
             if (chosenAlbumIdx == InvalidIdx) {
-                printf("Album %s tidak ada dalam daftar. Silakan coba lagi.\n", chosenSinger);
+                printf("Album %s tidak ada dalam daftar. Silakan coba lagi.\n", currentWord.TabWord);
                 return;
             }
 
             // Nampilin daftar lagu yang di dalam album
-            printf("Daftar Lagu di %s :\n", chosenAlbum);
+            printf("Daftar Lagu di %s :\n", currentWord.TabWord);
             int nomorLagu = 0;
             for (int i = 0; i < Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.AlbumLagu[i].IsiLagu.Count; i++) {
                 nomorLagu++;
@@ -1053,11 +1058,13 @@ void Quit() {
     char *Input;
     char *fname;
     printf("Apakah kamu ingin menyimpan data sesi sekarang? ");
-    readInputCommand();
-    Input = currentWord.TabWord;
+    STARTWORD();
+    STARTWORD();
+    // printf("\n");
+    // Input = currentWord.TabWord;
 
     // Cek apakah pengguna ingin save atau tidak
-    if (Input == "Y" || Input == "y") {
+    if (IsKataSama(currentWord.TabWord, "Y") || IsKataSama(currentWord.TabWord, "y")) {
         printf("Masukkan nama file : ");
         readInputCommand();
         fname = currentWord.TabWord;

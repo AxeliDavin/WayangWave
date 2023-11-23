@@ -267,10 +267,10 @@ void displayKalimat(Kalimat K){
 boolean isInputEqual(Kalimat Input, char * kata) 
 {   
     boolean equal = true;
-    if (Input.Length == LengthKalimat(kata))
-    {
+    if ((Input.Length-1) == LengthKalimat(kata))
+    {   
         int i = 0;
-        while (i < Input.Length && equal)
+        while (i < Input.Length-1 && equal)
         {
             if (Input.TabLine[i] != kata[i])
             {
