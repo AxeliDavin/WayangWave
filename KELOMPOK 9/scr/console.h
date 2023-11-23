@@ -5,10 +5,10 @@
 void readCommand();
 /*Fungsi Utama*/
 
-void Start();
+void Start(ListPenyanyi *LP, char path[]);
 /*Pertama kali memulai WayangWave*/
 
-void Load();
+// void Load(ListPenyanyi * LP, char filename[]);
 
 void listDefault();
 
@@ -18,9 +18,19 @@ void playSong();
 
 void playPlaylist();
 
+// void songQueue();
+
+// void playlistQueue();
+
+// void swapQueue();
+
+// void removeQueue();
+
+// void clearQueue();
+
 void createPlaylist();
 
-void addPlaylist();
+void addSongToPlaylist();
 
 void swapPlaylist();
 
@@ -28,7 +38,9 @@ void removePlaylist();
 
 void deletePlaylist();
 
-void Save();
+void Status();
+
+void Save(ListPenyanyi * LP, char filename[]);
 
 void Quit();
 

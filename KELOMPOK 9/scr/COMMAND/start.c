@@ -73,10 +73,15 @@ int main(){
             if (masuksesi){
                 printf("Command tidak bisa dieksekusi!\n"); /*Udah masuk sesi jadi tidak bisa dirun*/
             } else {
+                printf("kata 1: %s\n", currentWord.TabWord);
                 Start(&Penyanyi, "../../save/config.txt");
                 masuksesi = true;
             }
         } 
+        else {
+            printf("kata 2: %s\n", currentWord.TabWord);
+            printf("Command tidak diketahui!\n"); /*Tidak ada di list command*/
+        }
     }
     return 0;
 }
