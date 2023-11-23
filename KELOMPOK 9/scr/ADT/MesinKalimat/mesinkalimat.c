@@ -304,3 +304,14 @@ Kalimat charToKalimat(char *K){
 
     return temp;
 }
+
+void TukarKalimat(Kalimat *K1, Kalimat *K2){
+    Kalimat temp = createKalimat();
+    Kalimat temp2 = createKalimat();
+    
+    copyKalimat(*K1, &temp);
+    copyKalimat(*K2, &temp2);
+    
+    copyKalimat(temp, &K2);
+    copyKalimat(temp2, &K1);
+}

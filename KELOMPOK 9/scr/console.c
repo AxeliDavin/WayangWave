@@ -527,7 +527,7 @@ void playSong(){
     int chosenSongIdx;
     printf("Masukkan ID Lagu yang dipilih: ");
     readInputCommand();
-    chosenSongIdx = WordToInt(currentWord.TabWord);
+    chosenSongIdx = WordToInt(&currentWord);
 
     if (chosenSongIdx > nomorLagu)
     {
@@ -614,7 +614,7 @@ void songQueue() {
     int songIndex;
     printf("Masukkan ID Lagu yang dipilih : ");
     readInputCommand();
-    songIndex = WordToInt(currentWord.TabWord);
+    songIndex = WordToInt(&currentWord);
 
     // Cek inputan lagu valid atau ga
     if (songIndex > 0 && songIndex <= Penyanyi.PenyanyiAlbum[idxSinger].ListAlbums.AlbumLagu[idxAlbum].IsiLagu.Count) {
@@ -640,7 +640,7 @@ void playlistQueue() {
     int playlistIndex;
     printf("Masukkan ID Playlist ");
     readInputCommand();
-    playlistIndex = WordToInt(currentWord.TabWord);
+    playlistIndex = WordToInt(&currentWord);
 
     // Menambahkan lagu dalam playlist ke dalam queue
     
@@ -726,7 +726,7 @@ void createPlaylist() {
     char playlistName;
     printf("Masukkan nama playlist yang ingin dibuat : ");
     readInputCommand();
-    playlistName = WordToInt(currentWord.TabWord);
+    playlistName = WordToInt(&currentWord);
 
     daftarPutar.namaPlaylist = charToKalimat(playlistName);
 }
@@ -806,7 +806,7 @@ void addSongToPlaylist() {
     int chosenSongIdx;
     printf("Masukkan ID Lagu yang dipilih: ");
     readInputCommand();
-    chosenSongIdx = WordToInt(currentWord.TabWord);
+    chosenSongIdx = WordToInt(&currentWord);
 
     if (chosenSongIdx > nomorLagu)
     {
@@ -830,7 +830,7 @@ void addSongToPlaylist() {
     int chosenPlaylistIdx;
     printf("Masukkan ID Playlist yang dipilih: ");
     readInputCommand();
-    chosenPlaylistIdx = WordToInt(currentWord.TabWord);
+    chosenPlaylistIdx = WordToInt(&currentWord);
 
     playlistaddress temp = First(daftarPlaylist.A);
     for (int i = 0; i < chosenPlaylistIdx; i++)
@@ -844,34 +844,48 @@ void addSongToPlaylist() {
 /**
  * command: PLAYLIST SWAP <id> <x> <y>
 */
-void swapPlaylist() {
+void swapPlaylist(ListPlaylist daftarPlaylist) {
     // Penerimaan id, x, dan y melalui command
-    ADV();
+    readInputCommand();
     int id = WordToInt(&currentWord);
-    ADV();
+    readInputCommand();    
     int x = WordToInt(&currentWord);
-    ADV();
+    readInputCommand();
     int y = WordToInt(&currentWord);
 
-    if (IsIdxValid(playlist, id)) {
-        // Mencari elemen playlist yang akan dituker lagu-lagunya
-        List *selectedPlaylist = Get(playlist, id - 1);
-
-        // Cek apakah x dan y valid
-        if (IsIdxEff(*selectedPlaylist, x) && IsIdxEff(*selectedPlaylist, y)) {
-            // Tukar lagu:
-            ElTypeList temp = Get(*selectedPlaylist, x - 1);
-            SetList(selectedPlaylist, x - 1, Get(*selectedPlaylist, y - 1));
-            SetList(selectedPlaylist, y - 1, temp);
-
-            printf("Berhasil menukar lagu dengan nama \"%s\" dengan \"%s\" di playlist \"%s\"\n",
-                   Get(*selectedPlaylist, x - 1), Get(*selectedPlaylist, y - 1), Get(playlist, id - 1));
-        } else {
-            printf("Tidak ada lagu dengan urutan %d di playlist \"%s\"\n", (x > y) ? y : x, Get(playlist, id - 1));
-        }
-    } else {
+    if (id > daftarPlaylist.nEff)
+    {
         printf("Tidak ada playlist dengan playlist ID %d\n", id);
+        return;
     }
+    
+    if (x > First(daftarPlaylist.A)->detail.nEff)
+    {
+        printf("Tidak ada lagu dengan urutan %d di playlist \"%s\"", x, valuePlaylist(daftarPlaylist, id).namaPlaylist.TabLine);
+        return;
+    }    
+    
+    if (x > First(daftarPlaylist.A)->detail.nEff)
+    {
+        printf("Tidak ada lagu dengan urutan %d di playlist \"%s\"", x, valuePlaylist(daftarPlaylist, id).namaPlaylist.TabLine);
+        return;
+    }
+    
+    address P = First(daftarPlaylist.A)->detail.lagu2->First;
+    for (int i = 1; i < x; i++)
+    {
+        P = P->next;
+    }    
+    
+    address P1 = First(daftarPlaylist.A)->detail.lagu2->First;
+    for (int i = 1; i < y; i++)
+    {
+        P1 = P1->next;
+    }
+
+    tukarLagu(&P, &P1);
+
+    printf("Berhasil menukar lagu dengan nama \"%s\" dengan \"%s\" di playlist \"%s\"", P->info.JudulLagu, P1->info.JudulLagu, valuePlaylist(daftarPlaylist, id).namaPlaylist.TabLine);
 }
 
 /**
@@ -880,32 +894,7 @@ void swapPlaylist() {
  * 
 */
 void removePlaylist() {
-    // Nerima id dan n dari melalui command
-    ADV();
-    int id = WordToInt(&currentWord);
-    ADV();
-    int n = WordToInt(&currentWord);    
 
-    // Check indeks playlist valid or no
-    if (IsIdxValid(playlist, id)) {
-        // Akses indeks playlist
-        List *selectedPlaylist = Get(playlist, id - 1);
-
-        // Cek indeks lagu dalam playlist valiid or no
-        if (IsIdxEff(*selectedPlaylist, n)) {
-            // Akses indeks lagu di dalam playlist
-            ElTypeList removedSong = Get(*selectedPlaylist, n - 1);
-
-            // Hapus elemen lagu dari playlist
-            DeleteAt(selectedPlaylist, n - 1);
-
-            printf("Lagu \"%s\" telah dihapus dari playlist \"%s\"!\n", removedSong, Get(playlist, id - 1));
-        } else {
-            printf("Tidak ada lagu dengan urutan %d di playlist \"%s\"!\n", n, Get(playlist, id - 1));
-        }
-    } else {
-        printf("Tidak ada playlist dengan playlist ID %d.\n", id);
-    }
 }
 
 /**

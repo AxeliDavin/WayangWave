@@ -136,4 +136,6 @@ void PrintInfoLinked (ListLinier L);
 int NbElmtLinked (ListLinier L);
 /* Mengirimkan banyaknya elemen ListLinier; mengirimkan 0 jika ListLinier kosong */
 
+void tukarLagu(address *P1, address *P2);
+
 #endif
