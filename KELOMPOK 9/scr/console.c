@@ -319,7 +319,7 @@ void Load(ListPenyanyi * LP, char filename[])
 
                     ADVRECORD();
                     Songss.JudulLagu = CLine;
-                    InsVLast(Playlists.A, Songss);
+                    InsVLast(playlist.A, Songss);
                 }
             }
         printf("Save file berhasil dibaca. WayangWave berhasil dijalankan.\n");

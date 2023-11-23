@@ -151,6 +151,7 @@ boolean IsKataSama(Word *k1, char *k2){
 void readInput(){
     printf(">> ");
     STARTWORD();
+    START();
 }
 
 int WordToInt(Word *word)
