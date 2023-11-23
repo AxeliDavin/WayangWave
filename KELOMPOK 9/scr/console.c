@@ -25,7 +25,7 @@ void readCommand(){
     CreateEmptyPlaylist(&playlist);
     CreateQueue(&queue);
     
-    boolean masuksesi = false, stopsesi = false;
+    boolean masuksesi = false, stopsesi = false, isPlaying = false;
 
     /*Masuk Ke Command Utama*/
     while(!stopsesi){
@@ -87,6 +87,7 @@ void readCommand(){
                     playPlaylist();
                 } 
             } 
+            isPlaying = true;
         } 
 
         else if (IsKataSama(currentWord.TabWord, "QUEUE")){
@@ -644,7 +645,7 @@ void queueSwap() {
 
     if ((x >= 1 && x <= length(queue)) && (y >= 1 && y <= length(queue))) {
         // Mencari lagu dalam queue yang akan ditukar urutannya
-        content temp[256] = queue.buffer[x];
+        contentQueue temp[256] = queue.buffer[x];
         queue.buffer[x] = queue.buffer[y];
         queue.buffer[y] = temp;
         printf("Lagu %s berhasil ditukar dengan %s\n", queue.buffer[x], queue.buffer[y]);
@@ -668,12 +669,15 @@ void queueRemove() {
     int id = WordToInt(&currentWord);
     if (id >= 1 && id <= length(queue)) { 
         Queue temp;
-        content val;
+        contentQueue songRemoved, val;
         CreateQueue(&temp);
         for (int i=0; i < length(queue); i++) {
             dequeue(&queue, &val);
             if (i != id-1) {
                 enqueue(&temp, val); 
+            }
+            else {
+                songRemoved = val;
             }
         }
         while (!isEmptyQueue(temp)){
@@ -681,7 +685,7 @@ void queueRemove() {
             enqueue(&queue, val);
             }    
         
-        // masih kurang nge-print judul lagu dan nama artis di sini
+        printf("Lagu “%s” oleh “%s” telah dihapus dari queue!\n", songRemoved.JudulLagu, songRemoved.NamaPenyanyi);   
     }
     else {
         printf("Lagu dengan urutan ke %d tidak ada.\n", id);
@@ -894,6 +898,36 @@ void deletePlaylist() {
         printf("\nPlaylist ID %d dengan judul \"%s\" berhasil dihapus.\n", playlistId, deletedPlaylistTitle);
     } else {
         printf("\nTidak ada playlist dengan ID %d dalam daftar playlist pengguna. Silakan coba lagi.\n", playlistId);
+    }
+}
+
+
+/* STATUS*/
+
+void STATUS() {
+    boolean isPlaying = false;
+    if (isPlaying) {
+        if (Lagu.idxPlaylist != InvalidIdx) {
+        //    printf("Current Playlist: %s", playlist[idxPlaylist]);
+        }
+    }
+    printf("Now Playing:\n");
+    if (isPlaying) {
+        printf("%s - %s - %s", Lagu.NamaPenyanyi.TabLine, Lagu.NamaAlbum.TabLine, Lagu.JudulLagu.TabLine);
+    }
+    else {
+        printf("No songs have been played yet. Please search for a song to begin playback.\n");
+    }
+    printf("\n");
+
+    printf("Queue:\n");
+    if (!isEmptyQueue(queue)) {
+        for (int i=0; i<length(queue); i++) {
+            printf("%d. %s - %s - %s\n", i+1, queue.buffer[i].NamaPenyanyi, queue.buffer[i].NamaAlbum, queue.buffer[i].JudulLagu);
+        }
+    }
+    else {
+        printf("Your queue is empty.\n");
     }
 }
 
