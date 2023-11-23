@@ -56,4 +56,6 @@ boolean isInputEqual(Kalimat Input, char * kata);
 
 Kalimat charToKalimat(char *K);
 
+void TukarKalimat(Kalimat *K1, Kalimat *K2);
+
 #endif

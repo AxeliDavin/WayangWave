@@ -19,15 +19,23 @@
 typedef Kalimat infotype;
 
 typedef struct tElmtplaylist *playlistaddress;
+// typedef struct {
+//     infotype lagu;
+//     infotype album;
+//     infotype penyanyi;
+// } contents;
+
 typedef struct {
-    infotype lagu;
-    infotype album;
-    infotype penyanyi;
-} contents;
+    int nEff;
+    int capacity;
+    Kalimat namaPlaylist;
+    ListLinier *lagu2;
+} Playlist;
 
 typedef struct tElmtplaylist { 
-	contents infoLagu;
-    infotype namaPlaylist;
+	// contents infoLagu;
+    // infotype namaPlaylist;
+    Playlist detail;
 	playlistaddress next;
 } ElmtPlayList;
 
@@ -46,19 +54,14 @@ typedef struct {
     int nEff; // Jumlah Elemen Efektif
 } ListPlaylist;
 
-typedef struct {
-    int nEff;
-    int capacity;
-    Kalimat namaPlaylist;
-    ListLinier *A;
-} Playlist;
-
 #define InfoPL(P) (P)->namaPlaylist
 #define NextPL(P) (P)->next
 #define FirstPL(L) ((L).First)
 
 void CreateEmptyPlaylist(Playlist *x);
 
+Playlist valuePlaylist(ListPlaylist daftarPlaylist, int idx);
 
+Songs laguPlaylist(Playlist a, int idx);
 
 #endif

@@ -315,3 +315,9 @@ int NbElmtLinked (ListLinier L)
 
     return count;
 }
+
+void tukarLagu(address *P1, address *P2){
+    TukarKalimat(&NamaPenyanyi(*P1), &NamaPenyanyi(*P2));
+    TukarKalimat(&NamaAlbum(*P1), &NamaAlbum(*P2));
+    TukarKalimat(&JudulLagu(*P1), &JudulLagu(*P2));
+}
