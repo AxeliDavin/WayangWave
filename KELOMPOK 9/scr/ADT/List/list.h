@@ -8,7 +8,7 @@
 #include "../boolean.h"
 
 /* Kamus Umum */
-#define MaxElList 100
+#define MaxElList 32
 #define Mark -9999  /* Nilai tak terdefinisi */
 #define InvalidIdx -1  /* Indeks tak terdefinisi */
 

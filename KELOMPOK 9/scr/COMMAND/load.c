@@ -11,7 +11,7 @@ Playlist Playlists;
 ListPenyanyi Penyanyi;
 MapAlbum Album;
 SetLagu Song;
-Playlist Playlists;
+CurrentSong Lagu;
 /*LOAD*/
 void Load(ListPenyanyi * LP, char filename[])
 {
@@ -23,7 +23,6 @@ void Load(ListPenyanyi * LP, char filename[])
     Kalimat NamaLagu;
 
     int loop = atoi(CLine.TabLine);
-
     if (loop > 0)
     {
 
@@ -34,7 +33,6 @@ void Load(ListPenyanyi * LP, char filename[])
             ADVKALIMAT();
             
             AddPenyanyi(LP, CLine);
-
             for (int j = 0; j < album; j++){
             ADVSATUKATA();
             int lagu = atoi(CLine.TabLine);
@@ -51,11 +49,15 @@ void Load(ListPenyanyi * LP, char filename[])
             }
             }
         }
-
+        ADVKALIMAT();
+        Lagu.NamaPenyanyi = CLine;
+        ADVRECORD();
+        Lagu.NamaAlbum = CLine;
+        ADVRECORD();
+        Lagu.JudulLagu = CLine;
         ADVKALIMAT();
 
             int loopRecordQ = atoi(CLine.TabLine);
-
             for (int i = 0; i < loopRecordQ; i++) // Queue
             {  contentQueue lagu;
                 ADVRECORD();
@@ -70,7 +72,6 @@ void Load(ListPenyanyi * LP, char filename[])
 
             ADVKALIMAT();
             int loopRecordR = atoi(CLine.TabLine);
-
             for (int i = 0; i < loopRecordR; i++) // History input
             {
                 contentStack song;
@@ -87,7 +88,6 @@ void Load(ListPenyanyi * LP, char filename[])
 
             ADVKALIMAT();
             int loopRecordP = atoi(CLine.TabLine); // Jumlah Playlist
-
             for (int i = 0; i < loopRecordP; i++) // Loop Playlist
             {
 
@@ -97,17 +97,17 @@ void Load(ListPenyanyi * LP, char filename[])
                 for (int j = 0; j < LaguPlaylist; j++)
                 {   
                     
-                    infoType Songs;
+                    infoType Songss;
 
                     ADVRECORD();
-                    Songs.NamaPenyanyi = CLine;
+                    Songss.NamaPenyanyi = CLine;
 
                     ADVRECORD();
-                    Songs.NamaAlbum = CLine;
+                    Songss.NamaAlbum = CLine;
 
                     ADVRECORD();
-                    Songs.JudulLagu = CLine;
-                    InsVLast(Playlists.A, Songs);
+                    Songss.JudulLagu = CLine;
+                    InsVLast(Playlists.A, Songss);
                 }
             }
         printf("Save file berhasil dibaca. WayangWave berhasil dijalankan.\n");
