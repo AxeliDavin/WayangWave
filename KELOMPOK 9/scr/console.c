@@ -7,6 +7,7 @@ Queue queue;
 Stack History;
 Queue antre;
 Playlist playlist;
+ListPlaylist daftarPlaylist;
 ListPenyanyi Penyanyi;
 MapAlbum Album;
 SetLagu Song;
@@ -430,7 +431,7 @@ void listDefault(){
 void listPlaylist(){
     printf("Daftar playlist yang kamu miliki: ");
 
-    
+
 
     address P = First(playlist);
     int nomorPlaylist = 0;
@@ -540,7 +541,6 @@ void playPlaylist(){
 }
 
 // FUNGSI QUEUE
-
 // Command: QUEUE SONG
 void songQueue() {
     // Belum ada penanganan inputan tidak valid. Butuh ga ya?
@@ -599,7 +599,6 @@ void songQueue() {
     for (int i=0; i<Penyanyi.PenyanyiAlbum[idxSinger].ListAlbums.AlbumLagu[idxAlbum].IsiLagu.Count; i++) {
             printf("   %d. %s\n", i+1, Penyanyi.PenyanyiAlbum[idxSinger].ListAlbums.AlbumLagu[idxAlbum].IsiLagu.JudulLagu[i].TabLine);
         }
-    }
 
     // Menerima inputan ID Lagu
     int songIndex;
@@ -619,6 +618,9 @@ void songQueue() {
         printf("Tidak ada lagu dalam daftar. Silakan coba lagi.\n");
         return;
     }
+}
+
+
 
 // Command: QUEUE PLAYLIST
 void playlistQueue() {
@@ -700,111 +702,126 @@ void queueClear() {
     printf("Queue berhasil dikosongkan.\n");
 }
 
+
+// COMMAND PLAYLIST
 /**
  * Command: PLAYLIST CREATE
 */
 void createPlaylist() {
+    Playlist daftarPutar;
+    CreateEmptyPlaylist(&daftarPutar);
+
     char playlistName[256];
     printf("Masukkan nama playlist yang ingin dibuat : ");
     scanf("%255s", playlistName);
 
-    List newPlaylist;
-    MakeList(&newPlaylist);
-    InsertLast(&playlist, playlistName);
+    daftarPutar.namaPlaylist = charToKalimat(playlistName);
 }
 
 /**
  * Command: PLAYLIST ADD SONG
 */
-void addPlaylist() {
-    // Nampilin daftar penyanyi + nerima input nama penyanyi
-    printf("Daftar Penyanyi :\n");
-    for (int i = 0; i < Length(singer); i++) {
-        printf("%s\n", Get(singer, i));
+void addSongToPlaylist() {
+    printf("Daftar Penyanyi: \n");
+    for (int i = 0; i < Penyanyi.NEff; i++)
+    {
+        printf("   %d. %s\n", i+1, Penyanyi.PenyanyiAlbum[i].NamaPenyanyi.TabLine);
     }
 
-    char singerName[256];
-    int singerIndex;
+    // PILIH PENYANYI
+    char chosenSinger[256];
+    printf("Masukkan Nama Penyanyi yang dipilih: ");
+    scanf("%255s", &chosenSinger);
 
-    printf("Masukkan Nama Penyanyi yang dipilih : ");
-    scanf("%255s", singerName);
-
+    int chosenSingerIdx = InvalidIdx;
     // Cek apakah nama penyanyi valid
-    singerIndex = -1;
-    for (int i = 0; i < Length(singer); i++) {
-        if (Search(singer, singerName)) {
-            singerIndex = i;
+    for (int i = 0; i < Penyanyi.NEff; i++)
+    {
+        if (isInputEqual(Penyanyi.PenyanyiAlbum[i].NamaPenyanyi, chosenSinger))
+        {
+            chosenSingerIdx = i;
             break;
         }
+        
     }
-
-    if (!IsIdxEff(singer, singerIndex) || !Search(singer, singerName)) {
-        printf("Penyanyi %s tidak ada dalam daftar. Silakan coba lagi.\n", singerName);
+    if (chosenSinger == InvalidIdx) {
+        printf("Penyanyi %s tidak ada dalam daftar. Silakan coba lagi.\n", chosenSinger);
         return;
     }
 
-    // Nampilin daftar album + nerima input nama album
-    printf("Daftar Album oleh %s :\n", singerName);
-    for (int i = 0; i < Length(album); i++) {
-        if (IsIdxEff(album, i) && Search(album, singerName)) {
-            printf("%s\n", Get(album, i));
-        }
+    // Nampilin daftar album yang dimiliki penyanyi
+    printf("Daftar Album oleh %s :\n", chosenSinger);
+    int nomorAlbum = 0;
+    for (int i = 0; i < Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.NEff; i++) {
+        nomorAlbum++;
+        printf("   %d. %s\n", nomorAlbum, Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.AlbumLagu[i].NamaAlbum.TabLine);
     }
 
-    char albumTitle[256];
-    int albumIndex;
 
-    printf("Masukkan Judul Album yang dipilih : ");
-    scanf("%255s", albumTitle);
+    // PILIH ALBUM
+    char chosenAlbum[256];
+    printf("Masukkan Judul Album yang dipilih: ");
+    scanf("%255s", &chosenAlbum);
 
     // Cek apakah nama album valid
-    albumIndex = -1;
-    for (int i = 0; i < Length(album); i++) {
-        if (IsIdxEff(album, i) && Search(album, albumTitle)) {
-            albumIndex = i;
+    int chosenAlbumIdx = InvalidIdx;
+    for (int i = 0; i < Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.NEff; i++)
+    {
+        if (isInputEqual(Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.AlbumLagu[i].NamaAlbum, chosenAlbum))
+        {
+            chosenAlbumIdx = i;
             break;
         }
     }
-
-    if (!IsIdxEff(album, albumIndex) || !Search(album, albumTitle)) {
-        printf("Album %s tidak ada dalam daftar. Silakan coba lagi.\n", albumTitle);
+    
+    if (chosenAlbumIdx == InvalidIdx) {
+        printf("Album %s tidak ada dalam daftar. Silakan coba lagi.\n", chosenSinger);
         return;
     }
 
-    // Nampilin daftar lagu + nerima input lagu
-    printf("Daftar Lagu Album %s oleh %s : \n", albumTitle, singerName);
-    for (int i = 0; i < Length(song); i++) {
-        if (IsIdxEff(song, i) && Search(song, singerName)) {
-            printf("%d. %s\n", i + 1, Get(song, i));
-        }
+    // Nampilin daftar lagu yang di dalam album
+    printf("Daftar Lagu Album %s oleh %s :\n", chosenAlbum, chosenSinger);
+    int nomorLagu = 0;
+    for (int i = 0; i < Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.AlbumLagu[i].IsiLagu.Count; i++) {
+        nomorLagu++;
+        printf("   %d. %s\n", nomorLagu, Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.AlbumLagu[chosenAlbumIdx].IsiLagu.JudulLagu[i].TabLine);
     }
 
-    int songIndex;
+    // PILIH LAGU
+    int chosenSongIdx;
+    printf("Masukkan ID Lagu yang dipilih: ");
+    scanf("%d", &chosenSongIdx);
 
-    // Pengecekan indeks lagu yang valid
-    if (Length(song) == 0) {
-        printf("Tidak ada lagu dalam daftar. Silakan coba lagi.\n");
+    if (chosenSongIdx > nomorLagu)
+    {
+        printf("ID Lagu tidak valid\n");
         return;
     }
+    
+    printf("Memutar lagu \"%s\" oleh \"%s\".", Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.AlbumLagu[chosenAlbumIdx].IsiLagu.JudulLagu[chosenSongIdx].TabLine, chosenSinger);
 
-    printf("Masukkan ID Lagu yang dipilih : ");
-    scanf("%d", &songIndex);
+    printf("Daftar Playlist Pengguna: \n");
+    int nomorDaftarPlaylist = 0;
+    playlistaddress P = First(daftarPlaylist.A);
 
-    // Pengecekan apakah indeks lagu valid
-    if (!IsIdxEff(song, songIndex - 1) || !Search(song, singerName) || !Search(song, albumTitle)) {
-        printf("ID Lagu tidak valid. Silakan coba lagi.\n");
-        return;
+    while (P != Nil)
+    {
+        nomorDaftarPlaylist++;
+        printf("   %d. %s", nomorDaftarPlaylist, Info(P).TabLine);
+        P = Next(P);
     }
+    
+    int chosenPlaylistIdx;
+    printf("Masukkan ID Playlist yang dipilih: ");
+    scanf("%d\n", &chosenPlaylistIdx);
 
-    int playlistIndex;
-
-    printf("Masukkan ID Playlist yang dipilih : ");
-    scanf("%d", &playlistIndex);
-
-    // Nambahin lagu ke playlist
-    ElTypeList songToAdd = Get(song, songIndex - 1);
-    InsertLast(Get(playlist, playlistIndex - 1), songToAdd);
-    printf("Lagu dengan judul “%s” pada album %s oleh penyanyi %s berhasil ditambahkan ke dalam playlist %s.\n", songToAdd, albumTitle, singerName, Get(playlist, playlistIndex - 1));
+    playlistaddress temp = First(daftarPlaylist.A);
+    for (int i = 0; i < chosenPlaylistIdx; i++)
+    {
+        temp = Next(temp);
+    }
+    
+    printf("Lagu dengan judul \"%s\" pada album %s oleh penyanyi %s berhasil ditambahkan ke dalam playlist %s", Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.AlbumLagu[chosenAlbumIdx].IsiLagu.JudulLagu[chosenSongIdx].TabLine, chosenAlbum, chosenSinger, temp->namaPlaylist.TabLine);
 }
 
 /**

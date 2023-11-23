@@ -27,11 +27,16 @@ typedef struct {
 
 typedef struct tElmtplaylist { 
 	contents infoLagu;
+    infotype namaPlaylist;
 	playlistaddress next;
 } ElmtPlayList;
 
+// typedef struct {
+//     Kalimat namaPlaylist;
+// 	playlistaddress First;
+// } Isi;
+
 typedef struct {
-    Kalimat namaPlaylist;
 	playlistaddress First;
 } Isi;
 
@@ -44,10 +49,13 @@ typedef struct {
 typedef struct {
     int nEff;
     int capacity;
-    Kalimat *namaPlaylist;
+    Kalimat namaPlaylist;
     ListLinier *A;
 } Playlist;
 
+#define Info(P) (P)->namaPlaylist
+#define Next(P) (P)->next
+#define First(L) ((L).First)
 
 void CreateEmptyPlaylist(Playlist *x);
 

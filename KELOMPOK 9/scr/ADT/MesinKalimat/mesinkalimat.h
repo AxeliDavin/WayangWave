@@ -54,4 +54,6 @@ int LengthKalimat(char * S2);
 void displayKalimat(Kalimat K);
 boolean isInputEqual(Kalimat Input, char * kata);
 
+Kalimat charToKalimat(char *K);
+
 #endif

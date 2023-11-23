@@ -288,3 +288,19 @@ boolean isInputEqual(Kalimat Input, char * kata)
         return false;
     }
 }
+
+Kalimat charToKalimat(char *K){
+    Kalimat temp;
+    createKalimat(&temp);
+
+    int panjang = 0;
+    for (int i = 0; i < LengthKalimat(K); i++)
+    {
+        temp.TabLine[i] = K[i];
+        panjang++;
+    }
+
+    temp.Length = panjang;
+
+    return temp;
+}
