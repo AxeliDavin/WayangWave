@@ -345,13 +345,15 @@ void listDefault(){
     
     char lookAlbum;
     printf("Ingin melihat album yang ada?(Y/N): ");
-    scanf("%c", &lookAlbum);
+    readInputCommand();
+    lookAlbum = currentWord.TabWord;
     // PILIH ALBUM
     if (lookAlbum == 'Y' || lookAlbum == 'y')
     {
-        char chosenSinger[256];
+        char chosenSinger;
         printf("Pilih penyanyi untuk melihat album mereka: ");
-        scanf("%255s", &chosenSinger);
+        readInputCommand();
+        chosenSinger = currentWord.TabWord;
 
         int chosenSingerIdx = InvalidIdx;
         // Cek apakah nama penyanyi valid
@@ -381,14 +383,16 @@ void listDefault(){
 
         char lookSong;
         printf("Ingin melihat lagu yang ada?(Y/N): ");
-        scanf("%c", &lookSong);
+        readInputCommand();
+        lookSong = currentWord.TabWord;
 
         // LIHAT LAGU
         if (lookSong == 'Y' || lookSong == 'y')
         {
-            char chosenAlbum[256];
+            char chosenAlbum;
             printf("Pilih album untuk melihat lagu yang ada di album: ");
-            scanf("%255s", &chosenAlbum);
+            readInputCommand();
+            chosenAlbum = currentWord.TabWord;
 
             // Cek apakah nama album valid
             int chosenAlbumIdx = InvalidIdx;
@@ -459,9 +463,10 @@ void playSong(){
     }
 
     // PILIH PENYANYI
-    char chosenSinger[256];
+    char chosenSinger;
     printf("Masukkan Nama Penyanyi yang dipilih: ");
-    scanf("%255s", &chosenSinger);
+    readInputCommand();
+    chosenSinger = currentWord.TabWord;
 
     int chosenSingerIdx = InvalidIdx;
     // Cek apakah nama penyanyi valid
@@ -489,9 +494,10 @@ void playSong(){
 
 
     // PILIH ALBUM
-    char chosenAlbum[256];
+    char chosenAlbum;
     printf("Masukkan Nama Album yang dipilih: ");
-    scanf("%255s", &chosenAlbum);
+    readInputCommand();
+    chosenAlbum = currentWord.TabWord;
 
     // Cek apakah nama album valid
     int chosenAlbumIdx = InvalidIdx;
@@ -520,7 +526,8 @@ void playSong(){
     // PILIH LAGU
     int chosenSongIdx;
     printf("Masukkan ID Lagu yang dipilih: ");
-    scanf("%d", &chosenSongIdx);
+    readInputCommand();
+    chosenSongIdx = WordToInt(currentWord.TabWord);
 
     if (chosenSongIdx > nomorLagu)
     {
@@ -535,7 +542,8 @@ void playSong(){
 void playPlaylist(){
     int chosenPlaylistIdx;
     printf("Masukkan ID Playlist: ");
-    scanf("%d", &chosenPlaylistIdx);
+    readInputCommand();
+    chosenPlaylistIdx = WordToInt(currentWord.TabWord);
 
     printf("Memutar playlist \"%s\".", GetSongFromPlaylist(playlist, chosenPlaylistIdx).lagu);
 }
@@ -551,9 +559,10 @@ void songQueue() {
     }
 
     // Menerima inputan nama penyanyi
-    char singerName[256];
+    char singerName;
     printf("Masukkan Nama Penyanyi: ");
-    scanf("%255s\n", singerName);
+    readInputCommand();
+    singerName = currentWord.TabWord;
 
     // Cek inputan nama penyanyi valid atau ga
     int idxSinger = InvalidIdx;
@@ -577,9 +586,10 @@ void songQueue() {
     }
 
     // Menerima inputan nama album
-    char albumTitle[256];
+    char albumTitle;
     printf("Masukkan Nama Album yang dipilih : ");
-    scanf("%255s\n", albumTitle);
+    readInputCommand();
+    albumTitle = currentWord.TabWord;
 
     // Cek inputan nama album valid atau ga
     int idxAlbum = InvalidIdx;
@@ -603,7 +613,8 @@ void songQueue() {
     // Menerima inputan ID Lagu
     int songIndex;
     printf("Masukkan ID Lagu yang dipilih : ");
-    scanf("%d", &songIndex);
+    readInputCommand();
+    songIndex = WordToInt(currentWord.TabWord);
 
     // Cek inputan lagu valid atau ga
     if (songIndex > 0 && songIndex <= Penyanyi.PenyanyiAlbum[idxSinger].ListAlbums.AlbumLagu[idxAlbum].IsiLagu.Count) {
@@ -628,7 +639,8 @@ void playlistQueue() {
     // Menerima inputan ID Playlist
     int playlistIndex;
     printf("Masukkan ID Playlist ");
-    scanf("%d", &playlistIndex);
+    readInputCommand();
+    playlistIndex = WordToInt(currentWord.TabWord);
 
     // Menambahkan lagu dalam playlist ke dalam queue
     
@@ -649,7 +661,7 @@ void queueSwap() {
 
     if ((x >= 1 && x <= length(queue)) && (y >= 1 && y <= length(queue))) {
         // Mencari lagu dalam queue yang akan ditukar urutannya
-        contentQueue temp[256] = queue.buffer[x];
+        contentQueue temp = queue.buffer[x];
         queue.buffer[x] = queue.buffer[y];
         queue.buffer[y] = temp;
         printf("Lagu %s berhasil ditukar dengan %s\n", queue.buffer[x], queue.buffer[y]);
@@ -711,9 +723,10 @@ void createPlaylist() {
     Playlist daftarPutar;
     CreateEmptyPlaylist(&daftarPutar);
 
-    char playlistName[256];
+    char playlistName;
     printf("Masukkan nama playlist yang ingin dibuat : ");
-    scanf("%255s", playlistName);
+    readInputCommand();
+    playlistName = WordToInt(currentWord.TabWord);
 
     daftarPutar.namaPlaylist = charToKalimat(playlistName);
 }
@@ -729,9 +742,10 @@ void addSongToPlaylist() {
     }
 
     // PILIH PENYANYI
-    char chosenSinger[256];
+    char chosenSinger;
     printf("Masukkan Nama Penyanyi yang dipilih: ");
-    scanf("%255s", &chosenSinger);
+    readInputCommand();
+    chosenSinger = currentWord.TabWord;
 
     int chosenSingerIdx = InvalidIdx;
     // Cek apakah nama penyanyi valid
@@ -759,9 +773,10 @@ void addSongToPlaylist() {
 
 
     // PILIH ALBUM
-    char chosenAlbum[256];
+    char chosenAlbum;
     printf("Masukkan Judul Album yang dipilih: ");
-    scanf("%255s", &chosenAlbum);
+    readInputCommand();
+    chosenAlbum = currentWord.TabWord;
 
     // Cek apakah nama album valid
     int chosenAlbumIdx = InvalidIdx;
@@ -790,7 +805,8 @@ void addSongToPlaylist() {
     // PILIH LAGU
     int chosenSongIdx;
     printf("Masukkan ID Lagu yang dipilih: ");
-    scanf("%d", &chosenSongIdx);
+    readInputCommand();
+    chosenSongIdx = WordToInt(currentWord.TabWord);
 
     if (chosenSongIdx > nomorLagu)
     {
@@ -813,7 +829,8 @@ void addSongToPlaylist() {
     
     int chosenPlaylistIdx;
     printf("Masukkan ID Playlist yang dipilih: ");
-    scanf("%d\n", &chosenPlaylistIdx);
+    readInputCommand();
+    chosenPlaylistIdx = WordToInt(currentWord.TabWord);
 
     playlistaddress temp = First(daftarPlaylist.A);
     for (int i = 0; i < chosenPlaylistIdx; i++)
@@ -904,7 +921,8 @@ void deletePlaylist() {
 
     int playlistId;
     printf("\nMasukkan ID Playlist yang dipilih : ");
-    scanf("%d", &playlistId);
+    readInputCommand();
+    playlistId = WordToInt(currentWord.TabWord);
 
     // Cek apakah id valid or no
     if (IsIdxValid(playlist, playlistId)) {
@@ -987,14 +1005,16 @@ void Quit() {
     char Input;
     char fname;
     printf("Apakah kamu ingin menyimpan data sesi sekarang? ");
-    scanf("%c", &Input);
+    readInputCommand();
+    Input = currentWord.TabWord;
 
     // Cek apakah pengguna ingin save atau tidak
     if (Input == 'Y' || Input == 'y') {
         printf("Masukkan nama file : ");
-        scanf("%c", &fname);
+        readInputCommand();
+        fname = currentWord.TabWord;
         printf("// memanggil save\n");
-        Save(&Penyanyi, ("%c.txt", fname));
+        Save(&Penyanyi, ("../../save/%c", fname));
     }
 
     printf("Kamu keluar dari WayangWave.\nDadah ^_^/\n");
