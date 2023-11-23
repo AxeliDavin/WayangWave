@@ -14,17 +14,12 @@
 #define CAPACITY 100
 
 /* Definisi elemen dan address */
-typedef struct {
-    Kalimat JudulLagu; 
-    Kalimat NamaAlbum;
-    Kalimat NamaPenyanyi;
-}contentQueue;
+typedef dataLagu contentQueue;
 
 typedef struct {
         contentQueue buffer[CAPACITY];
 	int idxHead;
 	int idxTail;
-        int idPlaylist;
 } Queue;
 
 
@@ -60,7 +55,7 @@ void enqueue(Queue *q, contentQueue val);
 /* I.S. q mungkin kosong, tabel penampung elemen q TIDAK penuh */
 /* F.S. val menjadi TAIL yang baru, IDX_TAIL "mundur" dalam buffer melingkar. */
 
-void dequeue(Queue *q, CurrentSong *val);
+void dequeue(Queue *q, contentQueue *val);
 /* Proses: Menghapus val pada q dengan aturan FIFO */
 /* I.S. q tidak mungkin kosong */
 /* F.S. val = nilai elemen HEAD pd I.S., IDX_HEAD "mundur";

@@ -57,8 +57,10 @@ void enqueue(Queue *q, contentQueue val){
     TAIL(*q).JudulLagu = val.JudulLagu;
     TAIL(*q).NamaAlbum = val.NamaAlbum;
     TAIL(*q).NamaPenyanyi = val.NamaPenyanyi;
+    TAIL(*q).idxPlaylist = val.idxPlaylist;
 }
-void dequeue(Queue *q, CurrentSong *val){
+
+void dequeue(Queue *q, contentQueue *val){
 /* Proses: Menghapus val pada q dengan aturan FIFO */
 /* I.S. q tidak mungkin kosong */
 /* F.S. val = nilai elemen HEAD pd I.S., IDX_HEAD "mundur";
@@ -66,6 +68,7 @@ void dequeue(Queue *q, CurrentSong *val){
     (*val).JudulLagu = HEAD(*q).JudulLagu;
     (*val).NamaAlbum = HEAD(*q).NamaAlbum;
     (*val).NamaPenyanyi = HEAD(*q).NamaPenyanyi;
+    (*val).idxPlaylist = HEAD(*q).idxPlaylist;
     if (IDX_HEAD(*q) == IDX_TAIL(*q))
     {
         IDX_HEAD(*q) = IDX_UNDEF;

@@ -12,10 +12,9 @@ typedef struct {
 	Kalimat JudulLagu; 
     Kalimat NamaAlbum;
     Kalimat NamaPenyanyi;
-    Kalimat NamaPlaylist;
-    int status;
-    int statusPL;
-} CurrentSong;
+    int idxPlaylist;
+} dataLagu;
 
+typedef dataLagu CurrentSong;
 
 #endif
