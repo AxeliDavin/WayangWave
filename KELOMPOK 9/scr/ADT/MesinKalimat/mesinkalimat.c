@@ -312,6 +312,6 @@ void TukarKalimat(Kalimat *K1, Kalimat *K2){
     copyKalimat(*K1, &temp);
     copyKalimat(*K2, &temp2);
     
-    copyKalimat(temp, &K2);
-    copyKalimat(temp2, &K1);
+    copyKalimat(temp, K2);
+    copyKalimat(temp2, K1);
 }

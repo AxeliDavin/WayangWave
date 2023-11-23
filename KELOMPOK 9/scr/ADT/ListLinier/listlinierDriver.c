@@ -49,11 +49,17 @@ int main(){
     InsVFirstLinked(&lagu, L);
     PrintInfoLinked(lagu);
 
+    if (SearchLinked(lagu, K)){
+        printf("Ada\n"); //Tes SearchLinked
+    }
+
     DelFirstLinked(&lagu, &J);
     PrintInfoLinked(lagu);
 
     DelLastLinked(&lagu, &H);
     PrintInfoLinked(lagu);
+
+    // kurang tukarLagu() sama delplinked
 
     // DelPLinked(kal, &lagu, count);
     // PrintInfoLinked(lagu);
