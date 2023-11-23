@@ -11,7 +11,7 @@ Deklarasi stack yang dengan implementasi array eksplisit-statik rata kiri
 // #define true 1
 #define NilMap 0
 #define MaxEl 10
-#define Undefined -999
+#define Undefined -99
 
 // typedef int bool;
 typedef int keytype;

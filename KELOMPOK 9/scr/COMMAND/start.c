@@ -5,6 +5,13 @@
 
 // gcc ../ADT/boolean.h ../ADT/List/list.c ../ADT/SongAlbumSinger/songalbumsinger.c ../ADT/ListLinier/listlinier.c ../ADT/MAP/map.c ../ADT/MesinKalimat/mesinkalimat.c ../ADT/MesinKarakter/mesinkarakter.c ../ADT/Playlist/playlist.c ../ADT/MesinKata/mesinkata.c ../ADT/Queue/queue.c ../ADT/Set/set.c ../ADT/Stack/stack.c ../ADT/Song.h start.c -o start
 
+Stack History;
+Queue antre;
+Playlist Playlists;
+ListPenyanyi Penyanyi;
+MapAlbum Album;
+SetLagu Song;
+CurrentSong Lagu;
 /*Fungsi Utama*/
 void Start(ListPenyanyi *LP, char path[])
 {
@@ -46,22 +53,14 @@ void Start(ListPenyanyi *LP, char path[])
 
 int main(){
 
-    /*Global Variable*/
-    ListPenyanyi Penyanyi;
-    MapAlbum Album;
-    SetLagu Song;
-    ListPlaylist playlist;
-    // Queue queue;
+    CreateEmptyStack(&History);
+    CreateQueue(&antre);
+    CreateEmptyPlaylist(&Playlists);
 
     /*Pembuatan Kosong*/
     CreateEmptyListPenyanyi(&Penyanyi);
     // CreateEmptyMap(&Album);
     // CreateEmptySet(&Song);
-
-
-    /*Pembuatan List Linier Playlist*/
-    CreateEmptyPlaylist(&playlist);
-    // CreateQueue(&queue);
     
     boolean masuksesi = false, stopsesi = false;
 

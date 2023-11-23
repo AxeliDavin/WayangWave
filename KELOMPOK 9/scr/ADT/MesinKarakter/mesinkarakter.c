@@ -53,7 +53,7 @@ void STARTFILE(char filename[])
        if (pita != NULL) {
               ADVFILE();
        } else {
-              printf("\nERROR: File tidak ditemukan!\n\n");
+              printf("Save file tidak ditemukan. WayangWave gagal dijalankan.\n");
               exit(0);
     }
 }

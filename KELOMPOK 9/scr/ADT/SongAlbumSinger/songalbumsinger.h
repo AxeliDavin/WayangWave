@@ -11,8 +11,8 @@ Deklarasi stack yang dengan implementasi array eksplisit-statik rata kiri
 // #define false 0
 // #define true 1
 
-#define AlbumMax 100
-#define Undefined -999
+#define AlbumMax 10
+#define Undefined -99
 
 // typedef int bool;
 typedef int idAlbum;
@@ -20,7 +20,7 @@ typedef int idAlbum;
 // 5
 typedef struct
 {   
-  Kalimat JudulLagu[20];
+  Kalimat JudulLagu[15];
   int Count;
 } SetLagu;
 
@@ -45,7 +45,7 @@ typedef struct {
 
 // 1
 typedef struct {
-	MapAlbum PenyanyiAlbum[20];
+	MapAlbum PenyanyiAlbum[10];
 	int NEff;
 } ListPenyanyi;
 
