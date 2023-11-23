@@ -433,22 +433,21 @@ void listDefault(){
 
 // Command : LIST PLAYLIST
 void listPlaylist(){
-    printf("Daftar playlist yang kamu miliki: ");
+    printf("Daftar playlist yang kamu miliki: \n");
+    int nomorDaftarPlaylist = 0;
+    playlistaddress P = FirstPL(daftarPlaylist.A);
 
-
-
-    address P = First(playlist);
-    int nomorPlaylist = 0;
-    if (IsEmptyPlaylist(playlist))
+    if (P == Nil)
     {
-        printf("Kamu tidak memiliki playlist.");
-    }else{
-        while (P != Nil)
-        {
-            nomorPlaylist++;
-            printf("   %d. %s\n", nomorPlaylist, Info(P));
-            P = Next(P);
-        }
+        printf("Kamu tidak memiliki playlist.\n");
+        return;
+    }
+
+    while (P != Nil)
+    {
+        nomorDaftarPlaylist++;
+        printf("   %d. %s\n", nomorDaftarPlaylist, P->detail.namaPlaylist.TabLine);
+        P = NextPL(P);
     }
 }
 
@@ -543,9 +542,9 @@ void playPlaylist(){
     int chosenPlaylistIdx;
     printf("Masukkan ID Playlist: ");
     readInputCommand();
-    chosenPlaylistIdx = WordToInt(currentWord.TabWord);
+    chosenPlaylistIdx = WordToInt(&currentWord);
 
-    printf("Memutar playlist \"%s\".", GetSongFromPlaylist(playlist, chosenPlaylistIdx).lagu);
+    printf("Memutar playlist \"%s\".\n", valuePlaylist(daftarPlaylist, chosenPlaylistIdx).namaPlaylist.TabLine);
 }
 
 // FUNGSI QUEUE
@@ -814,7 +813,7 @@ void addSongToPlaylist() {
         return;
     }
     
-    printf("Memutar lagu \"%s\" oleh \"%s\".", Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.AlbumLagu[chosenAlbumIdx].IsiLagu.JudulLagu[chosenSongIdx].TabLine, chosenSinger);
+    printf("Memutar lagu \"%s\" oleh \"%s\".\n", Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.AlbumLagu[chosenAlbumIdx].IsiLagu.JudulLagu[chosenSongIdx].TabLine, chosenSinger);
 
     printf("Daftar Playlist Pengguna: \n");
     int nomorDaftarPlaylist = 0;
@@ -838,7 +837,7 @@ void addSongToPlaylist() {
         temp = NextPL(temp);
     }
     
-    printf("Lagu dengan judul \"%s\" pada album %s oleh penyanyi %s berhasil ditambahkan ke dalam playlist %s", Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.AlbumLagu[chosenAlbumIdx].IsiLagu.JudulLagu[chosenSongIdx].TabLine, chosenAlbum, chosenSinger, temp->namaPlaylist.TabLine);
+    printf("Lagu dengan judul \"%s\" pada album %s oleh penyanyi %s berhasil ditambahkan ke dalam playlist %s\n", Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.AlbumLagu[chosenAlbumIdx].IsiLagu.JudulLagu[chosenSongIdx].TabLine, chosenAlbum, chosenSinger, temp->namaPlaylist.TabLine);
 }
 
 /**
@@ -861,13 +860,13 @@ void swapPlaylist() {
     
     if (x > FirstPL(daftarPlaylist.A)->detail.nEff)
     {
-        printf("Tidak ada lagu dengan urutan %d di playlist \"%s\"", x, valuePlaylist(daftarPlaylist, id).namaPlaylist.TabLine);
+        printf("Tidak ada lagu dengan urutan %d di playlist \"%s\"\n", x, valuePlaylist(daftarPlaylist, id).namaPlaylist.TabLine);
         return;
     }    
     
     if (y> FirstPL(daftarPlaylist.A)->detail.nEff)
     {
-        printf("Tidak ada lagu dengan urutan %d di playlist \"%s\"", y, valuePlaylist(daftarPlaylist, id).namaPlaylist.TabLine);
+        printf("Tidak ada lagu dengan urutan %d di playlist \"%s\"\n", y, valuePlaylist(daftarPlaylist, id).namaPlaylist.TabLine);
         return;
     }
     
@@ -885,7 +884,7 @@ void swapPlaylist() {
 
     tukarLagu(&P, &P1);
 
-    printf("Berhasil menukar lagu dengan nama \"%s\" dengan \"%s\" di playlist \"%s\"", P->info.JudulLagu, P1->info.JudulLagu, valuePlaylist(daftarPlaylist, id).namaPlaylist.TabLine);
+    printf("Berhasil menukar lagu dengan nama \"%s\" dengan \"%s\" di playlist \"%s\"\n", P->info.JudulLagu, P1->info.JudulLagu, valuePlaylist(daftarPlaylist, id).namaPlaylist.TabLine);
 }
 
 /**
@@ -907,7 +906,7 @@ void removePlaylist() {
     
     if (n > FirstPL(daftarPlaylist.A)->detail.nEff)
     {
-        printf("Tidak ada lagu dengan urutan %d di playlist \"%s\"", n, valuePlaylist(daftarPlaylist, id).namaPlaylist.TabLine);
+        printf("Tidak ada lagu dengan urutan %d di playlist \"%s\"\n", n, valuePlaylist(daftarPlaylist, id).namaPlaylist.TabLine);
         return;
     }   
 
@@ -919,7 +918,7 @@ void removePlaylist() {
         P = P->next;
     }  
 
-    printf("Lagu \"%s\" oleh \"%s\" telah dihapus dari playlist \"%s\"!", P->info.JudulLagu.TabLine, P->info.NamaPenyanyi.TabLine, valuePlaylist(daftarPlaylist, id));
+    printf("Lagu \"%s\" oleh \"%s\" telah dihapus dari playlist \"%s\"!\n", P->info.JudulLagu.TabLine, P->info.NamaPenyanyi.TabLine, valuePlaylist(daftarPlaylist, id));
 
     if (prec == Nil)
     {
@@ -952,7 +951,7 @@ void deletePlaylist() {
 
     if (chosenPlaylistIdx > daftarPlaylist.nEff)
     {
-        printf("Tidak ada playlist dengan ID %d dalam daftar playlist pengguna. Silakan coba lagi.", chosenPlaylistIdx);
+        printf("Tidak ada playlist dengan ID %d dalam daftar playlist pengguna. Silakan coba lagi.\n", chosenPlaylistIdx);
         return;
     }
     
@@ -965,7 +964,7 @@ void deletePlaylist() {
         temp = NextPL(temp);
     }
 
-    printf("Playlist ID %d dengan judul \"%s\" berhasil dihapus", chosenPlaylistIdx, valuePlaylist(daftarPlaylist, chosenPlaylistIdx).namaPlaylist.TabLine);
+    printf("Playlist ID %d dengan judul \"%s\" berhasil dihapus.\n", chosenPlaylistIdx, valuePlaylist(daftarPlaylist, chosenPlaylistIdx).namaPlaylist.TabLine);
 
     if (prec == Nil)
     {
