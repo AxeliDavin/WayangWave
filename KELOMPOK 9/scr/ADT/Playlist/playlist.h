@@ -54,9 +54,9 @@ typedef struct {
     int nEff; // Jumlah Elemen Efektif
 } ListPlaylist;
 
-#define Info(P) (P)->namaPlaylist
-#define Next(P) (P)->next
-#define First(L) ((L).First)
+#define InfoPL(P) (P)->namaPlaylist
+#define NextPL(P) (P)->next
+#define FirstPL(L) ((L).First)
 
 void CreateEmptyPlaylist(Playlist *x);
 

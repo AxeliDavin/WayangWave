@@ -16,7 +16,7 @@ void CreateQueue(Queue *q){
 }
 
 /* ********* Prototype ********* */
-boolean IsEmptyQueue(Queue q){
+boolean isEmptyQueue(Queue q){
 /* Mengirim true jika q kosong: lihat definisi di atas */
     return (IDX_HEAD(q) == IDX_UNDEF && IDX_TAIL(q) == IDX_UNDEF);
 }
@@ -30,7 +30,7 @@ boolean isFullQueue(Queue q){
 }
 int length(Queue q){
 /* Mengirimkan banyaknya elemen queue. Mengirimkan 0 jika q kosong. */
-    if (IsEmptyQueue(q)) 
+    if (isEmptyQueue(q)) 
         return 0;
     else if (IDX_TAIL(q) >= IDX_HEAD(q))
         return IDX_TAIL(q) - IDX_HEAD(q) + 1;
@@ -42,7 +42,7 @@ void enqueue(Queue *q, contentQueue val){
 /* Proses: Menambahkan val pada q dengan aturan FIFO */
 /* I.S. q mungkin kosong, tabel penampung elemen q TIDAK penuh */
 /* F.S. val menjadi TAIL yang baru, IDX_TAIL "mundur" dalam buffer melingkar. */
-    if (IsEmptyQueue(*q)){
+    if (isEmptyQueue(*q)){
         IDX_HEAD(*q) = 0;
         IDX_TAIL(*q) = 0;
     }
@@ -97,7 +97,7 @@ void displayQueue(Queue q){
 /* F.S. Jika q tidak kosong: [e1,e2,...,en] */
 /* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */
 /* Jika Queue kosong : menulis [] */
-    if (IsEmptyQueue(q)){
+    if (isEmptyQueue(q)){
         printf("[]\n");
     } else {
         printf("[");
