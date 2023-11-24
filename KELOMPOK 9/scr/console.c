@@ -641,11 +641,12 @@ void songQueue() {
     // Cek inputan lagu valid atau ga
     if (songIndex > 0 && songIndex <= Penyanyi.PenyanyiAlbum[idxSinger].ListAlbums.AlbumLagu[idxAlbum].IsiLagu.Count) {
         dataLagu songToAdd;
-        songToAdd.JudulLagu = Penyanyi.PenyanyiAlbum[idxSinger].ListAlbums.AlbumLagu[idxAlbum].IsiLagu.JudulLagu[songIndex+1];
+        songToAdd.JudulLagu = Penyanyi.PenyanyiAlbum[idxSinger].ListAlbums.AlbumLagu[idxAlbum].IsiLagu.JudulLagu[songIndex-1];
         songToAdd.NamaAlbum = Penyanyi.PenyanyiAlbum[idxSinger].ListAlbums.AlbumLagu[idxAlbum].NamaAlbum;
         songToAdd.NamaPenyanyi = Penyanyi.PenyanyiAlbum[idxSinger].NamaPenyanyi;
         songToAdd.idxPlaylist = InvalidIdx;
-        printf("Berhasil menambahkan lagu \"%s\" oleh \"%s\" ke queue.\n", Penyanyi.PenyanyiAlbum[idxSinger].ListAlbums.AlbumLagu[idxAlbum].IsiLagu.JudulLagu[songIndex+1].TabLine, singername.TabWord);
+        enqueue(&queue, songToAdd);
+        printf("Berhasil menambahkan lagu \"%s\" oleh \"%s\" ke queue.\n", Penyanyi.PenyanyiAlbum[idxSinger].ListAlbums.AlbumLagu[idxAlbum].IsiLagu.JudulLagu[songIndex-1].TabLine, singername.TabWord);
     }
     else {
         printf("Tidak ada lagu dalam daftar. Silakan coba lagi.\n");
