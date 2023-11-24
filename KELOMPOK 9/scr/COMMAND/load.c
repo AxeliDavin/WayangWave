@@ -108,7 +108,7 @@ void Load(ListPenyanyi * LP, char filename[])
                     ADVRECORD();
                     Songss.JudulLagu = FileLine;
                     printf("d: %d\n", j);
-                    InsVLastLinked(Playlists.lagu2, Songss);
+                    InsVLastLinked(&Playlists.lagu2, Songss); //error 
                     printf("d: %d\n", j);
                 }
             }
