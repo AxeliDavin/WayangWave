@@ -16,19 +16,19 @@ void AddPenyanyi(ListPenyanyi * LP, Kalimat NamaPenyanyi)
 }
 
 void AddAlbum(ListPenyanyi * LP, Kalimat Album)
-{
+{	
 	int indeksPenyanyi = (*LP).NEff - 1; 
-	int indeksAlbum = (*LP).PenyanyiAlbum[indeksPenyanyi].ListAlbums.NEff - 1; 
+	int indeksAlbum = (*LP).PenyanyiAlbum[indeksPenyanyi].ListAlbums.NEff; 
 	(*LP).PenyanyiAlbum[indeksPenyanyi].ListAlbums.AlbumLagu[indeksAlbum].NamaAlbum = Album; 
 	(*LP).PenyanyiAlbum[indeksPenyanyi].ListAlbums.NEff ++; 
 }
 
 void AddLagu(ListPenyanyi * LP, Kalimat NamaLagu)
 {
-int indeksPenyanyi = (*LP).NEff - 1;
-int indeksAlbum = (*LP).PenyanyiAlbum[indeksPenyanyi].ListAlbums.NEff - 1;
-(*LP).PenyanyiAlbum[indeksPenyanyi].ListAlbums.AlbumLagu[indeksAlbum].IsiLagu.JudulLagu[(*LP).PenyanyiAlbum[indeksPenyanyi].ListAlbums.AlbumLagu[indeksAlbum].IsiLagu.Count] = NamaLagu;
-(*LP).PenyanyiAlbum[indeksPenyanyi].ListAlbums.AlbumLagu[indeksAlbum].IsiLagu.Count ++;
+	int indeksPenyanyi = (*LP).NEff - 1;
+	int indeksAlbum = (*LP).PenyanyiAlbum[indeksPenyanyi].ListAlbums.NEff - 1;
+	(*LP).PenyanyiAlbum[indeksPenyanyi].ListAlbums.AlbumLagu[indeksAlbum].IsiLagu.JudulLagu[(*LP).PenyanyiAlbum[indeksPenyanyi].ListAlbums.AlbumLagu[indeksAlbum].IsiLagu.Count] = NamaLagu;
+	(*LP).PenyanyiAlbum[indeksPenyanyi].ListAlbums.AlbumLagu[indeksAlbum].IsiLagu.Count ++;
 }
 
 MapAlbum SearchListAlbum(ListPenyanyi *LP, Kalimat Penyanyi){

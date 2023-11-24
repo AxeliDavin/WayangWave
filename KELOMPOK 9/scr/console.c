@@ -544,7 +544,7 @@ void playSong(){
         return;
     }
     
-    printf("Memutar lagu \"%s\" oleh \"%s\".", Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.AlbumLagu[chosenAlbumIdx].IsiLagu.JudulLagu[chosenSongIdx].TabLine, chosenSinger);
+    printf("Memutar lagu \"%s\" oleh \"%s\".", Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.AlbumLagu[chosenAlbumIdx].IsiLagu.JudulLagu[chosenSongIdx].TabLine, chosensinger.TabWord);
 }
 
 // Command : PLAY PLAYLIST
@@ -820,7 +820,7 @@ void addSongToPlaylist() {
         return;
     }
     
-    printf("Memutar lagu \"%s\" oleh \"%s\".\n", Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.AlbumLagu[chosenAlbumIdx].IsiLagu.JudulLagu[chosenSongIdx].TabLine, chosenSinger);
+    printf("Memutar lagu \"%s\" oleh \"%s\".\n", Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.AlbumLagu[chosenAlbumIdx].IsiLagu.JudulLagu[chosenSongIdx].TabLine, chosensinger.TabWord);
 
     printf("Daftar Playlist Pengguna: \n");
     int nomorDaftarPlaylist = 0;
@@ -845,7 +845,7 @@ void addSongToPlaylist() {
         temp = NextPL(temp);
     }
     
-    printf("Lagu dengan judul \"%s\" pada album %s oleh penyanyi %s berhasil ditambahkan ke dalam playlist %s\n", Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.AlbumLagu[chosenAlbumIdx].IsiLagu.JudulLagu[chosenSongIdx].TabLine, chosenAlbum, chosenSinger, temp->detail.namaPlaylist.TabLine);
+    printf("Lagu dengan judul \"%s\" pada album %s oleh penyanyi %s berhasil ditambahkan ke dalam playlist %s\n", Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.AlbumLagu[chosenAlbumIdx].IsiLagu.JudulLagu[chosenSongIdx].TabLine, chosenalbum.TabWord, chosensinger.TabWord, temp->detail.namaPlaylist.TabLine);
 }
 
 /**
