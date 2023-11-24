@@ -21,6 +21,7 @@ void START()
 
        /* Algoritma */
        pita = stdin;
+       EOP = false;
        ADV();
 }
 

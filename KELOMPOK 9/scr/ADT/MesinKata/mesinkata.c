@@ -136,7 +136,7 @@ void CopyWord()
 }
 
 boolean isEndWord() {
-    return endWord;
+    return currentChar == '\n' || currentChar == MARK;
 }
 
 boolean IsKataSama(Word *k1, char *k2){
@@ -154,9 +154,17 @@ void readInput(){
     START();
 }
 
-void readInputCommand(){
-    STARTWORD();
-    START();
+Word takeInput(){
+  STARTWORD();
+  Word tempWord = currentWord;
+  Word spasi; 
+  while(!isEndWord() && !EOP){
+    ADVWORD();
+    SetWord(&spasi, " ");
+    ConcatWord(currentWord, &spasi);
+    ConcatWord(spasi, &tempWord);
+  }
+  return tempWord; 
 }
 
 int WordToInt(Word *word)
@@ -167,4 +175,27 @@ int WordToInt(Word *word)
         result = result * 10 + (word->TabWord[i] - '0');
     }
     return result;
+}
+
+void SetWord(Word *w, char *s){
+    CleanWord(w);
+    int i =0;
+    while(s[i] != '\0'){
+        w->TabWord[i] = s[i];
+        i++;
+    }
+    w->Length = i;
+}
+
+void ConcatWord(Word dest, Word *target){
+    for(int i =0; i< dest.Length; i++){
+        target -> TabWord[i + target->Length] = dest.TabWord[i]; 
+    }
+    target->Length = dest.Length + target->Length;
+}
+
+void CleanWord(Word *w){
+    for(int i =0; i< NMax; i++){
+        w->TabWord[i] = '\0';
+    }
 }

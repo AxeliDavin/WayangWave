@@ -67,10 +67,14 @@ boolean IsKataSama();
 void readInput();
 /*Mengeluarkan setup default yaitu >> lalu meminta input*/
 
-void readInputCommand();
-/*Meminta input tanpa >>*/
+Word takeInput();
 
 int WordToInt(Word *word);
 /* Ngubah word jadi integer*/
 
+void SetWord(Word *w, char *s);
+
+void ConcatWord(Word dest, Word *target);
+
+void CleanWord(Word *w);
 #endif

@@ -93,10 +93,10 @@ void Load(ListPenyanyi * LP, char filename[])
 
                 ADVSATUKATA();
                 int LaguPlaylist = atoi(CLine.TabLine);
-
+                printf("%d\n", LaguPlaylist);
                 for (int j = 0; j < LaguPlaylist; j++)
                 {   
-                    
+                    printf("p: %d\n", j);
                     infoType Songss;
 
                     ADVRECORD();
@@ -104,10 +104,12 @@ void Load(ListPenyanyi * LP, char filename[])
 
                     ADVRECORD();
                     Songss.NamaAlbum = CLine;
-
+                    printf("d: %d\n", j);
                     ADVRECORD();
                     Songss.JudulLagu = CLine;
-                    InsVLast(Playlists.A, Songss);
+                    printf("d: %d\n", j);
+                    InsVLastLinked(Playlists.lagu2, Songss);
+                    printf("d: %d\n", j);
                 }
             }
         printf("Save file berhasil dibaca. WayangWave berhasil dijalankan.\n");
@@ -125,7 +127,6 @@ int main(){
     CreateEmptyStack(&History);
     CreateQueue(&antre);
     CreateEmptyPlaylist(&Playlists);
-
     /*Pembuatan Kosong*/
     CreateEmptyListPenyanyi(&Penyanyi);
     // CreateEmptyMap(&Album);
