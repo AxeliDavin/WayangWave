@@ -724,6 +724,60 @@ void playPlaylist(){
 //     printf("Queue berhasil dikosongkan.\n");
 // }
 
+//COMMAND SONG
+/* Command: SONG NEXT */
+{
+    void songNext() {
+        if (!isEmptyQueue(queue)) {
+
+            // Masukin Lagu yang diputar sekarang ke dalam temp yang bertipe contentStack
+            contentStack temp;  //contentStack ga include idPlaylist, jadi yang di history itu dianggap ga punya playlist lagi
+            temp.JudulLagu = Lagu.JudulLagu;
+            temp.NamaAlbum = Lagu.NamaAlbum;
+            temp.NamaPenyanyi = Lagu.NamaPenyanyi;
+
+            // Jadikan head queue jadi current song
+            dequeue(&queue,&Lagu);
+            printf("Memutar lagu selanjutnya\n");
+            printf("“%s” oleh “%s”\n", Lagu.JudulLagu, Lagu.NamaPenyanyi);
+        }
+        else {
+            printf("Queue kosong, memutar kembali lagu\n");
+            printf("“%s” oleh “%s”\n", Lagu.JudulLagu, Lagu.NamaPenyanyi);
+        }
+    }
+}
+
+/* Command: SONG PREVIOUS */
+    void songPrevious() {
+        if (!IsEmptyStack(History)) {
+            Queue tempQ;
+            contentQueue valQ;
+
+            // Pindahin dulu semua isi queue ke tempQ
+            for (int i=0; i<length(queue); i++) {
+                dequeue(&queue, &valQ);
+                enqueue(&tempQ, valQ);
+            } // F.S. Keluar dari looping, queue is empty
+
+            // Memasukkannya current song ke queue urutan 1 lalu masukkan elmt dari temp
+            enqueue(&queue, Lagu);
+            for (int i=0; i<length(tempQ); i++) {
+                dequeue(&tempQ, &valQ);
+                enqueue(&queue, valQ);
+            }
+
+            CreateEmptyCurrentSong(&Lagu);  //supaya idPlaylistnya Nil
+            Pop(&History,&Lagu);
+
+            printf("Memutar lagu sebelumnya\n");
+            printf("“%s” oleh “%s”\n", Lagu.JudulLagu, Lagu.NamaPenyanyi);
+        }
+        else {
+            printf("Riwayat lagu kosong, memutar kembali lagu\n");
+            printf("“%s” oleh “%s”\n", Lagu.JudulLagu, Lagu.NamaPenyanyi);
+        }
+}
 
 // COMMAND PLAYLIST
 /**
