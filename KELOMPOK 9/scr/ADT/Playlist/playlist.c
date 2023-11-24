@@ -4,7 +4,7 @@
 
 void CreateEmptyPlaylist(Playlist *x){
     (*x).lagu2 = (ListLinier *)malloc(INITIAL_CAPACITY * sizeof(ListLinier));
-    (*x).namaPlaylist = (Kalimat *)malloc(INITIAL_CAPACITY * sizeof(Kalimat));
+    (*x).namaPlaylist = ((Kalimat* )malloc(INITIAL_CAPACITY * sizeof(Kalimat)));
     // (*x).namaPlaylist = createKalimat();
     (*x).capacity = INITIAL_CAPACITY;
     (*x).nEff = 0;
