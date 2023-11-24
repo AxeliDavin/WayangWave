@@ -793,8 +793,7 @@ void createPlaylist() {
 
     printf("Masukkan nama playlist yang ingin dibuat : ");
     Word playlistname = takeInput();
-
-    daftarPutar.namaPlaylist = charToKalimat(playlistname.TabWord);
+    copyKalimat(charToKalimat(playlistname.TabWord), daftarPutar.namaPlaylist);
 }
 
 /**
