@@ -1,4 +1,6 @@
 #include "Song.h"
+#include <stdio.h>
+#include "../boolean.h"
 
 /* *** Konstruktor/Kreator *** */
 void CreateEmptyCurrentSong(CurrentSong *S)
@@ -9,7 +11,7 @@ void CreateEmptyCurrentSong(CurrentSong *S)
     S->JudulLagu = createKalimat();
     S->NamaAlbum = createKalimat();
     S->NamaPenyanyi = createKalimat();
-    S->idxPlaylist = Nil;
+    S->idxPlaylist = NilSong;
 }
 
 /* ********* Predikat Untuk test keadaan KOLEKSI ********* */

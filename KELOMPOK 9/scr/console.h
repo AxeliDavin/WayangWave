@@ -18,15 +18,19 @@ void playSong();
 
 void playPlaylist();
 
-// void songQueue();
+void songQueue();
 
 // void playlistQueue();
 
-// void swapQueue();
+void swapQueue();
 
-// void removeQueue();
+void removeQueue();
 
-// void clearQueue();
+void clearQueue();
+
+void songNext();
+
+void songPrevious();
 
 void createPlaylist();
 

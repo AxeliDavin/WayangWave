@@ -91,42 +91,58 @@ void readCommand(){
             isPlaying = true;
         } 
 
-        // else if (IsKataSama(currentWord.TabWord, "QUEUE")){
-        //     ADVWORD();
-        //     if (IsKataSama(currentWord.TabWord, "SONG")){
-        //         if (!masuksesi){
-        //             printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
-        //         } else {
-        //             songQueue();
-        //         } 
-        //     } else if (IsKataSama(currentWord.TabWord, "PLAYLIST")){
-        //         if (!masuksesi){
-        //             printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
-        //         } else {
-        //             playlistQueue();
-        //         } 
-        //     } else if (IsKataSama(currentWord.TabWord, "SWAP")){
-        //         if (!masuksesi){
-        //             printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
-        //         } else {
-        //             swapQueue();
-        //         } 
-        //     } else if (IsKataSama(currentWord.TabWord, "REMOVE")){
-        //         if (!masuksesi){
-        //             printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
-        //         } else {
-        //             removeQueue();
-        //         } 
-        //     } else if (IsKataSama(currentWord.TabWord, "CLEAR")){
-        //         if (!masuksesi){
-        //             printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
-        //         } else {
-        //             clearQueue();
-        //         } 
-        //     }
-        // START();
-        // }
-                
+        else if (IsKataSama(currentWord.TabWord, "QUEUE")){
+            ADVWORD();
+            if (IsKataSama(currentWord.TabWord, "SONG")){
+                if (!masuksesi){
+                    printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
+                } else {
+                    songQueue();
+                } 
+            // } else if (IsKataSama(currentWord.TabWord, "PLAYLIST")){
+            //     if (!masuksesi){
+            //         printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
+            //     } else {
+            //         playlistQueue();
+            //     } 
+            } else if (IsKataSama(currentWord.TabWord, "SWAP")){
+                if (!masuksesi){
+                    printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
+                } else {
+                    swapQueue();
+                } 
+            } else if (IsKataSama(currentWord.TabWord, "REMOVE")){
+                if (!masuksesi){
+                    printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
+                } else {
+                    removeQueue();
+                } 
+            } else if (IsKataSama(currentWord.TabWord, "CLEAR")){
+                if (!masuksesi){
+                    printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
+                } else {
+                    clearQueue();
+                } 
+            }
+        }
+
+        else if(IsKataSama(currentWord.TabWord, "SONG")){
+            ADVWORD();
+            if (IsKataSama(currentWord.TabWord, "NEXT")){
+                if (!masuksesi){
+                        printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
+                    } else {
+                        songNext();
+                    } 
+                } else if (IsKataSama(currentWord.TabWord, "PREVIOUS")){
+                    if (!masuksesi){
+                        printf("Command tidak bisa dieksekusi!\n"); /*Belom masuk sesi jadi tidak bisa dirun*/
+                    } else {
+                        songPrevious();
+                    } 
+            }
+        }
+
         else if (IsKataSama(currentWord.TabWord, "PLAYLIST")){
             ADVWORD();
             if (IsKataSama(currentWord.TabWord, "CREATE")){
@@ -190,7 +206,7 @@ void readCommand(){
         }
 
         else {
-            printf("kata 2: %s\n", currentWord.TabWord);
+            // printf("kata 2: %s\n", currentWord.TabWord);
             printf("Command tidak diketahui!\n"); /*Tidak ada di list command*/
         }
     }
@@ -424,9 +440,8 @@ void listDefault(){
             // Nampilin daftar lagu yang di dalam album
             printf("Daftar Lagu di %s :\n", inputalbum.TabWord);
             int nomorLagu = 0;
-            for (int i = 0; i < Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.AlbumLagu[i].IsiLagu.Count; i++) {
-                nomorLagu++;
-                printf("   %d. %s\n", nomorLagu, Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.AlbumLagu[chosenAlbumIdx].IsiLagu.JudulLagu[i].TabLine);
+            for (int i = 0; i < Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.AlbumLagu[chosenAlbumIdx].IsiLagu.Count; i++) {
+                printf("   %d. %s\n", i+1, Penyanyi.PenyanyiAlbum[chosenSingerIdx].ListAlbums.AlbumLagu[chosenAlbumIdx].IsiLagu.JudulLagu[i].TabLine);
             }
         }
         else if(IsKataSama(currentWord.TabWord, "N") || IsKataSama(currentWord.TabWord, "n")){
@@ -558,92 +573,87 @@ void playPlaylist(){
     printf("Memutar playlist \"%s\".\n", valuePlaylist(daftarPlaylist, chosenPlaylistIdx).namaPlaylist.TabLine);
 }
 
-// // FUNGSI QUEUE
-// // Command: QUEUE SONG
-// void songQueue() {
-//     // Belum ada penanganan inputan tidak valid. Butuh ga ya?
-//     // Menampilkan list daftar penyanyi
-//     printf("Daftar Penyanyi :\n");
-//     for (int i=0; i<Penyanyi.NEff; i++) {
-//         printf("   %d. %s\n", i+1, Penyanyi.PenyanyiAlbum[i].NamaPenyanyi.TabLine);
-//     }
+// FUNGSI QUEUE
+// Command: QUEUE SONG
+void songQueue() {
+    // Belum ada penanganan inputan tidak valid. Butuh ga ya?
+    // Menampilkan list daftar penyanyi
+    printf("Daftar Penyanyi :\n");
+    for (int i=0; i<Penyanyi.NEff; i++) {
+        printf("   %d. %s\n", i+1, Penyanyi.PenyanyiAlbum[i].NamaPenyanyi.TabLine);
+    }
+    STARTWORD();
+    // Menerima inputan nama penyanyi
+    printf("Masukkan Nama Penyanyi: ");
+    Word singername = takeInput();
 
-//     // Menerima inputan nama penyanyi
-//     char singerName;
-//     printf("Masukkan Nama Penyanyi: ");
-//     readInputCommand();
-//     singerName = currentWord.TabWord;
+    // Cek inputan nama penyanyi valid atau ga
+    int idxSinger = InvalidIdx;
+    for (int i=0; i<Penyanyi.NEff; i++) {
+        if (isInputEqual(Penyanyi.PenyanyiAlbum[i].NamaPenyanyi, singername.TabWord)) {
+            idxSinger = i;
+            break;
+        }
+    }
 
-//     // Cek inputan nama penyanyi valid atau ga
-//     int idxSinger = InvalidIdx;
-//     for (int i=0; i<Penyanyi.NEff; i++) {
-//         if (isInputEqual(Penyanyi.PenyanyiAlbum[i].NamaPenyanyi, singerName)) {
-//             idxSinger = i;
-//             break;
-//         }
-//     }
+    if (idxSinger == InvalidIdx) {
+        printf("Penyanyi %s tidak ada dalam daftar. Silakan coba lagi.\n", singername.TabWord);
+        return;
+    }
 
-//     if (idxSinger == InvalidIdx) {
-//         printf("Penyanyi %s tidak ada dalam daftar. Silakan coba lagi.\n", singerName);
-//         return;
-//     }
-
-//     // Menampilkan list album
+    // Menampilkan list album
     
-//     printf("Daftar Album oleh %s :\n", singerName);
-//     for (int i=0; i<Penyanyi.PenyanyiAlbum[idxSinger].ListAlbums.NEff; i++) {
-//         printf("   %d. %s\n", i+1, Penyanyi.PenyanyiAlbum[idxSinger].ListAlbums.AlbumLagu[i].NamaAlbum.TabLine);
-//     }
+    printf("Daftar Album oleh %s :\n", singername.TabWord);
+    for (int i=0; i<Penyanyi.PenyanyiAlbum[idxSinger].ListAlbums.NEff; i++) {
+        printf("   %d. %s\n", i+1, Penyanyi.PenyanyiAlbum[idxSinger].ListAlbums.AlbumLagu[i].NamaAlbum.TabLine);
+    }
+    STARTWORD();
+    // Menerima inputan nama album
+    printf("Masukkan Nama Album yang dipilih : ");
+    Word albumTitle = takeInput(); 
 
-//     // Menerima inputan nama album
-//     char albumTitle;
-//     printf("Masukkan Nama Album yang dipilih : ");
-//     readInputCommand();
-//     albumTitle = currentWord.TabWord;
+    // Cek inputan nama album valid atau ga
+    int idxAlbum = InvalidIdx;
+    for (int i=0; i<Penyanyi.PenyanyiAlbum[idxSinger].ListAlbums.NEff; i++) {
+        if (isInputEqual(Penyanyi.PenyanyiAlbum[idxSinger].ListAlbums.AlbumLagu[i].NamaAlbum, albumTitle.TabWord)) {
+            idxAlbum = i;
+        }
+    }
 
-//     // Cek inputan nama album valid atau ga
-//     int idxAlbum = InvalidIdx;
-//     for (int i=0; i<Penyanyi.PenyanyiAlbum[idxSinger].ListAlbums.NEff; i++) {
-//         if (isInputEqual(Penyanyi.PenyanyiAlbum[idxSinger].ListAlbums.AlbumLagu[i].NamaAlbum, albumTitle)) {
-//             idxAlbum = i;
-//         }
-//     }
+    if (idxAlbum == InvalidIdx) {
+        printf("Album %s tidak ada dalam daftar. Silakan coba lagi.\n", albumTitle.TabWord);
+        return;
+    }
 
-//     if (idxAlbum == InvalidIdx) {
-//         printf("Album %s tidak ada dalam daftar. Silakan coba lagi.\n", albumTitle);
-//         return;
-//     }
+    // Menampilkan list lagu dalam album
+    printf("Daftar Lagu Album %s oleh %s : \n", albumTitle.TabWord, singername.TabWord);
+    for (int i=0; i<Penyanyi.PenyanyiAlbum[idxSinger].ListAlbums.AlbumLagu[idxAlbum].IsiLagu.Count; i++) {
+            printf("   %d. %s\n", i+1, Penyanyi.PenyanyiAlbum[idxSinger].ListAlbums.AlbumLagu[idxAlbum].IsiLagu.JudulLagu[i].TabLine);
+        }
 
-//     // Menampilkan list lagu dalam album
-//     printf("Daftar Lagu Album %s oleh %s : \n", albumTitle, singerName);
-//     for (int i=0; i<Penyanyi.PenyanyiAlbum[idxSinger].ListAlbums.AlbumLagu[idxAlbum].IsiLagu.Count; i++) {
-//             printf("   %d. %s\n", i+1, Penyanyi.PenyanyiAlbum[idxSinger].ListAlbums.AlbumLagu[idxAlbum].IsiLagu.JudulLagu[i].TabLine);
-//         }
+    // Menerima inputan ID Lagu
+    int songIndex;
+    printf("Masukkan ID Lagu yang dipilih : ");
+    STARTWORD();
+    STARTWORD();
+    songIndex = WordToInt(&currentWord);
 
-//     // Menerima inputan ID Lagu
-//     int songIndex;
-//     printf("Masukkan ID Lagu yang dipilih : ");
-//     readInputCommand();
-//     songIndex = WordToInt(&currentWord);
+    // Cek inputan lagu valid atau ga
+    if (songIndex > 0 && songIndex <= Penyanyi.PenyanyiAlbum[idxSinger].ListAlbums.AlbumLagu[idxAlbum].IsiLagu.Count) {
+        dataLagu songToAdd;
+        songToAdd.JudulLagu = Penyanyi.PenyanyiAlbum[idxSinger].ListAlbums.AlbumLagu[idxAlbum].IsiLagu.JudulLagu[songIndex+1];
+        songToAdd.NamaAlbum = Penyanyi.PenyanyiAlbum[idxSinger].ListAlbums.AlbumLagu[idxAlbum].NamaAlbum;
+        songToAdd.NamaPenyanyi = Penyanyi.PenyanyiAlbum[idxSinger].NamaPenyanyi;
+        songToAdd.idxPlaylist = InvalidIdx;
+        printf("Berhasil menambahkan lagu \"%s\" oleh \"%s\" ke queue.\n", Penyanyi.PenyanyiAlbum[idxSinger].ListAlbums.AlbumLagu[idxAlbum].IsiLagu.JudulLagu[songIndex+1].TabLine, singername.TabWord);
+    }
+    else {
+        printf("Tidak ada lagu dalam daftar. Silakan coba lagi.\n");
+        return;
+    }
+}
 
-//     // Cek inputan lagu valid atau ga
-//     if (songIndex > 0 && songIndex <= Penyanyi.PenyanyiAlbum[idxSinger].ListAlbums.AlbumLagu[idxAlbum].IsiLagu.Count) {
-//         dataLagu songToAdd;
-//         songToAdd.JudulLagu = Penyanyi.PenyanyiAlbum[idxSinger].ListAlbums.AlbumLagu[idxAlbum].IsiLagu.JudulLagu[songIndex];
-//         songToAdd.NamaAlbum = Penyanyi.PenyanyiAlbum[idxSinger].ListAlbums.AlbumLagu[idxAlbum].NamaAlbum;
-//         songToAdd.NamaPenyanyi = Penyanyi.PenyanyiAlbum[idxSinger].NamaPenyanyi;
-//         songToAdd.idxPlaylist = InvalidIdx;
-//         printf("Berhasil menambahkan lagu “%s” oleh “%s” ke queue.", Penyanyi.PenyanyiAlbum[idxSinger].ListAlbums.AlbumLagu[idxAlbum].IsiLagu.JudulLagu[songIndex].TabLine, singerName);
-//     }
-//     else {
-//         printf("Tidak ada lagu dalam daftar. Silakan coba lagi.\n");
-//         return;
-//     }
-// }
-
-
-
-// // Command: QUEUE PLAYLIST
+// Command: QUEUE PLAYLIST
 // void playlistQueue() {
 
 //     // Menerima inputan ID Playlist
@@ -662,121 +672,119 @@ void playPlaylist(){
 // }
 
 
-// // Command: QUEUE SWAP <x> <y>
-// void swapQueue() {
-//     ADV();
-//     int x = WordToInt(&currentWord);
-//     ADV();
-//     int y = WordToInt(&currentWord);
+// Command: QUEUE SWAP <x> <y>
+void swapQueue() {
+    ADVWORD();
+    int x = WordToInt(&currentWord);
+    ADVWORD();
+    int y = WordToInt(&currentWord);
 
-//     if ((x >= 1 && x <= length(queue)) && (y >= 1 && y <= length(queue))) {
-//         // Mencari lagu dalam queue yang akan ditukar urutannya
-//         contentQueue temp = queue.buffer[x];
-//         queue.buffer[x] = queue.buffer[y];
-//         queue.buffer[y] = temp;
-//         printf("Lagu %s berhasil ditukar dengan %s\n", queue.buffer[x], queue.buffer[y]);
-//     }
-//     else {
-//         if ((x < 1 || x > length(queue)) && y >= 1 && y <= length(queue)) {
-//             printf("Lagu dengan urutan ke %d tidak terdapat dalam queue!\n", x);
-//         }
-//         else if (x >= 1 && x <= length(queue) && (y < 1 || y > length(queue))) {
-//             printf("Lagu dengan urutan ke %d tidak terdapat dalam queue!\n", y) ;
-//         }
-//         else if ((x < 1 || x > length(queue)) && (y < 1 || y > length(queue))){
-//             printf("Lagu dengan urutan ke %d dan %d tidak terdapat dalam queue!\n", x, y);
-//         }
-//     }
-// }
-
-// // Command: QUEUE REMOVE <id>
-// void removeQueue() {
-//     ADV();
-//     int id = WordToInt(&currentWord);
-//     if (id >= 1 && id <= length(queue)) { 
-//         Queue temp;
-//         contentQueue songRemoved, val;
-//         CreateQueue(&temp);
-//         for (int i=0; i < length(queue); i++) {
-//             dequeue(&queue, &val);
-//             if (i != id-1) {
-//                 enqueue(&temp, val); 
-//             }
-//             else {
-//                 songRemoved = val;
-//             }
-//         }
-//         while (!isEmptyQueue(temp)){
-//             dequeue(&temp, &val);
-//             enqueue(&queue, val);
-//             }    
-        
-//         printf("Lagu “%s” oleh “%s” telah dihapus dari queue!\n", songRemoved.JudulLagu, songRemoved.NamaPenyanyi);   
-//     }
-//     else {
-//         printf("Lagu dengan urutan ke %d tidak ada.\n", id);
-//     }
-// }
-
-// // Command: QUEUE CLEAR
-// void clearQueue() {
-//     CreateQueue(&queue);
-//     printf("Queue berhasil dikosongkan.\n");
-// }
-
-//COMMAND SONG
-/* Command: SONG NEXT */
-{
-    void songNext() {
-        if (!isEmptyQueue(queue)) {
-
-            // Masukin Lagu yang diputar sekarang ke dalam temp yang bertipe contentStack
-            contentStack temp;  //contentStack ga include idPlaylist, jadi yang di history itu dianggap ga punya playlist lagi
-            temp.JudulLagu = Lagu.JudulLagu;
-            temp.NamaAlbum = Lagu.NamaAlbum;
-            temp.NamaPenyanyi = Lagu.NamaPenyanyi;
-
-            // Jadikan head queue jadi current song
-            dequeue(&queue,&Lagu);
-            printf("Memutar lagu selanjutnya\n");
-            printf("“%s” oleh “%s”\n", Lagu.JudulLagu, Lagu.NamaPenyanyi);
+    if ((x >= 1 && x <= length(queue)) && (y >= 1 && y <= length(queue))) {
+        // Mencari lagu dalam queue yang akan ditukar urutannya
+        contentQueue temp = queue.buffer[x];
+        queue.buffer[x] = queue.buffer[y];
+        queue.buffer[y] = temp;
+        printf("Lagu %s berhasil ditukar dengan %s\n", queue.buffer[x], queue.buffer[y]);
+    }
+    else {
+        if ((x < 1 || x > length(queue)) && y >= 1 && y <= length(queue)) {
+            printf("Lagu dengan urutan ke %d tidak terdapat dalam queue!\n", x);
         }
-        else {
-            printf("Queue kosong, memutar kembali lagu\n");
-            printf("“%s” oleh “%s”\n", Lagu.JudulLagu, Lagu.NamaPenyanyi);
+        else if (x >= 1 && x <= length(queue) && (y < 1 || y > length(queue))) {
+            printf("Lagu dengan urutan ke %d tidak terdapat dalam queue!\n", y) ;
+        }
+        else if ((x < 1 || x > length(queue)) && (y < 1 || y > length(queue))){
+            printf("Lagu dengan urutan ke %d dan %d tidak terdapat dalam queue!\n", x, y);
         }
     }
 }
 
-/* Command: SONG PREVIOUS */
-    void songPrevious() {
-        if (!IsEmptyStack(History)) {
-            Queue tempQ;
-            contentQueue valQ;
-
-            // Pindahin dulu semua isi queue ke tempQ
-            for (int i=0; i<length(queue); i++) {
-                dequeue(&queue, &valQ);
-                enqueue(&tempQ, valQ);
-            } // F.S. Keluar dari looping, queue is empty
-
-            // Memasukkannya current song ke queue urutan 1 lalu masukkan elmt dari temp
-            enqueue(&queue, Lagu);
-            for (int i=0; i<length(tempQ); i++) {
-                dequeue(&tempQ, &valQ);
-                enqueue(&queue, valQ);
+// Command: QUEUE REMOVE <id>
+void removeQueue() {
+    ADVWORD();
+    int id = WordToInt(&currentWord);
+    if (id >= 1 && id <= length(queue)) { 
+        Queue temp;
+        contentQueue songRemoved, val;
+        CreateQueue(&temp);
+        for (int i=0; i < length(queue); i++) {
+            dequeue(&queue, &val);
+            if (i != id-1) {
+                enqueue(&temp, val); 
             }
-
-            CreateEmptyCurrentSong(&Lagu);  //supaya idPlaylistnya Nil
-            Pop(&History,&Lagu);
-
-            printf("Memutar lagu sebelumnya\n");
-            printf("“%s” oleh “%s”\n", Lagu.JudulLagu, Lagu.NamaPenyanyi);
+            else {
+                songRemoved = val;
+            }
         }
-        else {
-            printf("Riwayat lagu kosong, memutar kembali lagu\n");
-            printf("“%s” oleh “%s”\n", Lagu.JudulLagu, Lagu.NamaPenyanyi);
+        while (!isEmptyQueue(temp)){
+            dequeue(&temp, &val);
+            enqueue(&queue, val);
+            }    
+        
+        printf("Lagu “%s” oleh “%s” telah dihapus dari queue!\n", songRemoved.JudulLagu, songRemoved.NamaPenyanyi);   
+    }
+    else {
+        printf("Lagu dengan urutan ke %d tidak ada.\n", id);
+    }
+}
+
+// Command: QUEUE CLEAR
+void clearQueue() {
+    CreateQueue(&queue);
+    printf("Queue berhasil dikosongkan.\n");
+}
+
+//COMMAND SONG
+/* Command: SONG NEXT */
+void songNext() {
+    if (!isEmptyQueue(queue)) {
+
+        // Masukin Lagu yang diputar sekarang ke dalam temp yang bertipe contentStack
+        contentStack temp;  //contentStack ga include idPlaylist, jadi yang di history itu dianggap ga punya playlist lagi
+        temp.JudulLagu = Lagu.JudulLagu;
+        temp.NamaAlbum = Lagu.NamaAlbum;
+        temp.NamaPenyanyi = Lagu.NamaPenyanyi;
+
+        // Jadikan head queue jadi current song
+        dequeue(&queue,&Lagu);
+        printf("Memutar lagu selanjutnya\n");
+        printf("\"%s\" oleh \"%s\"\n", Lagu.JudulLagu, Lagu.NamaPenyanyi);
+    }
+    else {
+        printf("Queue kosong, memutar kembali lagu\n");
+        printf("\"%s\" oleh \"%s\"\n", Lagu.JudulLagu, Lagu.NamaPenyanyi);
+    }
+}
+
+/* Command: SONG PREVIOUS */
+void songPrevious() {
+    if (!IsEmptyStack(History)) {
+        Queue tempQ;
+        contentQueue valQ;
+
+        // Pindahin dulu semua isi queue ke tempQ
+        for (int i=0; i<length(queue); i++) {
+            dequeue(&queue, &valQ);
+            enqueue(&tempQ, valQ);
+        } // F.S. Keluar dari looping, queue is empty
+
+        // Memasukkannya current song ke queue urutan 1 lalu masukkan elmt dari temp
+        enqueue(&queue, Lagu);
+        for (int i=0; i<length(tempQ); i++) {
+            dequeue(&tempQ, &valQ);
+            enqueue(&queue, valQ);
         }
+        printf("\n"); // Print biar bisa jalan, kalo udah bisa mungkin dihapus
+        CreateEmptyCurrentSong(&Lagu);  //supaya idPlaylistnya Nil
+        Pop(&History,&Lagu);
+
+        printf("Memutar lagu sebelumnya\n");
+        printf("\"%s\" oleh \"%s\"\n", Lagu.JudulLagu, Lagu.NamaPenyanyi);
+    }
+    else {
+        printf("Riwayat lagu kosong, memutar kembali lagu\n");
+        printf("\"%s\" oleh \"%s\"\n", Lagu.JudulLagu, Lagu.NamaPenyanyi);
+    }
 }
 
 // COMMAND PLAYLIST

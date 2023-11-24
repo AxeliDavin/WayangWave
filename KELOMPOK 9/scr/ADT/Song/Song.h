@@ -7,8 +7,9 @@
 
 #include "../SongAlbumSinger/songalbumsinger.h"
 #include "../MesinKalimat/mesinkalimat.h"
+#include "../boolean.h"
 
-#define Nil NULL
+#define NilSong -1
 
 typedef struct {
 	Kalimat JudulLagu; 
