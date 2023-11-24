@@ -15,9 +15,9 @@ typedef struct {
 
 /* State Mesin Kalimat */
 extern boolean EndKalimat;
-extern Kalimat CLine;
-extern Kalimat CInput;
-extern Kalimat CCommand;
+extern Kalimat FileLine;
+extern Kalimat InputLine;
+extern Kalimat Command;
 
 Kalimat createKalimat();
 boolean IsKalimatEmpty(Kalimat K);
@@ -40,7 +40,7 @@ Kalimat DirectoryCommand(Kalimat file);
 void STARTKALIMATFILE(char filename[]);
 void STARTCOMMAND();
 
-void ADVKALIMAT();
+void NEXTLINE();
 void ADVSATUKATA();
 void ADVRECORD();
 void ADVCOMMAND();

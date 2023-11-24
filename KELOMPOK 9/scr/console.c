@@ -221,28 +221,28 @@ void Start(ListPenyanyi *LP, char path[])
     Kalimat NamaAlbum;
     Kalimat NamaLagu;
 
-    int loop = atoi(CLine.TabLine);
+    int loop = atoi(FileLine.TabLine);
     if (loop > 0)
     {
 
         for (int i = 0; i < loop; i++){
             ADVSATUKATA();
-            int album = atoi(CLine.TabLine);
-            ADVKALIMAT();
+            int album = atoi(FileLine.TabLine);
+            NEXTLINE();
             
-            AddPenyanyi(LP, CLine);
+            AddPenyanyi(LP, FileLine);
 
             for (int j = 0; j < album; j++){
             ADVSATUKATA();
-            int lagu = atoi(CLine.TabLine);
-            ADVKALIMAT();
+            int lagu = atoi(FileLine.TabLine);
+            NEXTLINE();
 
-            AddAlbum(LP, CLine);
+            AddAlbum(LP, FileLine);
 
             for (int k = 0; k < lagu; k++)
             {
-                ADVKALIMAT();
-                AddLagu(LP, CLine);
+                NEXTLINE();
+                AddLagu(LP, FileLine);
             }
             }
         }
@@ -261,90 +261,90 @@ void Load(ListPenyanyi * LP, char filename[])
     Kalimat NamaAlbum;
     Kalimat NamaLagu;
 
-    int loop = atoi(CLine.TabLine);
+    int loop = atoi(FileLine.TabLine);
     if (loop > 0)
     {
 
         for (int i = 0; i < loop; i++){
             ADVSATUKATA();
-            int album = atoi(CLine.TabLine);
+            int album = atoi(FileLine.TabLine);
             
-            ADVKALIMAT();
+            NEXTLINE();
             
-            AddPenyanyi(LP, CLine);
+            AddPenyanyi(LP, FileLine);
             for (int j = 0; j < album; j++){
             ADVSATUKATA();
-            int lagu = atoi(CLine.TabLine);
+            int lagu = atoi(FileLine.TabLine);
 
-            ADVKALIMAT();
+            NEXTLINE();
 
-            AddAlbum(LP, CLine);
+            AddAlbum(LP, FileLine);
 
             for (int k = 0; k < lagu; k++)
             {
-                ADVKALIMAT();
+                NEXTLINE();
 
-                AddLagu(LP, CLine);
+                AddLagu(LP, FileLine);
             }
             }
         }
-        ADVKALIMAT();
-        Lagu.NamaPenyanyi = CLine;
+        NEXTLINE();
+        Lagu.NamaPenyanyi = FileLine;
         ADVRECORD();
-        Lagu.NamaAlbum = CLine;
+        Lagu.NamaAlbum = FileLine;
         ADVRECORD();
-        Lagu.JudulLagu = CLine;
-        ADVKALIMAT();
+        Lagu.JudulLagu = FileLine;
+        NEXTLINE();
 
-            int loopRecordQ = atoi(CLine.TabLine);
+            int loopRecordQ = atoi(FileLine.TabLine);
             for (int i = 0; i < loopRecordQ; i++) // Queue
             {  contentQueue lagu;
                 ADVRECORD();
-                lagu.NamaPenyanyi = CLine;
+                lagu.NamaPenyanyi = FileLine;
                 ADVRECORD();
-                lagu.NamaAlbum = CLine;
+                lagu.NamaAlbum = FileLine;
                 ADVRECORD();
-                lagu.JudulLagu = CLine;
+                lagu.JudulLagu = FileLine;
 
                 enqueue(&queue, lagu);
             }
 
-            ADVKALIMAT();
-            int loopRecordR = atoi(CLine.TabLine);
+            NEXTLINE();
+            int loopRecordR = atoi(FileLine.TabLine);
             for (int i = 0; i < loopRecordR; i++) // History input
             {
                 contentStack song;
                 ADVRECORD();
-                song.NamaPenyanyi = CLine;
+                song.NamaPenyanyi = FileLine;
                 ADVRECORD();
-                song.NamaAlbum = CLine;
+                song.NamaAlbum = FileLine;
                 ADVRECORD();
-                song.JudulLagu = CLine;
+                song.JudulLagu = FileLine;
 
                 Push(&History, song);
             }
 
 
-            ADVKALIMAT();
-            int loopRecordP = atoi(CLine.TabLine); // Jumlah Playlist
+            NEXTLINE();
+            int loopRecordP = atoi(FileLine.TabLine); // Jumlah Playlist
             for (int i = 0; i < loopRecordP; i++) // Loop Playlist
             {
 
                 ADVSATUKATA();
-                int LaguPlaylist = atoi(CLine.TabLine);
+                int LaguPlaylist = atoi(FileLine.TabLine);
                 for (int j = 0; j < LaguPlaylist; j++)
                 {   
                     
                     infoType Songss;
 
                     ADVRECORD();
-                    Songss.NamaPenyanyi = CLine;
+                    Songss.NamaPenyanyi = FileLine;
 
                     ADVRECORD();
-                    Songss.NamaAlbum = CLine;
+                    Songss.NamaAlbum = FileLine;
 
                     ADVRECORD();
-                    Songss.JudulLagu = CLine;
+                    Songss.JudulLagu = FileLine;
                     InsVLastLinked(playlist.lagu2, Songss);
                 }
             }
@@ -1101,7 +1101,7 @@ void Save(ListPenyanyi * LP, char filename[])
             fprintf(File, "%d %s\n", (*LP).PenyanyiAlbum[i].ListAlbums.AlbumLagu[j].IsiLagu.Count, (*LP).PenyanyiAlbum[i].ListAlbums.AlbumLagu[j].NamaAlbum.TabLine);
             for (int k = 0; k < (*LP).PenyanyiAlbum[i].ListAlbums.AlbumLagu[j].IsiLagu.Count; k++)
             {
-                ADVKALIMAT();
+                NEXTLINE();
                 if (i == (*LP).NEff && j == (*LP).PenyanyiAlbum[i].ListAlbums.NEff && k == (*LP).PenyanyiAlbum[i].ListAlbums.AlbumLagu[j].IsiLagu.Count)
                 {
                     fprintf(File, "%s", (*LP).PenyanyiAlbum[i].ListAlbums.AlbumLagu[j].IsiLagu.JudulLagu[k].TabLine);

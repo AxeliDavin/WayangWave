@@ -2,8 +2,8 @@
 #include "mesinkalimat.h"
 
 boolean EndKalimat;
-Kalimat CLine;
-Kalimat CInput;
+Kalimat FileLine;
+Kalimat InputLine;
 Kalimat currentCharommand;
 
 Kalimat createKalimat(){
@@ -60,11 +60,11 @@ void SalinInput() {
     int i = 0;
     while ((currentChar != MARK) && (currentChar != NEWLINE) && (currentChar != EOF))
     {
-        CInput.TabLine[i] = currentChar;
+        InputLine.TabLine[i] = currentChar;
         i+= 1;
         ADV();
     }
-    CInput.Length = i;
+    InputLine.Length = i;
 }
 
 void SalinKalimat() {
@@ -72,12 +72,12 @@ void SalinKalimat() {
     int i = 0;
     while ((currentChar != MARK) && (currentChar != NEWLINE) && (currentChar != EOF))
     {
-        CLine.TabLine[i] = currentChar;
+        FileLine.TabLine[i] = currentChar;
         // printf("%c", currentChar);
         i+= 1;
         ADV();
     }
-    CLine.Length = i;
+    FileLine.Length = i;
 }
 
 void SalinSatuKata() {
@@ -85,11 +85,11 @@ void SalinSatuKata() {
     int i = 0;
     while ((currentChar != ' ') && (currentChar != MARK))
     {
-        CLine.TabLine[i] = currentChar;
+        FileLine.TabLine[i] = currentChar;
         i += 1;
         ADV();
     }
-    CLine.Length = i;
+    FileLine.Length = i;
 }
 
 void SalinRecord() {
@@ -97,11 +97,11 @@ void SalinRecord() {
     int i = 0;
     while ((currentChar != MARK) && (currentChar != NEWLINE))
     {
-        CLine.TabLine[i] = currentChar;
+        FileLine.TabLine[i] = currentChar;
         i += 1;
         ADV();
     }
-    CLine.Length = i;
+    FileLine.Length = i;
 }
 
 void STARTKALIMATINPUT() {
@@ -162,7 +162,7 @@ void STARTKALIMATFILE(char filename[]) {
     }
 }
 
-void ADVKALIMAT(){
+void NEXTLINE(){
     IgnoreNewline();
     Ignoreblanks();
     if (currentChar == MARK2) {
@@ -204,16 +204,16 @@ void copyKalimat (Kalimat k1, Kalimat *k2){
 }
 
 void ResetKalimat() {
-    for (int i = 0; i < sizeof(CLine.TabLine); i++) {
-        CLine.TabLine[i] = '\0';
-        CLine.Length = 0;
+    for (int i = 0; i < sizeof(FileLine.TabLine); i++) {
+        FileLine.TabLine[i] = '\0';
+        FileLine.Length = 0;
     }
 }
 
 void ResetInput() {
-    for (int i = 0; i < sizeof(CInput.TabLine); i++) {
-        CInput.TabLine[i] = '\0';
-        CInput.Length = 0;
+    for (int i = 0; i < sizeof(InputLine.TabLine); i++) {
+        InputLine.TabLine[i] = '\0';
+        InputLine.Length = 0;
     }
 }
 

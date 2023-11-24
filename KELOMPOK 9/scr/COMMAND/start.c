@@ -22,28 +22,28 @@ void Start(ListPenyanyi *LP, char path[])
     Kalimat NamaAlbum;
     Kalimat NamaLagu;
 
-    int loop = atoi(CLine.TabLine);
+    int loop = atoi(FileLine.TabLine);
     if (loop > 0)
     {
 
         for (int i = 0; i < loop; i++){
             ADVSATUKATA();
-            int album = atoi(CLine.TabLine);
-            ADVKALIMAT();
+            int album = atoi(FileLine.TabLine);
+            NEXTLINE();
             
-            AddPenyanyi(LP, CLine);
+            AddPenyanyi(LP, FileLine);
 
             for (int j = 0; j < album; j++){
             ADVSATUKATA();
-            int lagu = atoi(CLine.TabLine);
-            ADVKALIMAT();
+            int lagu = atoi(FileLine.TabLine);
+            NEXTLINE();
 
-            AddAlbum(LP, CLine);
+            AddAlbum(LP, FileLine);
 
             for (int k = 0; k < lagu; k++)
             {
-                ADVKALIMAT();
-                AddLagu(LP, CLine);
+                NEXTLINE();
+                AddLagu(LP, FileLine);
             }
             }
         }
