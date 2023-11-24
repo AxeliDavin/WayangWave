@@ -52,7 +52,7 @@ boolean IsFullMap(Map M);
 /* Ciri Map penuh : count berNilMapai MaxEl */
 
 /* ********** Operator Dasar Map ********* */
-valuetype Value(Map M, keytype k);
+valuetype ValueMap	(Map M, keytype k);
 /* Mengembalikan NilMapai value dengan key k dari M */
 /* Jika tidak ada key k pada M, akan mengembalikan Undefined */
 
