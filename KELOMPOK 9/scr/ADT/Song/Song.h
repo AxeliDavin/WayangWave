@@ -6,6 +6,7 @@
 #include <stdio.h>
 
 #include "../SongAlbumSinger/songalbumsinger.h"
+#include "../ListLinier/listlinier.h"
 #include "../MesinKalimat/mesinkalimat.h"
 #include "../boolean.h"
 
@@ -30,5 +31,7 @@ void CreateEmptyCurrentSong(CurrentSong *S);
 boolean IsPlaying(CurrentSong S);
 /* Mengirim true jika Set S kosong*/
 /* Ciri  kosong : count berNilSetai NilSet */
+
+void copyToCurrentSong(Songs S, int idx, CurrentSong *S2);
 
 #endif

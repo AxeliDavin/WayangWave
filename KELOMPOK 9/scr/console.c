@@ -5,7 +5,6 @@
 /*Global Variable*/
 Queue queue;
 Stack History;
-Queue antre;
 Playlist playlist;
 ListPlaylist daftarPlaylist;
 ListPenyanyi Penyanyi;
@@ -307,7 +306,7 @@ void Load(ListPenyanyi * LP, char filename[])
                 ADVRECORD();
                 lagu.JudulLagu = CLine;
 
-                enqueue(&antre, lagu);
+                enqueue(&queue, lagu);
             }
 
             ADVKALIMAT();
@@ -659,12 +658,26 @@ void playlistQueue() {
     printf("Masukkan ID Playlist: ");
     STARTWORD();
     STARTWORD();
+
+    // Cari playlist yang diminta
     chosenPlaylistIdx = WordToInt(&currentWord);
-
-    Playlist nextPlaylist = valuePlaylist(daftarPlaylist, chosenPlaylistIdx);
-
+    Playlist InputPlaylist = valuePlaylist(daftarPlaylist, chosenPlaylistIdx);
 
 
+    // Proses meng input lagu-lagu dalam playlist ke antrean
+    address P = InputPlaylist.lagu2->First;
+
+    CurrentSong temp;
+    while (P != Nil)
+    {
+        CreateEmptyCurrentSong(&temp);
+        copyToCurrentSong(Info(P), chosenPlaylistIdx, &temp);
+        P = Next(P);
+    }
+    
+    enqueue(&queue, temp);
+
+    printf("Berhasil menambahkan playlist \"%s\" ke queue.", InputPlaylist.namaPlaylist->TabLine);
 }
 
 

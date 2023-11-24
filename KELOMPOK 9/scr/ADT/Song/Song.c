@@ -26,3 +26,10 @@ boolean IsPlaying(CurrentSong S)
     }
     return search;
 }
+
+void copyToCurrentSong(Songs S, int idx, CurrentSong *S2){
+    S2->idxPlaylist = idx;
+    copyKalimat(S.JudulLagu, &S2->JudulLagu);
+    copyKalimat(S.NamaAlbum, &S2->NamaAlbum);
+    copyKalimat(S.NamaPenyanyi, &S2->NamaPenyanyi);
+}
