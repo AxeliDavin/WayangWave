@@ -28,7 +28,7 @@ typedef struct tElmtplaylist *playlistaddress;
 typedef struct {
     int nEff;
     int capacity;
-    Kalimat namaPlaylist;
+    Kalimat *namaPlaylist;
     ListLinier *lagu2;
 } Playlist;
 
